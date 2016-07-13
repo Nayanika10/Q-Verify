@@ -4,18 +4,38 @@
   .m-b-xs
     .wrapper.text-center: strong Sign in
 
-    form.form-validation(name="form" ng-submit='Login.login(Login.user)')
-      //.text-danger.wrapper.text-center(ng-show='Signin.authError') {{Signin.authError}}
+    //form.form-validation(name="form" ng-submit='Login.login(Login.user)')
+    //  //.text-danger.wrapper.text-center(ng-show='Signin.authError') {{Signin.authError}}
+    //
+    //  .list-group.list-group-sm.m-b-md
+    //    .list-group-item: input.form-control.no-border(type='text' placeholder='Username' ng-model='Login.user.username' required)
+    //    .list-group-item: input.form-control.no-border(type='password' placeholder='Password' ng-model='Login.user.password' required)
+    //
+    //  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Log in
+    //
+    //  .hide.text-center.m-t.m-b: a(ui-sref='access.forgotpass') Forgot password?
+    //
+    //  .line.line-dashed
 
-      .list-group.list-group-sm.m-b-md
-        .list-group-item: input.form-control.no-border(type='text' placeholder='Username' ng-model='Login.user.username' required)
-        .list-group-item: input.form-control.no-border(type='password' placeholder='Password' ng-model='Login.user.password' required)
+    .login-page
+      .form
+        form.register-form
+          input(type='text', placeholder='name', ng-model='Login.user.username' required)
+          input(type='password', placeholder='password' ,ng-model='Login.user.password' required)
+          button create
+          p.message
+            | Already registered?
+            a(href='#') Sign In
+        form.login-form
+          input(type='text', placeholder='username')
+          input(type='password', placeholder='password')
+          button login
+          p.message
+            | Not registered?
+            a(href='#') Create an account
 
-      button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Log in
 
-      .hide.text-center.m-t.m-b: a(ui-sref='access.forgotpass') Forgot password?
 
-      .line.line-dashed
 
       //- p.text-center: small Do not have an account?
 

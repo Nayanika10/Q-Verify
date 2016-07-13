@@ -17,6 +17,7 @@ var db = {
 };
 
 // Insert models below
+db.CaseAddressVerification = db.sequelizeQverify.import('../api/case_address_verification/case_address_verification.model');
 db.Location = db.sequelizeQverify.import('../api/location/location.model');
 db.Company = db.sequelizeQverify.import('../api/company/company.model');
 db.UserType = db.sequelizeQverify.import('../api/user_type/user_type.model');
