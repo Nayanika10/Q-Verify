@@ -1,0 +1,17 @@
+form.form-validation(name="form" ng-submit='Register.register(Register.user)')
+  //.text-danger.wrapper.text-center(ng-show='Signin.authError') {{Signin.authError}}
+
+  .list-group.list-group-sm.m-b-md
+    .list-group-item: input.form-control.no-border(type='text' placeholder='username' ng-model='Register.user.username' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='company_id' ng-model='Register.user.company_id' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Register.user.name' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='password' ng-model='Register.user.password' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='confirm_password' ng-model='Register.user.confirm_password' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='user_type_id' ng-model='Register.user.user_type_id' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='email_id' ng-model='Register.user.email_id' required)
+    .list-group-item: input.form-control.no-border(type='text' placeholder='contact' ng-model='Register.user.contact' required)
+
+
+
+  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Register
+

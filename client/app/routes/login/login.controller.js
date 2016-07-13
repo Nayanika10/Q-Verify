@@ -1,13 +1,29 @@
 'use strict';
 (function () {
-  function LoginComponent() {
-    var vm = this;
+  function LoginComponent(QverifyConnection,$state) {
+    if(localStorage.getItem("user")!=undefined){
+      $state.go("register");
+    }
+    console.log(
+      'here'
+    );
+    let vm = this;
+    let qverifyConnection = new QverifyConnection();
     vm.user = {
       username: '',
       password: ''
     };
-    vm.signin = function(user){
+    vm.login = function (user) {
       console.log(user);
+      qverifyConnection.login(user.username, user.password).then((user)=> {
+        if(user == undefined)
+          alert("Incorrect");
+        localStorage.setItem("user", user);
+        $state.go("register");
+        console.log(user.plain())
+      }).catch((err)=> {
+        console.log(err)
+      });
       var options = {};
     }
 
