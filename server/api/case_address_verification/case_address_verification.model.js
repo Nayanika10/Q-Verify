@@ -12,7 +12,8 @@ export default function(sequelize, DataTypes) {
     visiting_person_name: DataTypes.STRING,
     relation_with_candidate: DataTypes.STRING,
     years_of_staying: DataTypes.STRING,
-
+    image: DataTypes.STRING,
+    remarks:DataTypes.STRING,
 
   }, {
     tableName: `case_address_verifications`,
@@ -20,21 +21,20 @@ export default function(sequelize, DataTypes) {
     timestamps: true,
     classMethods: {
       associate(models) {
-        models.Company.belongsTo(models.Location, {
-          foreignKey: `location_id`
+        models.CaseAddressVerification.belongsTo(models.HouseType, {
+          foreignKey: `house_types_id`
         });
-        models.Company.belongsTo(models.User, {
-          foreignKey: `created_by`
+        models.CaseAddressVerification.belongsTo(models.Status, {
+          foreignKey: `statuss_id`
         });
-        models.User.belongsTo(models.User, {
-          foreignKey: `updated_by`
+        models.CaseAddressVerification.belongsTo(models.Case, {
+          foreignKey: `cases_id`
         });
-        models.User.belongsTo(models.User, {
-          foreignKey: `created_by`
-        });
+
       }
     }
     }
 
   );
 }
+

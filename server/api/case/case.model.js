@@ -1,0 +1,41 @@
+'use strict';
+
+export default function(sequelize, DataTypes) {
+  return sequelize.define('Case', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    is_active: DataTypes.INTEGER
+  }
+    , {
+      tableName: `cases`,
+      underscored: true,
+      timestamps: true,
+      updatedAt: 'updated_on',
+      createdAt: 'created_on',
+      classMethods: {
+        associate(models) {
+          models.Case.belongsTo(models.User, {
+            foreignKey: `client_users_id`
+          });
+          models.Case.belongsTo(models.CaseType, {
+            foreignKey: `case_types_id`
+          });
+          models.Case.belongsTo(models.Case, {
+            foreignKey: `updated_by`
+          });
+          models.Case.belongsTo(models.Case, {
+            foreignKey: `created_by`
+          });
+          models.Case.hasMany(models.CaseAddressVerification);
+          models.Case.hasMany(models.CaseEducationVerification);
+          models.Case.hasMany(models.CaseSiteVerification);
+          models.Case.hasMany(models.CaseCriminalVerification);
+
+        }
+      }
+    });
+}

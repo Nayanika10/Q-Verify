@@ -1,0 +1,84 @@
+div.m-t-xl.padder.no-margin(style="padding-left:200px")
+  .hbox
+    .wrapper-md.bg-light
+      h1.m-n.font-thin.h3
+        span Case Creation
+      form.form-horizontal.wrapper-md( name="companyDataForm")
+        .row
+          // Form Block
+          .col-md-7.col-sm-7.col-xs-7
+            // Form Items
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Type of Cases
+                  span.text-danger *
+                  select.form-control(ng-options="item.id as item.name for item in Company.CaseTypes" ng-model="Company.data.case_types_id" )
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Name
+                  input.form.form-control(type='text' placeholder='eg.Name' ng-model='Company.data.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/' )
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Address
+                  textarea.form.form-control(placeholder='eg. Address' rows=5 ng-model='Company.data.address' q-text-maxlength="600"  ng-pattern='/^[a-zA-Z ]*$/' )
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Contact No
+                  input.form.form-control(type='text' placeholder='eg. Phone no' ng-model='Company.data.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/' )
+
+            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Company.data.case_type_id == "4" || Company.data.case_type_id == "4"')
+            .row(ng-if = 'Company.data.entity_type_id == "4"')
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Company Name
+                  input.form.form-control(type='text' placeholder='eg. Company Name' ng-model='Company.data.site.concern_person' q-text-maxlength="60")
+            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Company.data.entity_type_id == "4"')
+            .row(ng-if = 'Company.data.entity_type_id == "4"')
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Concern person
+                  input.form.form-control(type='text' placeholder='eg. Concern person' ng-model='Company.data.site.concern_person' q-text-maxlength="60")
+            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Company.data.entity_type_id == "2"')
+            .row(ng-if = 'Company.data.entity_type_id == "2"')
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | DOB
+                  input.form.form-control(type='text' placeholder='eg. DOB' ng-model='Company.data.llp_id' q-text-maxlength="60")
+            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Company.data.entity_type_id == "2"')
+            .row(ng-if = 'Company.data.entity_type_id == "2"')
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Father's Name
+                  input.form.form-control(type='text' placeholder='eg. Father Name' ng-model='Company.data.llp_id' q-text-maxlength="60")
+            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Company.data.entity_type_id == "2"')
+            //.row
+            //    .col-md-12.col-sm-12.col-xs-12
+            //        label.col-xs-12.input-group
+            //            | Short Description (max 50 word)
+            //            textarea.form.form-control(placeholder='eg. Short Description (max 50 word)' rows=5 ng-model='Company.data.short_description' q-text-maxlength="50" )
+            //.line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-6.col-sm-6.col-xs-12
+                label.col-xs-12.input-group
+                  | Degree
+                  input.form.form-control(type='text' placeholder='eg. website URL' ng-model='Company.data.website' q-text-maxlength="60" )
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                label.col-xs-12.input-group
+                  | Document in pdf
+                  input.form-control(type="file" ng-model='Company.data.logo' base-sixty-four-input name='file')
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-4.col-xs-12
+                //ng-disabled='companyDataForm.$invalid'
+                button.btn.btn-primary.pull-left(type='submit' ng-click='Company.create()' )
+                  i.fa.fa-upload
+                  | &nbsp;&nbsp;Submit

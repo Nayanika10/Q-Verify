@@ -27,7 +27,7 @@ export default function (sequelize, DataTypes) {
           foreignKey: `user_type_id`
         });
         models.User.belongsTo(models.Company, {
-          foreignKey: `company_id`
+          foreignKey: `companies_id`
         });
         models.User.belongsTo(models.User, {
           foreignKey: `updated_by`
