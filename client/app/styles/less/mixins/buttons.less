@@ -3,24 +3,24 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
-.button-variant(@color; @background; @border) {
-  color: @color;
-  background-color: @background;
-  border-color: @border;
+.button-variant {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
 
   &:hover,
   &:focus,
   &.focus,
   &:active,
   &.active,
-  .open > .dropdown-toggle& {
-    color: @color;
-    background-color: darken(@background, 10%);
-        border-color: darken(@border, 12%);
+  .open > .dropdown-toggle & {
+    color: $color;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 12%);
   }
   &:active,
   &.active,
-  .open > .dropdown-toggle& {
+  .open > .dropdown-toggle & {
     background-image: none;
   }
   &.disabled,
@@ -32,21 +32,21 @@
     &.focus,
     &:active,
     &.active {
-      background-color: @background;
-          border-color: @border;
+      background-color: $background;
+          border-color: $border;
     }
   }
 
   .badge {
-    color: @background;
-    background-color: @color;
+    color: $background;
+    background-color: $color;
   }
 }
 
 // Button sizes
-.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
-  padding: @padding-vertical @padding-horizontal;
-  font-size: @font-size;
-  line-height: @line-height;
-  border-radius: @border-radius;
+.button-size {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
 }

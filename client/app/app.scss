@@ -2,7 +2,20 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 $fa-font-path: "../bower_components/font-awesome/fonts";
 @import '../bower_components/font-awesome/scss/font-awesome';
+@import "styles/less/bootstrap.import.less";
 
+// Base
+@import "styles/base.less";
+
+// Pages
+@import "styles/pages/login.import.less";
+@import "styles/pages/dashboard.import.less";
+
+// Widgets and Effects
+@import "styles/widgets/input-underline.less";
+// @import "../../bower_components/bootstrap-btn-outline-rounded/index.less";
+@import "styles/index.import.less";
+@import "styles/transitions/all.less";
 /**
  * App-wide Styles
  */
