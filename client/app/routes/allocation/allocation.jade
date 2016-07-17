@@ -1,0 +1,30 @@
+
+div.m-t-xl.padder.no-margin(style="padding-left:200px")
+  .hbox
+    .wrapper-md.bg-light
+      h1.m-n.font-thin.h3
+        span Case Allocation
+      form.form-horizontal.wrapper-md( name="AllocationDataForm")
+        .row
+          // Form Block
+          .col-md-7.col-sm-7.col-xs-7
+            // Form Items
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-6.col-sm-6.col-xs-12
+                  label.col-xs-12.input-group
+                    | Case
+                    select.form.form-control(ng-options="item.id as item.name for item in Allocation.Case" ng-model="Allocation.allocation.cases_id" )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-6.col-sm-6.col-xs-12
+                  label.col-xs-12.input-group
+                    | Vendor
+                    select.form.form-control(ng-options="item.id as item.name for item in Allocation.Vendor" ng-model="Allocation.allocation.vendor_users_id")
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-4.col-xs-12
+                //ng-disabled='AllocationDataForm.$invalid'
+                button.btn.btn-primary.pull-left(type='submit' ng-click='Allocation.create()' )
+                  i.fa.fa-upload
+                  | &nbsp;&nbsp;Submit

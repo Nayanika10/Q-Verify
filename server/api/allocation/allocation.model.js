@@ -8,7 +8,7 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
 
-    }
+    },
   }, {
     tableName: `allocations`,
     underscored: true,
@@ -21,15 +21,15 @@ export default function(sequelize, DataTypes) {
           foreignKey: `vendor_users_id`
         });
         models.Allocation.belongsTo(models.AllocationStatus, {
-          foreignKey: `allocation_status_id`
+          foreignKey: `allocation_statuss_id`
         });
         models.Allocation.belongsTo(models.Case, {
           foreignKey: `cases_id`
         });
-        models.Allocation.belongsTo(models.Allocation, {
+        models.Allocation.belongsTo(models.User, {
           foreignKey: `updated_by`
         });
-        models.Allocation.belongsTo(models.Allocation, {
+        models.Allocation.belongsTo(models.User, {
           foreignKey: `created_by`
         });
       }

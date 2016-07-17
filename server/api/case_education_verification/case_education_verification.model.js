@@ -16,23 +16,20 @@ export default function(sequelize, DataTypes) {
   }, {
     tableName: `case_education_verifications`,
     underscored: true,
-    timestamps: true,
+    timestamps: false,
     classMethods: {
       associate(models) {
         models.CaseEducationVerification.belongsTo(models.UniversityName, {
-          foreignKey: `university_nameS_id`
+          foreignKey: `university_names_id`
         });
         models.CaseEducationVerification.belongsTo(models.Degree, {
           foreignKey: `degrees_id`
         });
         models.CaseEducationVerification.belongsTo(models.Designation, {
-          foreignKey: `designationS_id`
-        });
-        models.CaseEducationVerification.belongsTo(models.Status, {
-          foreignKey: `statusS_id`
+          foreignKey: `designations_id`
         });
         models.CaseEducationVerification.belongsTo(models.Case, {
-          foreignKey: `cases_id`
+          foreignKey: `case_id`
         });
       }
     }

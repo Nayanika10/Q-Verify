@@ -9,11 +9,11 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
     name: DataTypes.STRING,
-    active: DataTypes.INTEGER
+    is_active: DataTypes.INTEGER
   }, {
     tableName: `degrees`,
     underscored: true,
-    timestamps: true,
+    timestamps: false,
     classMethods: {
       associate(models) {
         models.Degree.hasMany(models.CaseEducationVerification);

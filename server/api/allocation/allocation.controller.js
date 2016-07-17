@@ -79,6 +79,7 @@ export function show(req, res) {
 
 // Creates a new Allocation in the DB
 export function create(req, res) {
+  req.body.allocation_statuss_id = 1;
   return Allocation.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
