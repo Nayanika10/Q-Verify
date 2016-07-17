@@ -132,7 +132,7 @@ export function register(req, res) {
   //console.log(req.body);
 
   return User.create(
-     req.body
+    req.body
   ).then((user)=> {
     return res.json(user);
   }).catch((err)=> {
@@ -141,4 +141,22 @@ export function register(req, res) {
   });
 }
 
+export function client(req, res) {
+  return User.findAll({
+      where: {
+        user_type_id: 2
+      }
+    })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
 
+export function vendor(req, res) {
+  return User.findAll({
+      where: {
+        user_type_id: 3
+      }
+    })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}

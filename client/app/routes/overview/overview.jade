@@ -1,1 +1,24 @@
-div This is the overview view.
+table
+  tr(ng-repeat='x in names')
+    td(ng-if='$odd', style='background-color:#f1f1f1')
+      | {{ x.Internal }}
+    td(ng-if='$even')
+      | {{ x.Internal }}
+    td(ng-if='$odd', style='background-color:#f1f1f1')
+      | {{ x.Client }}
+    td(ng-if='$even')
+      | {{ x.Client }}
+    td(ng-if='$odd', style='background-color:#f1f1f1')
+      | {{ x.Case }}
+    td(ng-if='$even')
+      | {{ x.Case }}
+    td(ng-if='$odd', style='background-color:#f1f1f1')
+      | {{ x.Status }}
+    td(ng-if='$even')
+      | {{ x.Status }}
+    td(ng-if='$odd', style='background-color:#f1f1f1')
+      | {{ x.Vendor }}
+    td(ng-if='$even')
+      | {{ x.Vendor }}
+
+

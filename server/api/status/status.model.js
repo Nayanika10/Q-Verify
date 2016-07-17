@@ -11,17 +11,12 @@ export default function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     is_active: DataTypes.INTEGER
   }, {
-    tableName: `statuss`,
+    tableName: `status`,
     underscored: true,
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.Status.belongsTo(models.CaseEducationVerification, {
-          foreignKey: `statuss_id`
-        });
-        models.Status.belongsTo(models.CaseAddressVerification, {
-          foreignKey: `statuss_id`
-        });
+        models.Status.hasMany(models.Case);
       }
     }
   });

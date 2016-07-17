@@ -10,7 +10,7 @@ export default function(sequelize, DataTypes) {
     },
     name: DataTypes.STRING,
   }, {
-    tableName: `case_types_id`,
+    tableName: `case_types`,
     underscored: true,
     timestamps: false,
     classMethods: {

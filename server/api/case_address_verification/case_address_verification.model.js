@@ -18,17 +18,14 @@ export default function(sequelize, DataTypes) {
   }, {
     tableName: `case_address_verifications`,
     underscored: true,
-    timestamps: true,
+    timestamps: false,
     classMethods: {
       associate(models) {
         models.CaseAddressVerification.belongsTo(models.HouseType, {
           foreignKey: `house_types_id`
         });
-        models.CaseAddressVerification.belongsTo(models.Status, {
-          foreignKey: `statuss_id`
-        });
         models.CaseAddressVerification.belongsTo(models.Case, {
-          foreignKey: `cases_id`
+          foreignKey: `case_id`
         });
 
       }

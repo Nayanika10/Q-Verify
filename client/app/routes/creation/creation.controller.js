@@ -1,18 +1,30 @@
 'use strict';
 
-(function(){
+(function () {
 
-class CreationComponent {
-  constructor() {
-    this.message = 'Hello';
+  function CreationComponent($log, QverifyConnection) {
+    const LOG_TAG = 'CreationComponent';
+    const vm = this;
+    let qverifyConnection = new QverifyConnection();
+    qverifyConnection.fetchClient().then((clients)=> {
+      vm.Client = clients;
+    });
+    qverifyConnection.fetchCaseTypes().then((case_types)=> {
+      vm.CaseTypes = case_types;
+    });
+    qverifyConnection.fetchDegree().then((degrees)=> {
+      vm.Degree = degrees;
+    });
+    vm.create = function () {
+      qverifyConnection.createCase(vm.case);
+    };
   }
-}
 
-angular.module('appApp')
-  .component('creation', {
-    templateUrl: 'app/routes/creation/creation.html',
-    controller: CreationComponent,
-    controllerAs: 'Creation',
-  });
+  angular.module('appApp')
+    .component('creation', {
+      templateUrl: 'app/routes/creation/creation.html',
+      controller: CreationComponent,
+      controllerAs: 'Creation',
+    });
 
 })();

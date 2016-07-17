@@ -10,11 +10,11 @@
 'use strict';
 
 import _ from 'lodash';
-import {Case} from '../../sqldb';
+import db, {Case} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
-  return function(entity) {
+  return function (entity) {
     if (entity) {
       res.status(statusCode).json(entity);
     }
@@ -22,7 +22,7 @@ function respondWithResult(res, statusCode) {
 }
 
 function saveUpdates(updates) {
-  return function(entity) {
+  return function (entity) {
     return entity.updateAttributes(updates)
       .then(updated => {
         return updated;
@@ -31,7 +31,7 @@ function saveUpdates(updates) {
 }
 
 function removeEntity(res) {
-  return function(entity) {
+  return function (entity) {
     if (entity) {
       return entity.destroy()
         .then(() => {
@@ -42,7 +42,7 @@ function removeEntity(res) {
 }
 
 function handleEntityNotFound(res) {
-  return function(entity) {
+  return function (entity) {
     if (!entity) {
       res.status(404).end();
       return null;
@@ -53,7 +53,7 @@ function handleEntityNotFound(res) {
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err) {
+  return function (err) {
     res.status(statusCode).send(err);
   };
 }
@@ -68,10 +68,10 @@ export function index(req, res) {
 // Gets a single Case from the DB
 export function show(req, res) {
   return Case.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -79,8 +79,46 @@ export function show(req, res) {
 
 // Creates a new Case in the DB
 export function create(req, res) {
+  console.log(req.body);
+  req.body.status_id = 1;
   return Case.create(req.body)
-    .then(respondWithResult(res, 201))
+    .then((item)=> {
+      switch (req.body.case_type_id) {
+        case 1:
+          req.body.address = {};
+          req.body.address.case_id = item.id;
+          db.CaseAddressVerification.create(req.body.address)
+            .then(()=>{
+              return res.json(item);
+            })
+            .catch(handleError(res));
+          break;
+        case 2:
+          req.body.criminal.case_id = item.id;
+          db.CaseCriminalVerification.create(req.body.criminal)
+            .then(()=>{
+              return res.json(item);
+            })
+            .catch(handleError(res));
+          break;
+        case 3:
+          req.body.education.case_id = item.id;
+          db.CaseEducationVerification.create(req.body.education)
+            .then(()=>{
+              return res.json(item);
+            })
+            .catch(handleError(res));
+          break;
+        case 4:
+          req.body.site.case_id = item.id;
+          db.CaseSiteVerification.create(req.body.site)
+            .then(()=>{
+              return res.json(item);
+            })
+            .catch(handleError(res));
+          break;
+      }
+    })
     .catch(handleError(res));
 }
 
@@ -90,10 +128,10 @@ export function update(req, res) {
     delete req.body._id;
   }
   return Case.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -103,10 +141,10 @@ export function update(req, res) {
 // Deletes a Case from the DB
 export function destroy(req, res) {
   return Case.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

@@ -8,21 +8,22 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    is_active: DataTypes.INTEGER
+      name: DataTypes.STRING,
+      address: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      is_active: DataTypes.INTEGER
   }
     , {
       tableName: `cases`,
       underscored: true,
       timestamps: true,
-      updatedAt: 'updated_on',
-      createdAt: 'created_on',
       classMethods: {
         associate(models) {
           models.Case.belongsTo(models.User, {
             foreignKey: `client_users_id`
           });
           models.Case.belongsTo(models.CaseType, {
-            foreignKey: `case_types_id`
+            foreignKey: `case_type_id`
           });
           models.Case.belongsTo(models.Case, {
             foreignKey: `updated_by`
@@ -30,11 +31,13 @@ export default function(sequelize, DataTypes) {
           models.Case.belongsTo(models.Case, {
             foreignKey: `created_by`
           });
+          models.Case.belongsTo(models.Status, {
+            foreignKey: `status_id`
+          });
           models.Case.hasMany(models.CaseAddressVerification);
           models.Case.hasMany(models.CaseEducationVerification);
           models.Case.hasMany(models.CaseSiteVerification);
           models.Case.hasMany(models.CaseCriminalVerification);
-
         }
       }
     });
