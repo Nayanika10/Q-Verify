@@ -1,0 +1,42 @@
+.dashboard-page
+  .container-fluid
+    .row
+      .col-sm-3.col-md-2.sidebar
+        .text-center
+          h2.brand
+            | Q Verify
+
+          img.user-avatar(src='images/flat-avatar.png')
+          br
+          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
+        ul.nav.nav-sidebar
+          li(ng-class="{active: $state.includes('overview')}")
+            a(ui-sref='overview')
+              | Overview
+              span.sr-only (current)
+          li(ng-class="{active: $state.includes('company')}")
+            a(ui-sref='company') Company
+          li(ng-class="{active: $state.includes('register')}")
+            a(ui-sref='register') Register
+          li(ng-class="{active: $state.includes('allocation')}")
+            a(ui-sref='allocation') Allocation
+          li(ng-class="{active: $state.includes('creation')}")
+            a(ui-sref='creation') Creation
+
+      .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        div.m-t-xl.padder.no-margin(style="padding-left:200px")
+          .hbox
+            .wrapper-md.bg-light
+              form.form-validation(name="form" ng-submit='Company.createCompany(Company.company)')
+
+
+                .list-group.list-group-sm.m-b-md
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Company.company.name' required)
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='address' ng-model='Company.company.address'   required)
+                  .list-group-item: select.form-control.no-border( ng-options='item.id as item.name for item in Company.Location' ng-model='Company.company.location_id' required)
+                  .list-group-
+
+
+
+                  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Company
+
