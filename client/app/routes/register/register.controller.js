@@ -7,17 +7,21 @@ function RegisterComponent(QverifyConnection) {
   );
   let vm = this;
   let qverifyConnection = new QverifyConnection();
-  vm.register = function(user){
+  vm.register = function(user) {
     console.log(user);
     qverifyConnection.register(user).then((user)=> {
-      if(user == undefined)
+      if (user == undefined)
         alert("Incorrect");
       console.log(user.plain())
     }).catch((err)=> {
       console.log(err)
     });
     var options = {};
-  }
+
+  };
+  qverifyConnection.fetchCompany().then((companys)=> {
+    vm.Company = companys;
+  });
 }
 
 angular.module('appApp')

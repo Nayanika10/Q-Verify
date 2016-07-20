@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {Allocation} from '../../sqldb';
+import db, {Allocation, Case} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -54,13 +54,23 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log(err);
     res.status(statusCode).send(err);
   };
 }
 
 // Gets a list of Allocations
 export function index(req, res) {
-  return Allocation.findAll()
+  return Allocation.findAll({
+      include: [
+        {
+          model: Case,
+          include: [{model: db.User}]
+        },
+        {model: db.User},
+        {model: db.AllocationStatus}
+      ]
+  })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -79,7 +89,7 @@ export function show(req, res) {
 
 // Creates a new Allocation in the DB
 export function create(req, res) {
-  req.body.allocation_statuss_id = 1;
+  req.body.allocation_status_id = 1;
   return Allocation.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

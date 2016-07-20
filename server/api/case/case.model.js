@@ -20,7 +20,7 @@ export default function(sequelize, DataTypes) {
       classMethods: {
         associate(models) {
           models.Case.belongsTo(models.User, {
-            foreignKey: `client_users_id`
+            foreignKey: `user_id`
           });
           models.Case.belongsTo(models.CaseType, {
             foreignKey: `case_type_id`

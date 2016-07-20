@@ -11,7 +11,7 @@ export default function(sequelize, DataTypes) {
     name: DataTypes.STRING
   }
     , {
-      tableName: `allocation_statuss_id`,
+      tableName: `allocation_status`,
       underscored: true,
       timestamps: false,
       classMethods: {

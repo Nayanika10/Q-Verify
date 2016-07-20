@@ -12,7 +12,7 @@ export default function(sequelize, DataTypes) {
     address: DataTypes.STRING,
     is_active: DataTypes.INTEGER
   }, {
-    tableName: `companies`,
+    tableName: `companys`,
     underscored: true,
     timestamps: true,
     updatedAt: 'updated_on',

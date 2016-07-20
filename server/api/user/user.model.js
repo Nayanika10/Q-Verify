@@ -35,6 +35,8 @@ export default function (sequelize, DataTypes) {
         models.User.belongsTo(models.User, {
           foreignKey: `created_by`
         });
+        models.User.hasMany(models.Case);
+        models.User.hasMany(models.Allocation);
       }
     }
   });

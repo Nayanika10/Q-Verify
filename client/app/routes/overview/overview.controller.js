@@ -5,18 +5,19 @@
     const LOG_TAG = 'OverviewComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchClient().then((clients)=> {
-      vm.Client = clients;
+    qverifyConnection.fetchAllocation().then((allocations)=> {
+      vm.Allocation = allocations;
     });
-    qverifyConnection.fetchCaseTypes().then((case_types)=> {
-      vm.CaseTypes = case_types;
+    qverifyConnection.fetchCases().then((cases)=> {
+      vm.Case = cases;
     });
-    qverifyConnection.fetchCaseTypes().then((vendors)=> {
-      vm.Vendors = vendors;
+    qverifyConnection.fetchVendor().then((vendor_user_types)=> {
+      vm.Vendor = vendor_user_types;
     });
-    qverifyConnection.fetchCaseTypes().then((status)=> {
-      vm.Status = status;
+    qverifyConnection.fetchClient().then((clients_user_types)=> {
+      vm.Client = clients_user_types;
     });
+
   }
 
   angular.module('appApp')

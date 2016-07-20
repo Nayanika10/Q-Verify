@@ -17,20 +17,20 @@ export default function(sequelize, DataTypes) {
     createdAt: 'created_on',
     classMethods: {
       associate(models) {
-        models.Allocation.belongsTo(models.UserType, {
-          foreignKey: `vendor_users_id`
-        });
         models.Allocation.belongsTo(models.AllocationStatus, {
-          foreignKey: `allocation_statuss_id`
+          foreignKey: `allocation_status_id`
         });
         models.Allocation.belongsTo(models.Case, {
           foreignKey: `cases_id`
         });
+        //models.Allocation.belongsTo(models.User, {
+        //  foreignKey: `updated_by`
+        //});
+        //models.Allocation.belongsTo(models.User, {
+        //  foreignKey: `created_by`
+        //});
         models.Allocation.belongsTo(models.User, {
-          foreignKey: `updated_by`
-        });
-        models.Allocation.belongsTo(models.User, {
-          foreignKey: `created_by`
+          foreignKey: `user_id`
         });
       }
     }

@@ -1,90 +1,126 @@
-div.m-t-xl.padder.no-margin(style="padding-left:200px")
-  .hbox
-    .wrapper-md.bg-light
-      h1.m-n.font-thin.h3
-        span Case Creation
-      form.form-horizontal.wrapper-md( name="CreationDataForm")
-        .row
-          // Form Block
-          .col-md-7.col-sm-7.col-xs-7
-            // Form Items
-            .row
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Type of Cases
-                  span.text-danger *
-                  select.form-control(ng-options="item.id as item.name for item in Creation.CaseTypes" ng-model="Creation.case.case_type_id" )
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if='Creation.case.case_type_id != undefined')
-              .row(ng-if='Creation.case.case_type_id != undefined')
-                .col-md-6.col-sm-6.col-xs-12
-                  label.col-xs-12.input-group
-                    | Client
-                    select.form.form-control(ng-options="item.id as item.name for item in Creation.Client" ng-model="Creation.case.client_users_id" )
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if='Creation.case.case_type_id != undefined')
-            .row(ng-if='Creation.case.case_type_id != undefined')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Name
-                  input.form.form-control(type='text' placeholder='eg.Name' ng-model='Creation.case.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/' )
-            .line.line-dashed.b-b.line-lg.pull-in
-            .row(ng-if='Creation.case.case_type_id != undefined')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Address
-                  textarea.form.form-control(placeholder='eg. Address' rows=5 ng-model='Creation.case.address' q-text-maxlength="600"  ng-pattern='/^[a-zA-Z ]*$/' )
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id != undefined')
-            .row(ng-if = 'Creation.case.case_type_id != undefined')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Contact No
-                  input.form.form-control(type='text' placeholder='eg. Phone no' ng-model='Creation.case.phone' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
+.dashboard-page
+  .container-fluid
+    .row
+      .col-sm-3.col-md-2.sidebar
+        .text-center
+          h2.brand
+            | Q Verify
 
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "4" ')
-            .row(ng-if = 'Creation.case.case_type_id == "4"')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Company Name
-                  input.form.form-control(type='text' placeholder='eg. Company Name' ng-model='Creation.case.company_name' q-text-maxlength="60")
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "4"')
-            .row(ng-if = 'Creation.case.case_type_id == "4"')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Concern person
-                  input.form.form-control(type='text' placeholder='eg. Concern person' ng-model='Creation.case.concern_person' q-text-maxlength="60")
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "2"')
-            .row(ng-if = 'Creation.case.case_type_id == "2"')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | DOB
-                  input.form.form-control(type='date' placeholder='eg. DOB' ng-model='Creation.case.criminal.dob' q-text-maxlength="60")
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "2"')
-            .row(ng-if = 'Creation.case.case_type_id == "2"')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Father's Name
-                  input.form.form-control(type='text' placeholder='eg. Father Name' ng-model='Creation.case.criminal.father_name' q-text-maxlength="60")
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "3"')
-            //.row
-            //    .col-md-12.col-sm-12.col-xs-12
-            //        label.col-xs-12.input-group
-            //            | Short Description (max 50 word)
-            //            textarea.form.form-control(placeholder='eg. Short Description (max 50 word)' rows=5 ng-model='Creation.data.short_description' q-text-maxlength="50" )
-            //.line.line-dashed.b-b.line-lg.pull-in
-            .row(ng-if = 'Creation.case.case_type_id == "3"')
-              .col-md-6.col-sm-6.col-xs-12
-                label.col-xs-12.input-group
-                  | Degree
-                  select.form.form-control(ng-options="item.id as item.name for item in Creation.Degree" ng-model="Creation.case.education.degrees_id" )
-            .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "3"')
-            .row(ng-if = 'Creation.case.case_type_id == "3"')
-              .col-md-12.col-sm-12.col-xs-12
-                label.col-xs-12.input-group
-                  | Document in pdf
-                  input.form-control(type="file" ng-model='Creation.case.education.logo' base-sixty-four-input name='file')
-            .line.line-dashed.b-b.line-lg.pull-in
-            .row(ng-if='Creation.case.case_type_id != undefined')
-              .col-md-4.col-xs-12
-                //ng-disabled='CreationDataForm.$invalid'
-                button.btn.btn-primary.pull-left(type='submit' ng-click='Creation.create()' )
-                  i.fa.fa-upload
-                  | &nbsp;&nbsp;Submit
+          img.user-avatar(src='images/flat-avatar.png')
+          br
+          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
+        ul.nav.nav-sidebar
+          li(ng-class="{active: $state.includes('overview')}")
+            a(ui-sref='overview')
+              | Overview
+              span.sr-only (current)
+          li(ng-class="{active: $state.includes('company')}")
+            a(ui-sref='company') Company
+          li(ng-class="{active: $state.includes('register')}")
+            a(ui-sref='register') Register
+          li(ng-class="{active: $state.includes('allocation')}")
+            a(ui-sref='allocation') Allocation
+          li(ng-class="{active: $state.includes('creation')}")
+            a(ui-sref='creation') Creation
+
+      .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        div.m-t-xl.padder.no-margin(style="padding-left:200px")
+          .hbox
+            .wrapper-md.bg-light
+              h1.m-n.font-thin.h3
+                span Case Creation
+              form.form-horizontal.wrapper-md( name="CreationDataForm")
+                .row
+                  // Form Block
+                  .col-md-7.col-sm-7.col-xs-7
+                    // Form Items
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Type of Cases
+                          span.text-danger *
+                          select.form-control(ng-options="item.id as item.name for item in Creation.CaseTypes" ng-model="Creation.case.case_type_id" )
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if='Creation.case.case_type_id != undefined')
+                      .row(ng-if='Creation.case.case_type_id != undefined')
+                        .col-md-6.col-sm-6.col-xs-12
+                          label.col-xs-12.input-group
+                            | Client
+                            select.form.form-control(ng-options="item.id as item.name for item in Creation.Client" ng-model="Creation.case.user_id" )
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if='Creation.case.case_type_id != undefined')
+                    .row(ng-if='Creation.case.case_type_id != undefined')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Name
+                          input.form.form-control(type='text' placeholder='eg.Name' ng-model='Creation.case.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/' )
+                    .line.line-dashed.b-b.line-lg.pull-in
+                    .row(ng-if='Creation.case.case_type_id != undefined')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Address
+                          textarea.form.form-control(placeholder='eg. Address' rows=5 ng-model='Creation.case.address' q-text-maxlength="600"  ng-pattern='/^[a-zA-Z ]*$/' )
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id != undefined')
+                    .row(ng-if = 'Creation.case.case_type_id != undefined')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Contact No
+                          input.form.form-control(type='text' placeholder='eg. Phone no' ng-model='Creation.case.phone' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
+
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "4" ')
+                    .row(ng-if = 'Creation.case.case_type_id == "4"')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Company Name
+                          input.form.form-control(type='text' placeholder='eg. Company Name' ng-model='Creation.case.company_name' q-text-maxlength="60")
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "4"')
+                    .row(ng-if = 'Creation.case.case_type_id == "4"')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Concern person
+                          input.form.form-control(type='text' placeholder='eg. Concern person' ng-model='Creation.case.concern_person' q-text-maxlength="60")
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "2"')
+                    .row(ng-if = 'Creation.case.case_type_id == "2"')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | DOB
+                          input.form.form-control(type='date' placeholder='eg. DOB' ng-model='Creation.case.criminal.dob' q-text-maxlength="60")
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "2"')
+                    .row(ng-if = 'Creation.case.case_type_id == "2"')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Father's Name
+                          input.form.form-control(type='text' placeholder='eg. Father Name' ng-model='Creation.case.criminal.father_name' q-text-maxlength="60")
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "3"')
+                    //.row
+                    //    .col-md-12.col-sm-12.col-xs-12
+                    //        label.col-xs-12.input-group
+                    //            | Short Description (max 50 word)
+                    //            textarea.form.form-control(placeholder='eg. Short Description (max 50 word)' rows=5 ng-model='Creation.data.short_description' q-text-maxlength="50" )
+                    //.line.line-dashed.b-b.line-lg.pull-in
+                    .row(ng-if = 'Creation.case.case_type_id == "3"')
+                      .col-md-6.col-sm-6.col-xs-12
+                        label.col-xs-12.input-group
+                          | Degree
+                          select.form.form-control(ng-options="item.id as item.name for item in Creation.Degree" ng-model="Creation.case.education.degrees_id" )
+                    .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "3"')
+                    .row(ng-if = 'Creation.case.case_type_id == "3"')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Document in pdf
+                          input.form-control(type="file" ng-model='Creation.case.education.logo' base-sixty-four-input name='file')
+                    .line.line-dashed.b-b.line-lg.pull-in
+                    .row(ng-if='Creation.case.case_type_id != undefined')
+                      .col-md-4.col-xs-12
+                        //ng-disabled='CreationDataForm.$invalid'
+                        button.btn.btn-primary.pull-left(type='submit' ng-click='Creation.create()' )
+                          i.fa.fa-upload
+                          | &nbsp;&nbsp;Submit
+
+
+
+
+
+
+
+
+
+

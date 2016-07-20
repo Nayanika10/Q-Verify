@@ -10,12 +10,14 @@
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('register')}")
-            a(ui-sref='register')
-              | Register
-              span.sr-only (current)
           li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview') Overview
+            a(ui-sref='overview')
+              | Overview
+              span.sr-only (current)
+          li(ng-class="{active: $state.includes('company')}")
+            a(ui-sref='company') Company
+          li(ng-class="{active: $state.includes('register')}")
+            a(ui-sref='register') Register
           li(ng-class="{active: $state.includes('allocation')}")
             a(ui-sref='allocation') Allocation
           li(ng-class="{active: $state.includes('creation')}")

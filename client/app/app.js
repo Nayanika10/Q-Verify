@@ -1,16 +1,19 @@
 'use strict';
 
 angular.module('appApp', [
-  'appApp.constants',
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ui.router',
-  'ui.bootstrap',
-  'restangular'
-])
-  .config(function($urlRouterProvider, $locationProvider,RestangularProvider) {
-
+    'appApp.constants',
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ui.router',
+    'ui.bootstrap',
+    'restangular',
+    //'ngAnimate',
+    //'angularMoment',
+    //'toastr',
+    //'chart.js'
+  ])
+  .config(function ($urlRouterProvider, $locationProvider, RestangularProvider) {
 
 
     var URLS = {

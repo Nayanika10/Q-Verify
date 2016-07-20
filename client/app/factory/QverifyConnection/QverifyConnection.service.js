@@ -114,9 +114,62 @@ angular.module('appApp')
 
     };
 
+    QVC.prototype.company = (company)=> {
+      console.log(company)
+      let defer = $q.defer();
+      Restangular.all(`companys`).post(company)
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
     QVC.prototype.createAllocation = (allocation)=> {
       let defer = $q.defer();
       Restangular.all(`allocations`).post(allocation)
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchLocation = (location)=> {
+      let defer = $q.defer();
+      Restangular.all(`locations`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchAllocation = (allocation)=> {
+      let defer = $q.defer();
+      Restangular.all(`allocations`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchCompany = (company)=> {
+      let defer = $q.defer();
+      Restangular.all(`companys/`).getList()
         .then((data)=> {
           defer.resolve(data);
         })

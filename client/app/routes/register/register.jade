@@ -1,20 +1,47 @@
-div.m-t-xl.padder.no-margin(style="padding-left:200px")
-  .hbox
-    .wrapper-md.bg-light
-      form.form-validation(name="form" ng-submit='Creation.creation(Creation.case)')
+.dashboard-page
+  .container-fluid
+    .row
+      .col-sm-3.col-md-2.sidebar
+        .text-center
+          h2.brand
+            | Q Verify
+
+          img.user-avatar(src='images/flat-avatar.png')
+          br
+          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
+        ul.nav.nav-sidebar
+          li(ng-class="{active: $state.includes('overview')}")
+            a(ui-sref='overview')
+              | Overview
+              span.sr-only (current)
+          li(ng-class="{active: $state.includes('company')}")
+            a(ui-sref='company') Company
+          li(ng-class="{active: $state.includes('register')}")
+            a(ui-sref='register') Register
+          li(ng-class="{active: $state.includes('allocation')}")
+            a(ui-sref='allocation') Allocation
+          li(ng-class="{active: $state.includes('creation')}")
+            a(ui-sref='creation') Creation
+
+      .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        div.m-t-xl.padder.no-margin(style="padding-left:200px")
+          .hbox
+            .wrapper-md.bg-light
+              form.form-validation(name="form" ng-submit='Register.register(Register.user)')
 
 
-       .list-group.list-group-sm.m-b-md
-          .list-group-item: input.form-control.no-border(type='text' placeholder='username' ng-model='Register.user.username' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='company' ng-model='Register.user.company_id' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Register.user.name' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='password' ng-model='Register.user.password' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='confirm_password' ng-model='Register.user.confirm_password' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='user' ng-model='Register.user.user_type_id' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='email id' ng-model='Register.user.email_id' required)
-          .list-group-item: input.form-control.no-border(type='text' placeholder='contact' ng-model='Register.user.contact' required)
+                .list-group.list-group-sm.m-b-md
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='username' ng-model='Register.user.username' required)
+                  .list-group-item: select.form-control.no-border(type='text' placeholder='company id'  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' required)
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Register.user.name' required)
+                  .list-group-item: input.form-control.no-border(type='password' placeholder='password' ng-model='Register.user.password' required)
+                  .list-group-item: input.form-control.no-border(type='password' placeholder='confirm password' ng-model='Register.user.confirm_password' required)
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='user type id' ng-model='Register.user.user_type_id' required)
+                  .list-group-item: input.form-control.no-border(type='email' placeholder='email id' ng-model='Register.user.email_id' required)
+                  .list-group-item: input.form-control.no-border(type='text' placeholder='contact' ng-model='Register.user.contact' required)
 
 
 
-          button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Register
+                  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Register
+
 
