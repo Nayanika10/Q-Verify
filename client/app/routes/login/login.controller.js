@@ -2,7 +2,7 @@
 (function () {
   function LoginComponent(QverifyConnection,$state) {
     if(localStorage.getItem("user")!=undefined){
-      $state.go("dashboard");
+      $state.go("overview");
     }
     console.log(
       'here'
@@ -19,7 +19,7 @@
         if(user == undefined)
           alert("Incorrect");
         localStorage.setItem("user", user);
-        $state.go("dashboard");
+        $state.go("overview");
         console.log(user.plain())
       }).catch((err)=> {
         console.log(err)

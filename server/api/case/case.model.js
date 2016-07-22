@@ -11,6 +11,7 @@ export default function(sequelize, DataTypes) {
       name: DataTypes.STRING,
       address: DataTypes.STRING,
       phone: DataTypes.STRING,
+      pdf: DataTypes.STRING,
       is_active: DataTypes.INTEGER
   }
     , {

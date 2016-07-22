@@ -1,16 +1,23 @@
 'use strict';
 
-(function(){
+(function () {
 
-  function CompanyComponent(QverifyConnection) {
+  function CompanyComponent(QverifyConnection,  toaster) {
     console.log(
       'here'
     );
     let vm = this;
     let qverifyConnection = new QverifyConnection;
-    vm.createCompany = function(company){
+    vm.createCompany = function (company) {
       qverifyConnection.company(company).then((company)=> {
-        if(company == undefined)
+
+        for (let i = 0; i < vm.Location.length; i++) {
+          if (vm.Location[i].id == company.location_id) {
+            toaster.pop('success', "Company Created",company.name + "," +company.address + "," + vm.Location[i].name)
+            break;
+          }
+        }
+        if (company == undefined)
           alert("Incorrect");
         console.log(company.plain())
       }).catch((err)=> {
@@ -25,16 +32,16 @@
     qverifyConnection.fetchLocation().then((locations)=> {
       vm.Location = locations;
     });
+//yolo
 
   }
 
 
-
-angular.module('appApp')
-  .component('company', {
-    templateUrl: 'app/routes/company/company.html',
-    controller: CompanyComponent,
-    controllerAs: 'Company',
-  });
+  angular.module('appApp')
+    .component('company', {
+      templateUrl: 'app/routes/company/company.html',
+      controller: CompanyComponent,
+      controllerAs: 'Company',
+    });
 
 })();

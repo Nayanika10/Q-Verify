@@ -24,6 +24,8 @@
             a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
         div.m-t-xl.padder.no-margin(style="padding-left:200px")
           .hbox
             .wrapper-md.bg-light
@@ -36,7 +38,6 @@
                   .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Register.user.name' required)
                   .list-group-item: input.form-control.no-border(type='password' placeholder='password' ng-model='Register.user.password' required)
                   .list-group-item: input.form-control.no-border(type='password' placeholder='confirm password' ng-model='Register.user.confirm_password' required)
-                  .list-group-item: input.form-control.no-border(type='text' placeholder='user type id' ng-model='Register.user.user_type_id' required)
                   .list-group-item: input.form-control.no-border(type='email' placeholder='email id' ng-model='Register.user.email_id' required)
                   .list-group-item: input.form-control.no-border(type='text' placeholder='contact' ng-model='Register.user.contact' required)
 

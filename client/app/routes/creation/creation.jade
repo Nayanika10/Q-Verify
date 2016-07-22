@@ -24,6 +24,8 @@
             a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
         div.m-t-xl.padder.no-margin(style="padding-left:200px")
           .hbox
             .wrapper-md.bg-light
@@ -102,11 +104,11 @@
                           | Degree
                           select.form.form-control(ng-options="item.id as item.name for item in Creation.Degree" ng-model="Creation.case.education.degrees_id" )
                     .line.line-dashed.b-b.line-lg.pull-in(ng-if = 'Creation.case.case_type_id == "3"')
-                    .row(ng-if = 'Creation.case.case_type_id == "3"')
+                    .row(ng-if = 'Creation.case.case_type_id != undefined')
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
-                          | Document in pdf
-                          input.form-control(type="file" ng-model='Creation.case.education.logo' base-sixty-four-input name='file')
+                          | Document in pdf {{Creation.case.logo}}
+                          input.form-control(type="file" ng-model='Creation.case.logo' base-sixty-four-input maxsize="10000" name='file')
                     .line.line-dashed.b-b.line-lg.pull-in
                     .row(ng-if='Creation.case.case_type_id != undefined')
                       .col-md-4.col-xs-12

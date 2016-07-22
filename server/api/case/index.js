@@ -6,7 +6,9 @@ var controller = require('./case.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/:id/getFile', controller.getFile);
 router.get('/:id', controller.show);
+
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);

@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Allocation, Case} from '../../sqldb';
+import db, {Allocation, Case, minio} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

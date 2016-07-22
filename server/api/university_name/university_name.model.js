@@ -17,7 +17,7 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
         models.UniversityName.belongsTo(models.CaseEducationVerification, {
-          foreignKey: `university_names_id`
+          foreignKey: `university_name_id`
         });
       }
     }

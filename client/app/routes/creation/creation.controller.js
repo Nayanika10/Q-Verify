@@ -2,7 +2,7 @@
 
 (function () {
 
-  function CreationComponent($log, QverifyConnection) {
+  function CreationComponent($log, QverifyConnection,toaster) {
     const LOG_TAG = 'CreationComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
@@ -17,6 +17,7 @@
     });
     vm.create = function () {
       qverifyConnection.createCase(vm.case);
+      toaster.pop('success', "Case Created")
     };
   }
 

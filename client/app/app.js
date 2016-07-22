@@ -8,10 +8,11 @@ angular.module('appApp', [
     'ui.router',
     'ui.bootstrap',
     'restangular',
-    //'ngAnimate',
+    'ngAnimate',
     //'angularMoment',
-    //'toastr',
+    'toaster',
     //'chart.js'
+    "naif.base64"
   ])
   .config(function ($urlRouterProvider, $locationProvider, RestangularProvider) {
 

@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Case} from '../../sqldb';
+import db, {Case, Minio} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -51,18 +51,17 @@ function handleEntityNotFound(res) {
   };
 }
 
-function handleError(res, statusCode) {
+function handleError(res, statusCode, err) {
+  console.log(err)
   statusCode = statusCode || 500;
-  return function (err) {
-    res.status(statusCode).send(err);
-  };
+  res.status(statusCode).send(err);
 }
 
 // Gets a list of Cases
 export function index(req, res) {
   return Case.findAll()
     .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }
 
 // Gets a single Case from the DB
@@ -74,53 +73,150 @@ export function show(req, res) {
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
+}
+
+Minio.BufferUpload = function(minioObject){
+  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
+  return db.Minio.putObjectAsync(minioObject.bucket,minioObject.object, minioObject.buffer, 'application/octet-stream')
+}
+
+Minio.DownloadLink = function(minioObject){
+  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
+  minioObject.expires = minioObject.expires || 24*60*60;   // Expired in one day
+  return Minio.presignedGetObjectAsync(minioObject.bucket, minioObject.object, minioObject.expires)
+}
+
+
+export function getFile(req, res) {
+  return Case.findById(req.params.id).then(caseObj => {
+    return Minio.DownloadLink({
+      object: caseObj.pdf,
+    }).then(link => res.redirect(link))
+  }).catch(err => handleError(res, 500, err))
 }
 
 // Creates a new Case in the DB
 export function create(req, res) {
-  console.log(req.body);
   req.body.status_id = 1;
-  return Case.create(req.body)
-    .then((item)=> {
+  return db.Case.create(req.body)
+    .then((caseObj) => {
+      const { base64:base64String, filename } = req.body.logo;
+      const extention = filename.substring(filename.lastIndexOf('.') + 1);
+
+// only upload if valid file extension
+      if (~['doc', 'docx', 'pdf', 'rtf', 'txt'].indexOf(extention)) {
+
+        const rangeFolder = caseObj.id - (caseObj.id % 10000);
+        const minioObject = {
+          object: `cases/${rangeFolder}/${caseObj.id}/${caseObj.id}.${extention.toLowerCase()}`,
+          buffer: Buffer.from(base64String, 'base64'),
+        }
+
+        Minio.BufferUpload(minioObject).then(re => {
+          caseObj.update({pdf:minioObject.object}).catch(err => console.log(err))
+          console.log("file saved success")
+        }).catch(err => console.log(err))
+      }
+
+      let casePr;
       switch (req.body.case_type_id) {
         case 1:
           req.body.address = {};
-          req.body.address.case_id = item.id;
-          db.CaseAddressVerification.create(req.body.address)
-            .then(()=>{
-              return res.json(item);
-            })
-            .catch(handleError(res));
+          req.body.address.case_id = caseObj.id;
+          casePr =  db.CaseAddressVerification.create(req.body.address)
           break;
         case 2:
-          req.body.criminal.case_id = item.id;
-          db.CaseCriminalVerification.create(req.body.criminal)
-            .then(()=>{
-              return res.json(item);
-            })
-            .catch(handleError(res));
+          req.body.criminal.case_id = caseObj.id;
+          casePr = db.CaseCriminalVerification.create(req.body.criminal)
           break;
         case 3:
-          req.body.education.case_id = item.id;
-          db.CaseEducationVerification.create(req.body.education)
-            .then(()=>{
-              return res.json(item);
-            })
-            .catch(handleError(res));
+          req.body.education.case_id = caseObj.id;
+          casePr =  db.CaseEducationVerification.create(req.body.education)
           break;
         case 4:
-          req.body.site.case_id = item.id;
-          db.CaseSiteVerification.create(req.body.site)
-            .then(()=>{
-              return res.json(item);
-            })
-            .catch(handleError(res));
+          req.body.site.case_id = caseObj.id;
+          casePr =  db.CaseSiteVerification.create(req.body.site)
           break;
       }
+
+      return casePr.then(()=>{
+        return res.json(caseObj);
+      })
+
     })
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }
+//export function update(req, res) {
+//  var model = req.body;
+//  var uploadFlag = model.flag;
+//  if(uploadFlag == true){
+//    // upload state file if exists
+//    if (req.body.case && req.body.case.filename) {
+//      const { base64, filename } = req.body.case;
+//      const extention = filename.substring(filename.lastIndexOf('.') + 1);
+//
+//      // only upload if valid file extension
+//      if (~['doc', 'docx', 'pdf', 'rtf', 'txt'].indexOf(extention)) {
+//        const rangeFolder = model.applicant_id - (model.applicant_id % 10000);
+//        const path = `Applicants/${rangeFolder}/${model.applicant_id}/` +
+//          `${moment().format('D-MM-YY-h_mm_ss')}.${extention}`;
+//
+//        // Write file to QDMS
+//        fs.writeFile(`${config.QDMS_PATH}/${path}`, base64, 'base64', err => {
+//          if (err) return logger.error(model.id, err);
+//          return db.Case.build({
+//              applicant_state_id: model.applicant_state_id,
+//              path, created_by: req.user.id,
+//            })
+//            .save()
+//            .then(stateFile => {
+//              return stateFile.update({path:path})
+//                .then(result => {
+//                  return res.json({message: "success"});
+//                })
+//            }) // save file path to database
+//            .catch(logger.error);
+//        });
+//      } else {
+//        logger.error(model.id, 'Invalid applicant state file upload');
+//      }
+//    }
+//  }else{
+//    // upload state file if exists
+//    if (req.body.state_file && req.body.state_file.filename) {
+//      const { base64, filename } = req.body.state_file;
+//      const extention = filename.substring(filename.lastIndexOf('.') + 1);
+//
+//      // only upload if valid file extension
+//      if (~['doc', 'docx', 'pdf', 'rtf', 'txt'].indexOf(extention)) {
+//        const rangeFolder = model.applicant_id - (model.applicant_id % 10000);
+//        const path = `Applicants/${rangeFolder}/${model.applicant_id}/` +
+//          `${moment().format('D-MM-YY-h_mm_ss')}.${extention}`;
+//
+//        // Write file to QDMS
+//        fs.writeFile(`${config.QDMS_PATH}/${path}`, base64, 'base64', err => {
+//          if (err) return logger.error(model.id, err);
+//          return  db.StateFile.find({
+//              where: {
+//                id: model.id
+//              }
+//            })
+//            .then(handleEntityNotFound(res))
+//            .then(stateFile => {
+//              return stateFile.update({path:path})
+//                .then(result => {
+//                  return res.json({message: "success"});
+//                })
+//            })
+//            .catch(err => handleError(res, 500, err));
+//        });
+//      } else {
+//        logger.error(model.id, 'Invalid applicant state file upload');
+//      }
+//    }
+//  }
+//}
 
 // Updates an existing Case in the DB
 export function update(req, res) {
@@ -135,7 +231,7 @@ export function update(req, res) {
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }
 
 // Deletes a Case from the DB
@@ -147,5 +243,5 @@ export function destroy(req, res) {
     })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }

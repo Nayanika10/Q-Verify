@@ -7,13 +7,15 @@
 import path from 'path';
 import config from '../config/environment';
 import Sequelize from 'sequelize';
-
+import Minio from 'minio';
+import Bluebird from 'bluebird';
 var db = {
   Sequelize,
   sequelizeQverify: new Sequelize(
     config.qverify.database, config.qverify.username,
     config.qverify.password, config.qverify
   ),
+  Minio: new Minio(config.MINIO),
 };
 
 // Insert models below
@@ -43,5 +45,8 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+
+Bluebird.promisifyAll(Object.getPrototypeOf(db.Minio));
 
 module.exports = db;

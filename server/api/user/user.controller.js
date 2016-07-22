@@ -79,6 +79,7 @@ export function show(req, res) {
 
 // Creates a new User in the DB
 export function create(req, res) {
+  //console.log(req.body)
   return User.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

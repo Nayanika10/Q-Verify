@@ -105,6 +105,7 @@ angular.module('appApp')
       let defer = $q.defer();
       Restangular.all(`users/register`).post(user)
         .then((data)=> {
+
           defer.resolve(data);
         })
         .catch((error)=> {
@@ -125,7 +126,6 @@ angular.module('appApp')
           defer.reject(error);
         });
       return defer.promise;
-
     };
 
     QVC.prototype.createAllocation = (allocation)=> {

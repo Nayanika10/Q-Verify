@@ -14,6 +14,8 @@
             a(ui-sref='overview')
               | Overview
               span.sr-only (current)
+          li(ng-class="{active: $state.includes('company')}")
+            a(ui-sref='company') Company
           li(ng-class="{active: $state.includes('register')}")
             a(ui-sref='register') Register
           li(ng-class="{active: $state.includes('allocation')}")
@@ -22,6 +24,8 @@
             a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
         div.m-t-xl.padder.no-margin(style="padding-left:200px")
           .hbox
             .wrapper-md.bg-light

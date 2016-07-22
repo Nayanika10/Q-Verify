@@ -1,15 +1,22 @@
 'use strict';
 (function(){
 
-function RegisterComponent(QverifyConnection) {
+function RegisterComponent(QverifyConnection, toaster) {
   console.log(
     'here'
   );
   let vm = this;
   let qverifyConnection = new QverifyConnection();
   vm.register = function(user) {
-    console.log(user);
     qverifyConnection.register(user).then((user)=> {
+      console.log(user);
+      //for (let i = 0; i < vm.Company.length; i++) {
+      //  if (vm.Company[i].id == user.Company_id) {
+      //    toaster.pop('success', user.username , user.name  + "," + vm.Company[i].name + "," + user.email_id  + "," +user.contact  )
+      //    break;
+      //  }
+      //}
+      toaster.pop('success',"Registered" , user.username + "," + user.name + "," + user.email_id + "," + user.contact)
       if (user == undefined)
         alert("Incorrect");
       console.log(user.plain())
