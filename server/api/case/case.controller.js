@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Case, Minio} from '../../sqldb';
+import db, {Case, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -52,14 +52,16 @@ function handleEntityNotFound(res) {
 }
 
 function handleError(res, statusCode, err) {
-  console.log(err)
+  console.log(err);
   statusCode = statusCode || 500;
   res.status(statusCode).send(err);
 }
 
 // Gets a list of Cases
 export function index(req, res) {
-  return Case.findAll()
+  return Case.findAll({
+      include :[CaseCriminalVerification, CaseAddressVerification, CaseEducationVerification, CaseSiteVerification]
+    })
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
 }
@@ -68,7 +70,7 @@ export function index(req, res) {
 export function show(req, res) {
   return Case.find({
       where: {
-        _id: req.params.id
+        id: req.params.id
       }
     })
     .then(handleEntityNotFound(res))
@@ -76,17 +78,15 @@ export function show(req, res) {
     .catch(err => handleError(res, 500, err));
 }
 
-Minio.BufferUpload = function(minioObject){
-  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
-  return db.Minio.putObjectAsync(minioObject.bucket,minioObject.object, minioObject.buffer, 'application/octet-stream')
+// Gets a single Case from the DB
+export function vendorUploaded(req, res) {
+  return Case.findAll({
+      where: {case_type_id: 2}
+    })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(err => handleError(res, 500, err));
 }
-
-Minio.DownloadLink = function(minioObject){
-  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
-  minioObject.expires = minioObject.expires || 24*60*60;   // Expired in one day
-  return Minio.presignedGetObjectAsync(minioObject.bucket, minioObject.object, minioObject.expires)
-}
-
 
 export function getFile(req, res) {
   return Case.findById(req.params.id).then(caseObj => {
@@ -101,6 +101,7 @@ export function create(req, res) {
   req.body.status_id = 1;
   return db.Case.create(req.body)
     .then((caseObj) => {
+      /* Start Minio */
       const { base64:base64String, filename } = req.body.logo;
       const extention = filename.substring(filename.lastIndexOf('.') + 1);
 
@@ -109,22 +110,25 @@ export function create(req, res) {
 
         const rangeFolder = caseObj.id - (caseObj.id % 10000);
         const minioObject = {
+          // object: 'cases/0/5/5.pdf'
           object: `cases/${rangeFolder}/${caseObj.id}/${caseObj.id}.${extention.toLowerCase()}`,
           buffer: Buffer.from(base64String, 'base64'),
         }
 
         Minio.BufferUpload(minioObject).then(re => {
-          caseObj.update({pdf:minioObject.object}).catch(err => console.log(err))
+          caseObj.update({pdf: minioObject.object}).catch(err => console.log(err))
           console.log("file saved success")
         }).catch(err => console.log(err))
       }
+
+      /* End Minio */
 
       let casePr;
       switch (req.body.case_type_id) {
         case 1:
           req.body.address = {};
           req.body.address.case_id = caseObj.id;
-          casePr =  db.CaseAddressVerification.create(req.body.address)
+          casePr = db.CaseAddressVerification.create(req.body.address)
           break;
         case 2:
           req.body.criminal.case_id = caseObj.id;
@@ -132,15 +136,15 @@ export function create(req, res) {
           break;
         case 3:
           req.body.education.case_id = caseObj.id;
-          casePr =  db.CaseEducationVerification.create(req.body.education)
+          casePr = db.CaseEducationVerification.create(req.body.education)
           break;
         case 4:
           req.body.site.case_id = caseObj.id;
-          casePr =  db.CaseSiteVerification.create(req.body.site)
+          casePr = db.CaseSiteVerification.create(req.body.site)
           break;
       }
 
-      return casePr.then(()=>{
+      return casePr.then(()=> {
         return res.json(caseObj);
       })
 
@@ -220,12 +224,12 @@ export function create(req, res) {
 
 // Updates an existing Case in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
+  if (req.body.id) {
+    delete req.body.id;
   }
   return Case.find({
       where: {
-        _id: req.params.id
+        id: req.params.id
       }
     })
     .then(handleEntityNotFound(res))
