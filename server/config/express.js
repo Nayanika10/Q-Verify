@@ -13,13 +13,24 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import lusca from 'lusca';
+import oAuthComponent from './../components/oauthjs';
 import config from './environment';
-import sqldb from '../sqldb';
-import expressSequelizeSession from 'express-sequelize-session';
+import routes from './../routes.js';
 
 export default function(app) {
   var env = app.get('env');
+
+  if (env === 'development' || env === 'test') {
+    app.use(express.static(path.join(config.root, '.tmp')));
+  }
+
+  if (env === 'production') {
+    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+  }
+
+  app.use(morgan('dev'));
+  app.set('appPath', path.join(config.root, 'client'));
+  app.use(express.static(app.get('appPath')));
 
   app.set('views', config.root + '/server/views');
   app.set('view engine', 'jade');
@@ -28,7 +39,19 @@ export default function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  app.use('/api/open/users', require('../api/user'));
+  app.oauth = oAuthComponent;
 
+  // OAuth Token authorization_code, password, refresh_token
+  app.all('/oauth/token', app.oauth.grant());
+
+  app.oauth.authenticate = require('./../components/oauthjs/authenticate')
+
+  // OAuth Authorise from Third party applications
+  app.use('/authorise', app.oauth.authenticate(), require('./../api/authorise'));  // /authorise
+  app.use('/api/authorise', app.oauth.authenticate(), require('./../api/authorise'));  // /authorise
+
+  routes(app);
   //// Persist sessions with MongoStore / sequelizeStore
   //// We need to enable sessions for passport-twitter because it's an
   //// oauth 1.0 strategy, and Lusca depends on sessions
@@ -58,28 +81,6 @@ export default function(app) {
     //}));
   }
 
-  app.set('appPath', path.join(config.root, 'client'));
 
-  if ('production' === env) {
-    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-    app.use(express.static(app.get('appPath')));
-    app.use(morgan('dev'));
-  }
 
-  if ('development' === env) {
-    app.use(require('connect-livereload')({
-      ignore: [
-        /^\/api\/(.*)/,
-        /\.js(\?.*)?$/, /\.css(\?.*)?$/, /\.svg(\?.*)?$/, /\.ico(\?.*)?$/, /\.woff(\?.*)?$/,
-        /\.png(\?.*)?$/, /\.jpg(\?.*)?$/, /\.jpeg(\?.*)?$/, /\.gif(\?.*)?$/, /\.pdf(\?.*)?$/
-      ]
-    }));
-  }
-
-  if ('development' === env || 'test' === env) {
-    app.use(express.static(path.join(config.root, '.tmp')));
-    app.use(express.static(app.get('appPath')));
-    app.use(morgan('dev'));
-    app.use(errorHandler()); // Error handler - has to be last
-  }
 }

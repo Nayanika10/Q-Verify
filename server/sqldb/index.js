@@ -25,7 +25,7 @@ db.HouseType = db.sequelizeQverify.import('../api/house_type/house_type.model');
 db.Designation = db.sequelizeQverify.import('../api/designation/designation.model');
 db.Degree = db.sequelizeQverify.import('../api/degree/degree.model');
 db.CaseType = db.sequelizeQverify.import('../api/case_type/case_type.model');
-db.Status = db.sequelizeQverify.import('../api/Status/Status.model');
+db.Status = db.sequelizeQverify.import('../api/status/status.model');
 db.AllocationStatus = db.sequelizeQverify.import('../api/allocation_status/allocation_status.model');
 db.Allocation = db.sequelizeQverify.import('../api/allocation/allocation.model');
 db.Case = db.sequelizeQverify.import('../api/case/case.model');
@@ -39,6 +39,11 @@ db.UserType = db.sequelizeQverify.import('../api/user_type/user_type.model');
 db.User = db.sequelizeQverify.import('../api/user/user.model');
 //db.Manager = db.sequelizeQverify.import('../api/manager/manager.model');
 
+// OAuth
+db.RefreshToken = db.sequelizeQverify.import('../api/refreshToken/refreshToken.model');
+db.AccessToken = db.sequelizeQverify.import('../api/accessToken/accessToken.model');
+db.App = db.sequelizeQverify.import('../api/app/app.model');
+db.AuthCode = db.sequelizeQverify.import('../api/authCode/authCode.model');
 
 Object.keys(db).forEach(modelName => {
   if ('associate' in db[modelName]) {
