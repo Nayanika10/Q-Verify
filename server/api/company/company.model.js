@@ -22,6 +22,9 @@ export default function(sequelize, DataTypes) {
         models.Company.belongsTo(models.Location, {
           foreignKey: `location_id`
         });
+        models.Company.belongsTo(models.UserType, {
+          foreignKey: `user_type_id`
+        });
         models.Company.belongsTo(models.User, {
           foreignKey: `created_by`
         });

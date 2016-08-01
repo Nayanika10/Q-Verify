@@ -20,13 +20,13 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
         models.CaseEducationVerification.belongsTo(models.UniversityName, {
-          foreignKey: `university_names_id`
+          foreignKey: `university_name_id`
         });
         models.CaseEducationVerification.belongsTo(models.Degree, {
-          foreignKey: `degrees_id`
+          foreignKey: `degree_id`
         });
         models.CaseEducationVerification.belongsTo(models.Designation, {
-          foreignKey: `designations_id`
+          foreignKey: `designation_id`
         });
         models.CaseEducationVerification.belongsTo(models.Case, {
           foreignKey: `case_id`

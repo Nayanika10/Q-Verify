@@ -23,9 +23,9 @@ export default function (sequelize, DataTypes) {
     createdAt: 'created_on',
     classMethods: {
       associate(models) {
-        models.User.belongsTo(models.UserType, {
-          foreignKey: `user_type_id`
-        });
+        //models.User.belongsTo(models.UserType, {
+        //  foreignKey: `user_type_id`
+        //});
         models.User.belongsTo(models.Company, {
           foreignKey: `company_id`
         });

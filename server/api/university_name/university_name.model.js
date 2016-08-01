@@ -13,12 +13,10 @@ export default function(sequelize, DataTypes) {
   }, {
     tableName: `university_names`,
     underscored: true,
-    timestamps: true,
+    timestamps: false,
     classMethods: {
       associate(models) {
-        models.UniversityName.belongsTo(models.CaseEducationVerification, {
-          foreignKey: `university_name_id`
-        });
+        models.UniversityName.hasMany(models.CaseEducationVerification);
       }
     }
   });

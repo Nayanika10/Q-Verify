@@ -17,7 +17,6 @@ angular.module('appApp')
           defer.reject(error);
         });
       return defer.promise;
-
     };
 
     QVC.prototype.fetchClient = ()=> {
@@ -59,9 +58,75 @@ angular.module('appApp')
 
     };
 
+    QVC.prototype.fetchUserType = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`user_types`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+
+    QVC.prototype.fetchHouseType = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`house_types`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
     QVC.prototype.fetchDegree = ()=> {
       let defer = $q.defer();
       Restangular.all(`degrees`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchDesignation = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`designations`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchUniversityName = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`university_names`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchStatus = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`status`).getList()
         .then((data)=> {
           defer.resolve(data);
         })
@@ -104,6 +169,117 @@ angular.module('appApp')
     QVC.prototype.register = (user)=> {
       let defer = $q.defer();
       Restangular.all(`users/register`).post(user)
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.createAddress = (case_address_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_address_verifications`).post(case_address_verification)
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchAddress = (case_address_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_address_verifications`).get()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.createCriminal = (case_criminal_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_criminal_verifications`).post(case_criminal_verification)
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchCriminal = (case_criminal_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_criminal_verifications`).get()
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.createEducation = (case_education_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_education_verifications`).post(case_education_verification)
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchEducation = (case_criminal_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_criminal_verifications`).get()
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.createSite = (case_site_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_site_verifications`).post(case_site_verification)
+        .then((data)=> {
+
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchSite = (case_site_verification)=> {
+      let defer = $q.defer();
+      Restangular.all(`case_site_verifications`).get()
         .then((data)=> {
 
           defer.resolve(data);
@@ -167,6 +343,19 @@ angular.module('appApp')
 
     };
 
+    QVC.prototype.fetchCase = (id)=> {
+      let defer = $q.defer();
+      Restangular.one(`cases`, id).get()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
     QVC.prototype.fetchCompany = (company)=> {
       let defer = $q.defer();
       Restangular.all(`companys/`).getList()
@@ -180,5 +369,17 @@ angular.module('appApp')
 
     };
 
+    QVC.prototype.fetchVendorUploadedCases = ()=> {
+      let defer = $q.defer();
+      Restangular.all(`cases/vendor`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
     return QVC;
   });

@@ -11,7 +11,7 @@ module.exports = {
     database: process.env.QVERIFY_MYSQL_DB,
     host: process.env.QVERIFY_MYSQL_HOST,
     dialect: 'mysql',
-    logging: true,
+    logging: console.log,
     timezone: '+05:30',
   },
 

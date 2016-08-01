@@ -65,7 +65,7 @@ export function index(req, res) {
       include: [
         {
           model: Case,
-          include: [{model: db.User}]
+          include: [db.User,db.Status]
         },
         {model: db.User},
         {model: db.AllocationStatus}

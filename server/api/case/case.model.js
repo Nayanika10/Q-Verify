@@ -26,12 +26,14 @@ export default function(sequelize, DataTypes) {
           models.Case.belongsTo(models.CaseType, {
             foreignKey: `case_type_id`
           });
-          models.Case.belongsTo(models.Case, {
-            foreignKey: `updated_by`
-          });
-          models.Case.belongsTo(models.Case, {
-            foreignKey: `created_by`
-          });
+          //models.Case.belongsTo(models.User, {
+          //  foreignKey: `updated_by`
+          //    as: 'Owner'
+          //});
+          //models.Case.belongsTo(models.User, {
+          //  foreignKey: `created_by`
+          //    as: 'Editor'
+          //});
           models.Case.belongsTo(models.Status, {
             foreignKey: `status_id`
           });

@@ -16,8 +16,10 @@
       vm.Degree = degrees;
     });
     vm.create = function () {
-      qverifyConnection.createCase(vm.case);
-      toaster.pop('success', "Case Created")
+      qverifyConnection.createCase(vm.case)
+        .then(res => toaster.pop('success', "Case Created"))
+        .catch(err => toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
+
     };
   }
 

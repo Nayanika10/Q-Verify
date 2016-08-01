@@ -1,0 +1,26 @@
+.container
+  .panel.panel-default
+    .panel-heading
+      p
+        h4.text-ellipsis(style="color:#1750a9" title='{{Candidate.Case.name}}') {{Candidate.Case.name}}
+    .panel-body
+      p
+        i.fa.fa-bookmark(style="color:#383f44")
+          | &nbsp;&nbsp;{{Candidate.Case.name}}
+      p
+        i.fa.fa-briefcase(style="color:#383f44")
+          | &nbsp;{{Candidate.Case.address}}
+      p
+        i.fa.fa-briefcase(style="color:#383f44")
+          | &nbsp;{{Candidate.Case.phone}}
+
+        .col-md-12
+          .col-md-3.col-xs-4
+            button.btn.btn-primary.pull-right(type='submit' ng-click='Candidate.updateStatus(3)') Accept
+
+          .col-md-3.col-xs-4
+            button.btn.btn-success.pull-right(type='submit' ng-click='Candidate.openCase()') Upload
+
+          .col-md-3.col-xs-4
+            button.btn.btn-danger.pull-right(type='submit' ng-click='Candidate.updateStatus(5)') Reject
+

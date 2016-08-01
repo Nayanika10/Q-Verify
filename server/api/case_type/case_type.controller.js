@@ -111,3 +111,19 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+//
+//export function address(req, res) {
+//  return CaseType.findAll({
+//      include: [{model: Candidate,where: {case_type_id:2}}]
+//    })
+//    .then(respondWithResult(res))
+//    .catch(handleError(res));
+//}
+//
+//export function site(req, res) {
+//  return CaseType.findAll({
+//      include: [{model: Candidate,where: {case_type_id:4}}]
+//    })
+//    .then(respondWithResult(res))
+//    .catch(handleError(res));
+//}

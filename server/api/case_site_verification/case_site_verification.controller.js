@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {CaseSiteVerification} from '../../sqldb';
+import {CaseSiteVerification, Case} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -80,7 +80,13 @@ export function show(req, res) {
 // Creates a new CaseSiteVerification in the DB
 export function create(req, res) {
   return CaseSiteVerification.create(req.body)
-    .then(respondWithResult(res, 201))
+    .then(caseTypeObj=> {
+      return Case.update({status_id:2},{
+        where:{id: caseTypeObj.case_id}
+      }).then(()=>{
+        return res.json(caseTypeObj);
+      })
+    })
     .catch(handleError(res));
 }
 

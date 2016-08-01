@@ -1,8 +1,13 @@
 'use strict';
 (function () {
-  function LoginComponent(QverifyConnection,$state) {
-    if(localStorage.getItem("user")!=undefined){
-      $state.go("overview");
+  function LoginComponent(QverifyConnection, $state) {
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user != undefined) {
+      console.log(user);
+      if (user.Company.user_type_id === 3)
+        $state.go("partner");
+      else
+        $state.go("overview");
     }
     console.log(
       'here'
@@ -16,10 +21,13 @@
     vm.login = function (user) {
       console.log(user);
       qverifyConnection.login(user.username, user.password).then((user)=> {
-        if(user == undefined)
+        if (user == undefined)
           alert("Incorrect");
-        localStorage.setItem("user", user);
-        $state.go("overview");
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.Company.user_type_id === 3)
+          $state.go("partner");
+        else
+          $state.go("overview");
         console.log(user.plain())
       }).catch((err)=> {
         console.log(err)

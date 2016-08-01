@@ -49,4 +49,23 @@ Object.keys(db).forEach(modelName => {
 
 Bluebird.promisifyAll(Object.getPrototypeOf(db.Minio));
 
+db.Minio.bufferUpload = function(minioObject){
+  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
+  return db.Minio.putObjectAsync(minioObject.bucket,minioObject.object, minioObject.buffer, 'application/octet-stream')
+}
+
+db.Minio.base64Upload = function(minioObject){
+  minioObject.buffer = Buffer.from(minioObject.base64String, 'base64');
+  return db.Minio.bufferUpload(minioObject)
+}
+
+db.Minio.downloadLink = function(minioObject){
+  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
+  minioObject.expires = minioObject.expires || 24*60*60;   // Expired in one day
+  minioObject.headers = minioObject.download ? {
+    'response-content-disposition': `attachment; filename=${minioObject.filename ||  minioObject.bucket.split('/').pop()};`
+  } : {};
+  return db.Minio.presignedGetObjectAsync(minioObject.bucket, minioObject.object, minioObject.expires, minioObject.headers)
+}
+
 module.exports = db;

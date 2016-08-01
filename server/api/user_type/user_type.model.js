@@ -11,12 +11,12 @@ export default function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     is_active: DataTypes.BOOLEAN
   }, {
-    tableName: `user_types_id`,
+    tableName: `user_types`,
     underscored: true,
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.UserType.hasMany(models.User);
+        models.UserType.hasMany(models.Company);
       }
     }
   });

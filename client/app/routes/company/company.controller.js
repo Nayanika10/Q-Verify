@@ -32,6 +32,9 @@
     qverifyConnection.fetchLocation().then((locations)=> {
       vm.Location = locations;
     });
+    qverifyConnection.fetchUserType().then((user_types)=> {
+      vm.UserType = user_types;
+    });
 //yolo
 
   }

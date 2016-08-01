@@ -1,0 +1,42 @@
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+  toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
+  div.m-t-xl.padder.no-margin(style="padding-left:2px")
+    .hbox
+      .wrapper-md.bg-light
+        form.form-validation(name="form" ng-submit='Site.createSite()')
+
+
+          .list-group.list-group-sm.m-b-md
+            .list-group-item: input.form-control.no-border(type='text' placeholder='name of company'  ng-model='Site.site.name_of_company' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='address'  ng-model='Site.site.address' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='telephone' ng-model='Site.site.telephone' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='fax no'  ng-model='Site.site.fax_no' required)
+            .list-group-item: input.form-control.no-border(type='email' placeholder='email'   ng-model='Site.site.email_id' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='website' ng-model='Site.site.website' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='total no of employees' ng-model='Site.site.total_no_of_employees' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='name of employees' ng-model='Site.site.name_of_employees' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='no_of_employee_present' ng-model='Site.site.no_of_employee_present' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='name of chief executive' ng-model='Site.site.name_of_chief_executive' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='director' ng-model='Site.site.director' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='company sign present' ng-model='Site.site.company_sign_present' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='computers' ng-model='Site.site.computers' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='tables' ng-model='Site.site.tables' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='chairs' ng-model='Site.site.chairs' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='approx' ng-model='Site.site.approx' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='area' ng-model='Site.site.area' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='employee awareness' ng-model='Site.site.employee_awareness' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='neighbours name' ng-model='Site.site.neighbours_name' required)
+            .list-group-item: select.form-control.no-border(type='text' placeholder='designation id' ng-options='item.id as item.name for item in Site.Designation'  ng-model='Site.site.designation_id' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='remarks' ng-model='Site.site.remarks' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='comment' ng-model='Site.site.comment' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='concern_person' ng-model='Site.site.concern_person' required)
+            .list-group-item: input.form-control.no-border(type='text' placeholder='company_name' ng-model='Site.site.company_name' required)
+
+
+
+
+
+            button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' )
+              i.fa.fa-upload
+              | &nbsp;&nbsp;Submit

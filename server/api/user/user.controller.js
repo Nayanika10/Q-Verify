@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {User} from '../../sqldb';
+import {User, Company} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -79,7 +79,7 @@ export function show(req, res) {
 
 // Creates a new User in the DB
 export function create(req, res) {
-  //console.log(req.body)
+
   return User.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
@@ -119,7 +119,8 @@ export function login(req, res) {
   //console.log(req.query);
   //console.log(req.body);
   return User.find({
-    where: req.body
+    where: req.body,
+    include: [{model: Company}]
   }).then((user)=> {
     return res.json(user);
   }).catch((err)=> {
@@ -144,9 +145,7 @@ export function register(req, res) {
 
 export function client(req, res) {
   return User.findAll({
-      where: {
-        user_type_id: 2
-      }
+      include: [{model: Company,where: {user_type_id:2}}]
     })
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -154,9 +153,7 @@ export function client(req, res) {
 
 export function vendor(req, res) {
   return User.findAll({
-      where: {
-        user_type_id: 3
-      }
+      include: [{model: Company,where: {user_type_id:3}}]
     })
     .then(respondWithResult(res))
     .catch(handleError(res));

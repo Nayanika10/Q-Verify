@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Case, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
+import db, {Case, CaseType,Status, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,8 +60,8 @@ function handleError(res, statusCode, err) {
 // Gets a list of Cases
 export function index(req, res) {
   return Case.findAll({
-      include :[CaseCriminalVerification, CaseAddressVerification, CaseEducationVerification, CaseSiteVerification]
-    })
+    include:[Status,CaseType]
+  })
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
 }
@@ -71,7 +71,13 @@ export function show(req, res) {
   return Case.find({
       where: {
         id: req.params.id
-      }
+      },
+      include: [
+        {model: CaseCriminalVerification, include : [db.Designation]},
+        {model: CaseAddressVerification, include : [db.HouseType]},
+        {model: CaseEducationVerification, include :[db.Degree,db.Designation]},
+        {model: CaseSiteVerification, include :[db.Designation]},
+      ]
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -81,7 +87,8 @@ export function show(req, res) {
 // Gets a single Case from the DB
 export function vendorUploaded(req, res) {
   return Case.findAll({
-      where: {case_type_id: 2}
+      include:[Status],
+      where: {status_id: [2,3,4]}
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -90,7 +97,8 @@ export function vendorUploaded(req, res) {
 
 export function getFile(req, res) {
   return Case.findById(req.params.id).then(caseObj => {
-    return Minio.DownloadLink({
+    return res.json(caseObj.pdf)
+    return Minio.downloadLink({
       object: caseObj.pdf,
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
@@ -112,11 +120,12 @@ export function create(req, res) {
         const minioObject = {
           // object: 'cases/0/5/5.pdf'
           object: `cases/${rangeFolder}/${caseObj.id}/${caseObj.id}.${extention.toLowerCase()}`,
-          buffer: Buffer.from(base64String, 'base64'),
+          base64String: base64String,
         }
 
-        Minio.BufferUpload(minioObject).then(re => {
-          caseObj.update({pdf: minioObject.object}).catch(err => console.log(err))
+        // Async
+        Minio.base64Upload(minioObject).then(re => {
+          return caseObj.update({pdf: minioObject.object})
           console.log("file saved success")
         }).catch(err => console.log(err))
       }
@@ -224,16 +233,14 @@ export function create(req, res) {
 
 // Updates an existing Case in the DB
 export function update(req, res) {
-  if (req.body.id) {
-    delete req.body.id;
+  if (!req.query) {
+    return res.status(404).json({message:'Invalid data'});
   }
-  return Case.find({
+  return Case.update(req.query, {
       where: {
         id: req.params.id
       }
     })
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
 }

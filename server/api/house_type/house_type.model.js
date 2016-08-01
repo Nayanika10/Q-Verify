@@ -11,7 +11,7 @@ export default function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     is_active: DataTypes.INTEGER
   }, {
-    tableName: `locations`,
+    tableName: `house_types`,
     underscored: true,
     timestamps: false,
     classMethods: {

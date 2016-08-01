@@ -5,6 +5,7 @@ var controller = require('./case.controller');
 
 var router = express.Router();
 
+router.get('/vendor', controller.vendorUploaded);
 router.get('/', controller.index);
 router.get('/:id/getFile', controller.getFile);
 router.get('/:id', controller.show);

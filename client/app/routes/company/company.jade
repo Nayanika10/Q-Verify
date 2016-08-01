@@ -35,7 +35,7 @@
                 .list-group.list-group-sm.m-b-md
                   .list-group-item: input.form-control.no-border(type='text' placeholder='name' ng-model='Company.company.name' required)
                   .list-group-item: input.form-control.no-border(type='text' placeholder='address' ng-model='Company.company.address'   required)
-                  .list-group-item: input.form-control.no-border(type='text' placeholder='user type id' ng-model='Company.company.user_type_id' required)
+                  .list-group-item: select.form-control.no-border(ng-options='item.id as item.name for item in Company.UserType' ng-model='Company.company.user_type_id' required)
                   .list-group-item: select.form-control.no-border( ng-options='item.id as item.name for item in Company.Location' ng-model='Company.company.location_id' required)
 
 

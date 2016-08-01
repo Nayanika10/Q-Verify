@@ -1,0 +1,37 @@
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+  .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
+    .panel-heading.font-bold.h4.text-ellipsis.bg-light
+      .fa.fa-mouse-pointer.text-dark
+      | &nbsp;&nbsp;Cases
+      //i.fa.fa-angle-right.pull-right.font-bold
+    .panel-body.p-5px
+      scrollable-table(watch="Dashboard.summary.applicantData")
+        table.table.table-striped.table-bordered.m-b
+          thead
+            tr
+              th.font-bold Case view
+              th.font-bold(style="width:25%") Status
+          //(ng-if='Dash.pipeline.length>0')
+          tbody
+            tr( ng-repeat='allocation in Partner.Allocated' )
+              td: a.text-ellipsis(ui-sref='view({case_id: allocation.id })') {{allocation.name}}
+              td: span.text-ellipsis {{allocation.Status.name}}
+
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+  .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
+    .panel-heading.font-bold.h4.text-ellipsis.bg-light
+      .fa.fa-mouse-pointer.text-dark
+      | &nbsp;&nbsp;Allocated Case
+      //i.fa.fa-angle-right.pull-right.font-bold
+    .panel-body.p-5px
+      scrollable-table(watch="Dashboard.summary.applicantData")
+        table.table.table-striped.table-bordered.m-b
+          thead
+            tr
+              th.font-bold Case
+              th.font-bold(style="width:25%") Allocated date
+          //(ng-if='Dash.pipeline.length>0')
+          tbody
+            tr( ng-repeat='allocation in Partner.Allocation' )
+              td: a.text-ellipsis(ui-sref='candidate({case_id: allocation.id })') {{allocation.name}} {{allocation.CaseType.name}})
+              td: span.text-ellipsis.format.moment('YYYY-MM-DD') {{allocation.created_at}}

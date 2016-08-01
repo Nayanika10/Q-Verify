@@ -22,7 +22,7 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
         models.CaseAddressVerification.belongsTo(models.HouseType, {
-          foreignKey: `house_types_id`
+          foreignKey: `house_type_id`
         });
         models.CaseAddressVerification.belongsTo(models.Case, {
           foreignKey: `case_id`

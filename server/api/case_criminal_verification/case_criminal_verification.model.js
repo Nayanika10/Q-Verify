@@ -10,7 +10,7 @@ export default function(sequelize, DataTypes) {
     },
     police_station_name: DataTypes.STRING,
     police_authority_name: DataTypes.STRING,
-    remarks: DataTypes.STRING,
+    remark: DataTypes.STRING,
     dob: DataTypes.DATE,
     father_name: DataTypes.STRING,
   }, {
@@ -20,7 +20,7 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
         models.CaseCriminalVerification.belongsTo(models.Designation, {
-          foreignKey: `designations_id`
+          foreignKey: `designation_id`
         });
         models.CaseCriminalVerification.belongsTo(models.Case, {
           foreignKey: `case_id`

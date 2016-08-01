@@ -10,11 +10,11 @@
 'use strict';
 
 import _ from 'lodash';
-import {CaseEducationVerification} from '../../sqldb';
+import {Case, CaseEducationVerification} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
-  return function(entity) {
+  return function (entity) {
     if (entity) {
       res.status(statusCode).json(entity);
     }
@@ -22,7 +22,7 @@ function respondWithResult(res, statusCode) {
 }
 
 function saveUpdates(updates) {
-  return function(entity) {
+  return function (entity) {
     return entity.updateAttributes(updates)
       .then(updated => {
         return updated;
@@ -31,7 +31,7 @@ function saveUpdates(updates) {
 }
 
 function removeEntity(res) {
-  return function(entity) {
+  return function (entity) {
     if (entity) {
       return entity.destroy()
         .then(() => {
@@ -42,7 +42,7 @@ function removeEntity(res) {
 }
 
 function handleEntityNotFound(res) {
-  return function(entity) {
+  return function (entity) {
     if (!entity) {
       res.status(404).end();
       return null;
@@ -53,7 +53,7 @@ function handleEntityNotFound(res) {
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err) {
+  return function (err) {
     res.status(statusCode).send(err);
   };
 }
@@ -68,10 +68,10 @@ export function index(req, res) {
 // Gets a single CaseEducationVerification from the DB
 export function show(req, res) {
   return CaseEducationVerification.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -80,7 +80,13 @@ export function show(req, res) {
 // Creates a new CaseEducationVerification in the DB
 export function create(req, res) {
   return CaseEducationVerification.create(req.body)
-    .then(respondWithResult(res, 201))
+    .then(caseTypeObj=> {
+      return Case.update({status_id:2},{
+        where:{id: caseTypeObj.case_id}
+      }).then(()=>{
+        return res.json(caseTypeObj);
+      })
+    })
     .catch(handleError(res));
 }
 
@@ -90,10 +96,10 @@ export function update(req, res) {
     delete req.body._id;
   }
   return CaseEducationVerification.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -103,10 +109,10 @@ export function update(req, res) {
 // Deletes a CaseEducationVerification from the DB
 export function destroy(req, res) {
   return CaseEducationVerification.find({
-    where: {
-      _id: req.params.id
-    }
-  })
+      where: {
+        _id: req.params.id
+      }
+    })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

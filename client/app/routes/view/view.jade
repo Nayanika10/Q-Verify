@@ -1,0 +1,108 @@
+.container
+  .panel.panel-default
+    .panel-heading
+      p
+        h4.text-ellipsis(style="color:#1750a9" title='{{View.Case.name}}') {{View.Case.name}}
+    ul.list-group(ng-show="View.Case.CaseAddressVerifications.length>0")
+      li.list-group-item(style="color:#383f44")
+        |  Visiting address = {{View.Case.CaseAddressVerifications[0].visiting_address}}
+      li.list-group-item( style="color:#383f44")
+        |  Visiting person name = {{View.Case.CaseAddressVerifications[0].visiting_person_name}}
+      li.list-group-item( style="color:#383f44")
+        |  Relation with candidate = {{View.Case.CaseAddressVerifications[0].relation_with_candidate}}
+      li.list-group-item( style="color:#383f44")
+        |  File = {{View.Case.CaseAddressVerifications[0].image}}
+      li.list-group-item( style="color:#383f44")
+        |  House Type = {{View.Case.CaseAddressVerifications[0].HouseType.name}}
+      li.list-group-item( style="color:#383f44")
+        |  Years of staying = {{View.Case.CaseAddressVerifications[0].years_of_staying}}
+      // criminal //
+    ul.list-group(ng-show="View.Case.CaseCriminalVerifications.length>0")
+      li.list-group-item(style="color:#383f44")
+        |  Police Station Name = {{View.Case.CaseCriminalVerifications[0].police_station_name}}
+      li.list-group-item( style="color:#383f44")
+        |  Police Authority Name = {{View.Case.CaseCriminalVerifications[0].police_authority_name}}
+      li.list-group-item( style="color:#383f44")
+        |  Remark = {{View.Case.CaseCriminalVerifications[0].remark}}
+      li.list-group-item( style="color:#383f44")
+        |  Date Of Birth = {{View.Case.CaseCriminalVerifications[0].dob}}
+      li.list-group-item( style="color:#383f44")
+        |  Father's Name = {{View.Case.CaseCriminalVerifications[0].father_name}}
+      li.list-group-item( style="color:#383f44")
+        |  Designation = {{View.Case.CaseCriminalVerifications[0].Designation.name}}
+
+      // education //
+    ul.list-group(ng-show="View.Case.CaseEducationVerifications.length>0")
+      li.list-group-item( style="color:#383f44")
+        |  Degree = {{View.Case.CaseEducationVerifications[0].Degree.name}}
+      li.list-group-item( style="color:#383f44")
+        |  Role no = {{View.Case.CaseEducationVerifications[0].role_no}}
+      li.list-group-item( style="color:#383f44")
+        |  Passing year = {{View.Case.CaseEducationVerifications[0].passing_year}}
+      li.list-group-item( style="color:#383f44")
+        |  Verifier's Name = {{View.Case.CaseEducationVerifications[0].verifier_name}}
+      li.list-group-item( style="color:#383f44")
+        |  Designation = {{View.Case.CaseEducationVerifications[0].Designation.name}}
+      li.list-group-item( style="color:#383f44")
+        |  University name = {{View.Case.CaseEducationVerifications[0].university_name_id}}
+      li.list-group-item( style="color:#383f44")
+        |  Remarks = {{View.Case.CaseEducationVerifications[0].remarks}}
+
+      // Site//
+    ul.list-group(ng-show="View.Case.CaseSiteVerifications.length>0" )
+      li.list-group-item(style="color:#383f44")
+        |  Company Name = {{View.Case.CaseSiteVerifications[0].company_name}}
+      li.list-group-item(style="color:#383f44")
+        |  Company Address = {{View.Case.CaseSiteVerifications[0].address}}
+      li.list-group-item(style="color:#383f44")
+        |  Phone no = {{View.Case.CaseSiteVerifications[0].telephone}}
+      li.list-group-item(style="color:#383f44")
+        |  Fax no = {{View.Case.CaseSiteVerifications[0].fax_no}}
+      li.list-group-item(style="color:#383f44")
+        |  Email id = {{View.Case.CaseSiteVerifications[0].email_id}}
+      li.list-group-item(style="color:#383f44")
+        |  Website = {{View.Case.CaseSiteVerifications[0].website}}
+      li.list-group-item(style="color:#383f44")
+        |  Name of chief executive = {{View.Case.CaseSiteVerifications[0].name_of_chief_executive}}
+      li.list-group-item(style="color:#383f44")
+        |  Director = {{View.Case.CaseSiteVerifications[0].director}}
+      li.list-group-item(style="color:#383f44")
+        |  Company sign present = {{View.Case.CaseSiteVerifications[0].company_sign_present}}
+      li.list-group-item(style="color:#383f44")
+        |  Computers present = {{View.Case.CaseSiteVerifications[0].computers}}
+      li.list-group-item(style="color:#383f44")
+        |  Tables present = {{View.Case.CaseSiteVerifications[0].tables}}
+      li.list-group-item(style="color:#383f44")
+        |  Chairs present = {{View.Case.CaseSiteVerifications[0].chairs}}
+      li.list-group-item(style="color:#383f44")
+        |  Approx = {{View.Case.CaseSiteVerifications[0].approx}}
+      li.list-group-item(style="color:#383f44")
+        |  Area = {{View.Case.CaseSiteVerifications[0].area}}
+      li.list-group-item(style="color:#383f44")
+        |  Employee Awareness = {{View.Case.CaseSiteVerifications[0].employee_awareness}}
+      li.list-group-item(style="color:#383f44")
+        |  Neighbours name = {{View.Case.CaseSiteVerifications[0].neighbours_name}}
+      li.list-group-item(style="color:#383f44")
+        |  Designation = {{View.Case.CaseSiteVerifications[0].Designation.name}}
+      li.list-group-item(style="color:#383f44")
+        |  Remarks = {{View.Case.CaseSiteVerifications[0].remarks}}
+      li.list-group-item(style="color:#383f44")
+        |  Comment = {{View.Case.CaseSiteVerifications[0].comment}}
+      li.list-group-item(style="color:#383f44")
+        |  Concern Person = {{View.Case.CaseSiteVerifications[0].concern_person}}
+
+
+
+      //p
+      //  i.fa.fa-briefcase(ng-show="View.Case.CaseSiteVerifications.length>0"style="color:#383f44")
+      //    | Total no of employees;{{View.Case.CaseSiteVerifications[0].total_no _of_employees}}
+      //p
+      //  i.fa.fa-briefcase(ng-show="View.Case.CaseSiteVerifications.length>0"style="color:#383f44")
+      //    | Name of employees;{{View.Case.CaseSiteVerifications[0].name_of employees}}
+
+      //p
+      //  i.fa.fa-briefcase(ng-show="length>=0"style="color:#383f44")
+      //    | &nbsp;{{View.phone}}
+
+
+
