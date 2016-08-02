@@ -65,7 +65,7 @@ module.exports = function AccessTokenModel(sequelize, DataTypes) {
         });
 
         AccessToken.belongsTo(models.User, {
-          foreignKey: 'user_username',
+          foreignKey: 'user_id',
         });
       },
     },

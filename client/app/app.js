@@ -1,20 +1,21 @@
 'use strict';
 
 angular.module('appApp', [
-    'appApp.constants',
-    'ngCookies',
-    'ngResource',
-    'ngSanitize',
-    'ui.router',
-    'ui.bootstrap',
-    'restangular',
-    'ngAnimate',
-    //'angularMoment',
-    'toaster',
-    //'chart.js'
-    "naif.base64"
-  ])
-  .config(function ($urlRouterProvider, $locationProvider, RestangularProvider) {
+  'appApp.constants',
+  'ngCookies',
+  'ngResource',
+  'ngSanitize',
+  'ui.router',
+  'ui.bootstrap',
+  'restangular',
+  'ngAnimate',
+  //'angularMoment',
+  'toaster',
+  //'chart.js'
+  "naif.base64",
+  'angular-oauth2'
+])
+  .config(function ($urlRouterProvider, $locationProvider, RestangularProvider, OAuthProvider, OAuthTokenProvider) {
 
 
     var URLS = {
@@ -35,6 +36,22 @@ angular.module('appApp', [
         };
         break;
     }
+
+    OAuthTokenProvider.configure({
+      name: 'token',
+      options: {
+        secure: false,
+        path: '/'
+      }
+    });
+
+    OAuthProvider.configure({
+      baseUrl: URLS.QVERIFY_SERVER,
+      clientId: 'accounts',
+      clientSecret: 'accountssecret', // optional
+      grantPath: '/oauth/token',
+    });
+
     RestangularProvider.setBaseUrl(URLS.QVERIFY_API);
     $urlRouterProvider
       .otherwise('/');

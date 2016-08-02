@@ -152,11 +152,13 @@ angular.module('appApp')
 
     QVC.prototype.login = (username, password)=> {
       let defer = $q.defer();
-      Restangular.all(`users/login`).post({
+      Restangular.all(`open/users/login`).post({
           username: username,
           password: password
         })
-        .then((data)=> {
+        .then((response)=> {
+          OAuthToken.setToken(JSON.parse(response));
+          Auth.setSessionData()
           defer.resolve(data);
         })
         .catch((error)=> {
@@ -168,7 +170,7 @@ angular.module('appApp')
 
     QVC.prototype.register = (user)=> {
       let defer = $q.defer();
-      Restangular.all(`users/register`).post(user)
+      Restangular.all(`open/users/register`).post(user)
         .then((data)=> {
 
           defer.resolve(data);

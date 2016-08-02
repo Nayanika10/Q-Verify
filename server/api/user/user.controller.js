@@ -10,7 +10,9 @@
 'use strict';
 
 import _ from 'lodash';
+import config from '../../config/environment';
 import {User, Company} from '../../sqldb';
+var rp = require('request-promise');
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -118,14 +120,35 @@ export function login(req, res) {
   //console.log(req.params);
   //console.log(req.query);
   //console.log(req.body);
+  if (!req.body) return handleError(res, 400, {message: "Bad Request"})
   return User.find({
-    where: req.body,
+    where: {username: req.body.username},
     include: [{model: Company}]
   }).then((user)=> {
-    return res.json(user);
+    const oAuthChatOptions = {
+      method: 'POST',
+      url: `${config.DOMAIN}/oauth/token`,
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      auth: {
+        user: 'accounts',
+        pass: 'accountssecret',
+      },
+      form: {
+        grant_type: 'password',
+        username: req.body.username,
+        password: req.body.password,
+      }
+    };
+    rp(oAuthChatOptions).then((body)=> {
+      return res.json(body);
+    }).catch((err)=> {
+      return res.status(500).send(err);
+    });
   }).catch((err)=> {
     console.log(err);
-    return res.status(404).json("Invalid data")
+    return res.status(500).send(err);
   });
 }
 export function register(req, res) {
@@ -157,4 +180,9 @@ export function vendor(req, res) {
     })
     .then(respondWithResult(res))
     .catch(handleError(res));
+}
+
+// Gets a list of Users
+export function me(req, res) {
+  return res.json(req.user || {message: "not authorized"})
 }

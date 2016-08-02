@@ -1,6 +1,7 @@
 'use strict';
 (function () {
-  function LoginComponent(QverifyConnection, $state) {
+  function LoginComponent(QverifyConnection, $state, Restangular, OAuthToken, Auth) {
+    let LOG_TAG = 'LoginComponent';
     let user = JSON.parse(localStorage.getItem("user"));
     if (user != undefined) {
       console.log(user);
@@ -20,19 +21,22 @@
     };
     vm.login = function (user) {
       console.log(user);
-      qverifyConnection.login(user.username, user.password).then((user)=> {
-        if (user == undefined)
-          alert("Incorrect");
-        localStorage.setItem("user", JSON.stringify(user));
-        if (user.Company.user_type_id === 3)
-          $state.go("partner");
-        else
-          $state.go("overview");
-        console.log(user.plain())
-      }).catch((err)=> {
-        console.log(err)
-      });
-      var options = {};
+      Restangular.all(`open/users/login`).post({
+        username: user.username,
+        password: user.password
+      })
+        .then((response)=> {
+          OAuthToken.setToken(JSON.parse(response));
+          Auth.setSessionData();
+          let user = JSON.parse(localStorage.getItem('userinfo'));
+          if (user.Company.user_type_id === 3)
+            $state.go("partner");
+          else
+            $state.go("overview");
+        })
+        .catch((error)=> {
+          console.log(LOG_TAG, error);
+        });
     }
 
   }

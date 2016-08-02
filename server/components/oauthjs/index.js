@@ -1,6 +1,6 @@
 'use strict';
 
-import { App, User, AccessToken, AuthCode, RefreshToken } from '../../sqldb';
+import { App, User, Company, AccessToken, AuthCode, RefreshToken } from '../../sqldb';
 import config from "../../config/environment";
 module.exports = require('oauth2-server')({
   model: {
@@ -12,7 +12,8 @@ module.exports = require('oauth2-server')({
           include: [
             {
               model: User,
-              attributes: ['username','name', `created_at`, `user_type_id`, `mobile`, `email`, `identifier`],
+              include: [Company],
+              attributes: ['id','name', `created_at`, `mobile`, `email`, 'company_id'],
             },
           ],
         })
@@ -54,7 +55,7 @@ module.exports = require('oauth2-server')({
         .build({ expires })
         .set('app_id', client.id)
         .set('access_token', accessToken)
-        .set('user_username', user.username)
+        .set('user_id', user.id)
         .save()
         .then(token => callback(null, token))
         .catch(callback);
@@ -79,20 +80,20 @@ module.exports = require('oauth2-server')({
         .build({ expires })
         .set('app_id', client.id)
         .set('auth_code', authCode)
-        .set('user_username', user.username)
+        .set('user_id', user.id)
         .save()
         .then(code => callback(null, code))
         .catch(callback);
     },
 
-    getUser: function getUser(username, c_password, callback) {
+    getUser: function getUser(username, password, callback) {
       return User
         .findOne({
           where: { username },
-          attributes: ['username', 'name', 'c_password'],
+          attributes: ['id', 'username', 'name', 'password'],
         })
         .then(function(user) {
-          return user.verifyPassword(c_password, callback);
+          return user.verifyPassword(password, callback);
         })
         .catch(callback);
     },
@@ -102,7 +103,7 @@ module.exports = require('oauth2-server')({
         .build({ expires })
         .set('app_id', client.id)
         .set('refresh_token', refreshToken)
-        .set('user_username', user.username)
+        .set('user_id', user.id)
         .save()
         .then(token => callback(null, token))
         .catch(callback);
@@ -112,7 +113,7 @@ module.exports = require('oauth2-server')({
       return RefreshToken
         .findOne({
           where: { refresh_token: refreshToken },
-          attributes: [['app_id', 'clientId'], ['user_username', 'userId'], 'expires'],
+          attributes: [['app_id', 'clientId'], ['user_id', 'userId'], 'expires'],
         })
         .then(function sendRefreshToken(refreshTokenModel) {
           if (!refreshTokenModel) return callback(null, false);
