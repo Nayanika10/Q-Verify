@@ -6,12 +6,12 @@
     const LOG_TAG = 'PartnerComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchCases().then((cases)=> {
-      vm.Allocation = cases;
+    qverifyConnection.fetchAllocationByStatus(1).then((allocations)=> {
+      vm.Allocation = allocations;
       console.log(vm.Allocation);
     });
-    qverifyConnection.fetchVendorUploadedCases().then((cases)=> {
-      vm.Allocated = cases;
+    qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
+      vm.Allocated = allocations;
     })
   }
 

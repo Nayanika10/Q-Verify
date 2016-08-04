@@ -10,9 +10,6 @@
       else
         $state.go("overview");
     }
-    console.log(
-      'here'
-    );
     let vm = this;
     let qverifyConnection = new QverifyConnection();
     vm.user = {
@@ -27,12 +24,13 @@
       })
         .then((response)=> {
           OAuthToken.setToken(JSON.parse(response));
-          Auth.setSessionData();
-          let user = JSON.parse(localStorage.getItem('userinfo'));
-          if (user.Company.user_type_id === 3)
-            $state.go("partner");
-          else
-            $state.go("overview");
+          Auth.setSessionData().then(()=>{
+            let user = JSON.parse(localStorage.getItem('userinfo'));
+            if (user.Company.user_type_id === 3)
+              $state.go("partner");
+            else
+              $state.go("overview");
+          });
         })
         .catch((error)=> {
           console.log(LOG_TAG, error);

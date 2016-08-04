@@ -4,17 +4,31 @@
       p
         h4.text-ellipsis(style="color:#1750a9" title='{{Candidate.Case.name}}') {{Candidate.Case.name}}
     .panel-body
-      p
-        i.fa.fa-bookmark(style="color:#383f44")
-          | &nbsp;&nbsp;{{Candidate.Case.name}}
-      p
-        i.fa.fa-briefcase(style="color:#383f44")
-          | &nbsp;{{Candidate.Case.address}}
-      p
-        i.fa.fa-briefcase(style="color:#383f44")
-          | &nbsp;{{Candidate.Case.phone}}
+      ul.list-group
+        li.list-group-item(style="color:#383f44")
+          |  Case Name = {{Candidate.Case.name}}
+        li.list-group-item( style="color:#383f44")
+          |  Address = {{Candidate.Case.address}}
+        li.list-group-item( style="color:#383f44")
+          |  Phone = {{Candidate.Case.phone}}
+        li.list-group-item( style="color:#383f44")
+          |  Client = {{Candidate.Case.User.name}}
+      //p
+      //  i.fa.fa-bookmark(style="color:#383f44")
+      //    | &nbsp;&nbsp;{{Candidate.Case.name}}
+      //p
+      //  i.fa.fa-briefcase(style="color:#383f44")
+      //    | &nbsp;{{Candidate.Case.address}}
+      //p
+      //  i.fa.fa-briefcase(style="color:#383f44")
+      //    | &nbsp;{{Candidate.Case.phone}}
+      //p
+      //  i.fa.fa-briefcase(style="color:#383f44")
+      //    | &nbsp;{{Candidate.Case.User.name}}
 
-        .col-md-12
+
+
+      .col-md-12
           .col-md-3.col-xs-4
             button.btn.btn-primary.pull-right(type='submit' ng-click='Candidate.updateStatus(3)') Accept
 

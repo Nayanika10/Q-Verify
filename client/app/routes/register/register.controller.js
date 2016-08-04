@@ -2,9 +2,6 @@
 (function(){
 
 function RegisterComponent(QverifyConnection, toaster) {
-  console.log(
-    'here'
-  );
   let vm = this;
   let qverifyConnection = new QverifyConnection();
   vm.register = function(user) {

@@ -79,7 +79,7 @@ export function show(req, res) {
 
 // Creates a new Company in the DB
 export function create(req, res) {
-  console.log(req.body)
+  //console.log('Body :'+  req.body);
   return Company.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

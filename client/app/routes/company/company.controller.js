@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
 
   function CompanyComponent(QverifyConnection,  toaster) {
@@ -48,3 +47,47 @@
     });
 
 })();
+
+//(function () {
+//
+//  function CompanyComponent(QverifyConnection,  toaster) {
+//    let vm = this;
+//    let qverifyConnection = new QverifyConnection;
+//    vm.createCompany = function (company) {
+//      qverifyConnection.createCompany(company).then((company)=> {
+//        console.log(company);
+//        for (let i = 0; i < vm.Location.length; i++) {
+//          if (vm.Location[i].id == company.location_id) {
+//            toaster.pop('success', "Company Created",company.name + "," +company.address + "," + vm.Location[i].name)
+//            break;
+//          }
+//        }
+//        if (company == undefined)
+//          alert("Incorrect");
+//        console.log(company.plain())
+//      }).catch((err)=> {
+//        console.log(err)
+//      });
+//      var options = {};
+//
+//
+//    };
+//    qverifyConnection.fetchLocation().then((locations)=> {
+//      vm.Location = locations;
+//    });
+//    qverifyConnection.fetchUserType().then((user_types)=> {
+//      vm.UserType = user_types;
+//    });
+////yolo
+//
+//  }
+//
+//
+//  angular.module('appApp')
+//    .component('company', {
+//      templateUrl: 'app/routes/company/company.html',
+//      controller: CompanyComponent,
+//      controllerAs: 'Company',
+//    });
+//
+//})();

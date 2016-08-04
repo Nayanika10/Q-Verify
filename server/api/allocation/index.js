@@ -6,6 +6,8 @@ var controller = require('./allocation.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/vendorUpload', controller.vendorUpload);
+router.get('/status/:status_id', controller.byStatusId);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

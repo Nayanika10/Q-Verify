@@ -16,7 +16,7 @@
       vm.criminal.case_id = $stateParams.case_id;
       console.log(vm.criminal.dob);
       qverifyConnection.createCriminal(vm.criminal);
-      toaster.pop('success', "Criminal Created")
+      //toaster.pop('success', "Criminal Created")
     };
 }
 

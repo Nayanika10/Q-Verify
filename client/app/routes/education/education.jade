@@ -1,5 +1,5 @@
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-  toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+  //toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
   div.m-t-xl.padder.no-margin(style="padding-left:2px")
     .hbox
@@ -8,13 +8,55 @@
 
 
           .list-group.list-group-sm.m-b-md
-            .list-group-item: select.form-control.no-border(type='text' placeholder='university name id' ng-options='item.id as item.name for item in Education.UniversityName' ng-model='Education.education.university_name_id' required)
-            .list-group-item: select.form-control.no-border(type='text' placeholder='degree id' ng-options='item.id as item.name for item in Education.Degree' ng-model='Education.education.degree_id' required)
-            .list-group-item: input.form-control.no-border(type='text' placeholder='remarks' ng-model='Education.education.name' required)
-            .list-group-item: select.form-control.no-border(type='text' placeholder='designation id' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id' required)
-            .list-group-item: input.form-control.no-border(type='text' placeholder='verifier name' ng-model='Education.education.verifier_name' required)
-            .list-group-item: input.form-control.no-border(type='text' placeholder='role no' ng-model='Education.education.role_no' required)
-            .list-group-item: input.form-control.no-border(type='text' placeholder='passing year' ng-model='Education.education.passing_year' required)
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | University Name
+                    select.form.form-control(type='text' placeholder='eg.university name id' ng-options='item.id as item.name for item in Education.UniversityName' ng-model='Education.education.university_name_id'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Degree
+                    select.form.form-control(type='text' placeholder='eg.Degree' ng-options='item.id as item.name for item in Education.Degree' ng-model='Education.education.degree_id'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Remarks
+                    input.form.form-control(type='text' placeholder='eg.Remarks' ng-model='Education.education.remarks'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Designation
+                    select.form.form-control(type='text' placeholder='eg.Designation' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Verifier name
+                    input.form.form-control(type='text' placeholder='eg.verifier name' ng-model='Education.education.verifier_name'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Role no
+                    input.form.form-control(type='text' placeholder='eg.role no' ng-model='Education.education.role_no'  )
+            .line.line-dashed.b-b.line-lg.pull-in
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  label.col-xs-12.input-group
+                    | Passing year
+                    input.form.form-control(type='text' placeholder='eg.passing year' ng-model='Education.education.passing_year'  )
+            //.list-group-item: select.form-control.no-border(type='text' placeholder='university name id' ng-options='item.id as item.name for item in Education.UniversityName' ng-model='Education.education.university_name_id' required)
+            //.list-group-item: select.form-control.no-border(type='text' placeholder='degree id' ng-options='item.id as item.name for item in Education.Degree' ng-model='Education.education.degree_id' required)
+            //.list-group-item: input.form-control.no-border(type='text' placeholder='remarks' ng-model='Education.education.name' required)
+            //.list-group-item: select.form-control.no-border(type='text' placeholder='designation id' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id' required)
+            //.list-group-item: input.form-control.no-border(type='text' placeholder='verifier name' ng-model='Education.education.verifier_name' required)
+            //.list-group-item: input.form-control.no-border(type='text' placeholder='role no' ng-model='Education.education.role_no' required)
+            //.list-group-item: input.form-control.no-border(type='text' placeholder='passing year' ng-model='Education.education.passing_year' required)
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' )
               i.fa.fa-upload

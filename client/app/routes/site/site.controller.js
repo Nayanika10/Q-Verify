@@ -12,7 +12,7 @@
     vm.createSite = function () {
       vm.site.case_id = $stateParams.case_id;
       qverifyConnection.createSite(vm.site);
-      toaster.pop('success', "Site Created")
+      //toaster.pop('success', "Site Created")
     };
 }
 

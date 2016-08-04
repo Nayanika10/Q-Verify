@@ -6,9 +6,11 @@
 //        span.icon-bar
 //        span.icon-bar
 //        span.icon-bar
-//      a.navbar-brand(href='/') app
+//      a.navbar-brand(href='/') Partner
 //
 //    div#navbar-main.navbar-collapse.collapse(uib-collapse='nav.isCollapsed')
 //      ul.nav.navbar-nav
-//        li(ng-repeat='item in nav.menu', ui-sref-active='active')
-//          a(ui-sref='{{item.state}}') {{item.title}}
+//        //li(ng-repeat='item in nav.menu', ui-sref-active='active')
+//        //  a(ui-sref='{{item.state}}') {{item.title}}
+//        li(ng-controller='LogoutController as logout')
+//          a(ng-click='logout.init()') Logout

@@ -21,7 +21,7 @@
     vm.createEducation = function () {
       vm.education.case_id = $stateParams.case_id;
       qverifyConnection.createEducation(vm.education);
-      toaster.pop('success', "Education Created")
+      //toaster.pop('success', "Education Created")
     };
 }
 

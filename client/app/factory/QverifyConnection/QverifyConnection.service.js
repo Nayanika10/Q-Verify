@@ -305,7 +305,6 @@ angular.module('appApp')
         });
       return defer.promise;
     };
-
     QVC.prototype.createAllocation = (allocation)=> {
       let defer = $q.defer();
       Restangular.all(`allocations`).post(allocation)
@@ -322,6 +321,19 @@ angular.module('appApp')
     QVC.prototype.fetchLocation = (location)=> {
       let defer = $q.defer();
       Restangular.all(`locations`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchAllocationByStatus = (status)=> {
+      let defer = $q.defer();
+      Restangular.all(`allocations`).one('status', status).getList()
         .then((data)=> {
           defer.resolve(data);
         })
@@ -371,9 +383,10 @@ angular.module('appApp')
 
     };
 
+
     QVC.prototype.fetchVendorUploadedCases = ()=> {
       let defer = $q.defer();
-      Restangular.all(`cases/vendor`).getList()
+      Restangular.all(`allocations/`).getList()
         .then((data)=> {
           defer.resolve(data);
         })

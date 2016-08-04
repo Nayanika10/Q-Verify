@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Case, CaseType,Status, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
+import db, {Case, User, CaseType,Status, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -59,9 +59,18 @@ function handleError(res, statusCode, err) {
 
 // Gets a list of Cases
 export function index(req, res) {
+  if (!req.user.id)
+    return res.status(404).json([{message: "not authorized"}]);
+  let whereClause;
+  if (req.user.Company.user_type_id != 1) {
+    whereClause = {
+      user_id: req.user.id
+    };
+  }
   return Case.findAll({
-    include:[Status,CaseType]
-  })
+      where: whereClause,
+      include: [Status, CaseType]
+    })
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
 }
@@ -73,10 +82,11 @@ export function show(req, res) {
         id: req.params.id
       },
       include: [
-        {model: CaseCriminalVerification, include : [db.Designation]},
-        {model: CaseAddressVerification, include : [db.HouseType]},
-        {model: CaseEducationVerification, include :[db.Degree,db.Designation]},
-        {model: CaseSiteVerification, include :[db.Designation]},
+        {model: CaseCriminalVerification, include: [db.Designation]},
+        {model: CaseAddressVerification, include: [db.HouseType]},
+        {model: CaseEducationVerification, include: [db.Degree, db.Designation]},
+        {model: CaseSiteVerification, include: [db.Designation]},
+        {model: User}
       ]
     })
     .then(handleEntityNotFound(res))
@@ -87,8 +97,8 @@ export function show(req, res) {
 // Gets a single Case from the DB
 export function vendorUploaded(req, res) {
   return Case.findAll({
-      include:[Status],
-      where: {status_id: [2,3,4]}
+      include: [Status],
+      where: {status_id: [2, 3, 4]}
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -148,6 +158,7 @@ export function create(req, res) {
           casePr = db.CaseEducationVerification.create(req.body.education)
           break;
         case 4:
+          req.body.site = {};
           req.body.site.case_id = caseObj.id;
           casePr = db.CaseSiteVerification.create(req.body.site)
           break;
@@ -234,7 +245,7 @@ export function create(req, res) {
 // Updates an existing Case in the DB
 export function update(req, res) {
   if (!req.query) {
-    return res.status(404).json({message:'Invalid data'});
+    return res.status(404).json({message: 'Invalid data'});
   }
   return Case.update(req.query, {
       where: {

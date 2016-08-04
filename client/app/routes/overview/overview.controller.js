@@ -8,6 +8,7 @@
     qverifyConnection.fetchAllocation().then((allocations)=> {
       vm.Allocation = allocations;
     });
+
   }
 
   angular.module('appApp')
