@@ -489,7 +489,7 @@ gulp.task('build', cb => {
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
 
-gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant', 'build:images'], () => {
+gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
     var appFilter = plugins.filter('**/app.js', {restore: true});
@@ -519,7 +519,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant', 'bu
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
-gulp.task('html', function() {
+gulp.task('html',['transpile:client'], function() {
     return gulp.src(`.tmp/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
             module: 'appApp'
