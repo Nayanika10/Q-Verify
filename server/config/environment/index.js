@@ -31,7 +31,7 @@ var all = {
   secrets: {
     session: 'app-secret'
   },
-
+  DOMAIN: process.env.DOMAIN,
   // MongoDB connection options
   mongo: {
     options: {

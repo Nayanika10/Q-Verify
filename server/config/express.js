@@ -39,7 +39,10 @@ export default function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  app.use('/api/open/users', require('../api/user'));
+  app.use('/api/open/users', function(req,res,next){
+    console.log("s")
+    return require('../api/user')(req,res,next)
+  });
   app.oauth = oAuthComponent;
 
   // OAuth Token authorization_code, password, refresh_token

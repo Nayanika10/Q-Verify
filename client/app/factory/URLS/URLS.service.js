@@ -3,20 +3,20 @@
 angular.module('appApp')
   .factory('URLS', function () {
     var vars = {
-      QVERIFY_API: 'http://qverify.quezx.dev/api',
-      QVERIFY_SERVER: 'http://qverify.quezx.dev',
+      QVERIFY_API: 'http://app.qverify.dev/api',
+      QVERIFY_SERVER: 'http://app.qverify.dev',
     };
     switch(window.location.host){
-      case "qverify.quezx.com":
+      case "app.qverify.com":
         vars = {
-          QVERIFY_API: 'https://qverify.quezx.com/api',
-          QVERIFY_SERVER: 'https://qverify.quezx.com',
+          QVERIFY_API: 'http://app.qverify.com/api',
+          QVERIFY_SERVER: 'http://app.qverify.com',
         };
         break;
-      case 'staging-qverify.quezx.com':
+      case 'staging-app.qverify.com':
         vars = {
-          QVERIFY_API: 'https://staging-qverify.quezx.com/api',
-          QVERIFY_SERVER: 'https://staging-qverify.quezx.com'
+          QVERIFY_API: 'http://staging-app.qverify.com/api',
+          QVERIFY_SERVER: 'http://staging-app.qverify.com'
         };
         break;
     }

@@ -25,7 +25,7 @@ export default function (app) {
   app.use('/api/case_criminal_verifications', app.oauth.authenticate(), require('./api/case_criminal_verification'));
   app.use('/api/case_address_verifications', app.oauth.authenticate(), require('./api/case_address_verification'));
   app.use('/api/locations', app.oauth.authenticate(), require('./api/location'));
-  app.use('/api/companys', app.oauth.authenticate(), require('./api/company'));
+  app.use('/api/companys', require('./api/company'));
   app.use('/api/user_types', app.oauth.authenticate(), require('./api/user_type'));
   app.use('/api/users', app.oauth.authenticate(), require('./api/user'));
   // All undefined asset or api routes should return a 404

@@ -43,7 +43,7 @@
                   tr(ng-class="$last ?'':'b-b'" ng-repeat='allocation in Overview.Allocation'  ui-sref='view({case_id: allocation.cases_id })')
                     td: a.text-ellipsis {{allocation.Case.User.name}}
                     td: a.text-ellipsis {{allocation.User.name}}
-                    td: a.text-ellipsi {{allocation.Case.name}} ({{allocation.Case.CaseType.name}})
+                    td: a.text-ellipsis {{allocation.Case.name}} ({{allocation.Case.CaseType.name}})
                     td: span.text-ellipsis {{allocation.Case.Status.name}}
 
 

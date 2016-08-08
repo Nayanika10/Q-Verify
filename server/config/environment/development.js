@@ -3,7 +3,7 @@
 // Development specific configuration
 // ==================================
 module.exports = {
-  DOMAIN: process.env.DOMAIN,
+
   // Sequelize connection opions
   qverify: {
     username: process.env.QVERIFY_MYSQL_USER,
