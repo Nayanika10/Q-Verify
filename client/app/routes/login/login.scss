@@ -12,6 +12,12 @@
   color: #fff;
 
   padding: 3em;
+  h1 {
+    font-weight: 300;
+    small {
+      color: rgba(255,255,255,0.7);
+    }
+  }
 
 
   .form-group {

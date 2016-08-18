@@ -13,6 +13,7 @@ angular.module('appApp', [
   'toaster',
   //'chart.js'
   "naif.base64",
+  'ui.grid',
   'angular-oauth2'
 ])
   .config(function ($urlRouterProvider, $locationProvider, RestangularProvider, OAuthProvider, OAuthTokenProvider) {

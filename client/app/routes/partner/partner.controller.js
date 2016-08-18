@@ -12,8 +12,11 @@
     });
     qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
       vm.Allocated = allocations;
-    })
+    });
+
+
   }
+
 
   angular.module('appApp')
     .component('partner', {

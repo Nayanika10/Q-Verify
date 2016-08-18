@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {Company} from '../../sqldb';
+import db, {Company,User} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -69,8 +69,9 @@ export function index(req, res) {
 export function show(req, res) {
   return Company.find({
     where: {
-      _id: req.params.id
-    }
+      id: req.params.id
+    },
+    include: [db.Location]
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -111,4 +112,16 @@ export function destroy(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
+}
+
+export function companyUsers(req, res) {
+  console.log(req.params.id)
+  return User.findAll({
+    where: {
+      company_id: req.params.id,
+    }
+  }).then(users => {
+    if (!users) return res.status(404).json({message: "Resource not found"});
+    return res.json(users);
+  }).catch(err=>console.log(err));
 }

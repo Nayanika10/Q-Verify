@@ -6,13 +6,13 @@
           h2.brand
             | Q Verify
 
-          img.user-avatar(src='images/11-256.png')
+          //img.user-avatar(src='images/11-256.png')
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
           li(ng-class="{active: $state.includes('overview')}")
             a(ui-sref='overview')
-              | Overview
+              | Cases
               span.sr-only (current)
           li(ng-class="{active: $state.includes('company')}")
             a(ui-sref='company') Company
@@ -24,43 +24,13 @@
             a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+        //div(id="grid1" ui-grid="{ data: myData,columnDefs:columnDefs}")
+        #grid1.grid(ui-grid="gridOpts")
+        //div(id="grid1" ui-grid="{ data: myData, columnDefs: [{name: 'Company', field: 'name'},{name: 'Address', field: 'address'},{name: 'Created on', field: 'created_on'}] }")
 
-        div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
-          .hbox
-            .wrapper-md.bg-light
-              form.form-validation(name="form" ng-submit='Company.createCompany(Company.company)')
-
-
-                .list-group.list-group-sm.m-b-md
-
-                  .line.line-dashed.b-b.line-lg.pull-in
-                    .row
-                      .col-md-12.col-sm-12.col-xs-12
-                        label.col-xs-12.input-group
-                          | Name
-                          input.form.form-control(type='text' placeholder='eg.Name' ng-model='Company.company.name' )
-                  .line.line-dashed.b-b.line-lg.pull-in
-                    .row
-                      .col-md-12.col-sm-12.col-xs-12
-                        label.col-xs-12.input-group
-                          | Address
-                          input.form.form-control(type='text' placeholder='eg.address' ng-model='Company.company.address' )
-                  .line.line-dashed.b-b.line-lg.pull-in
-                    .row
-                      .col-md-12.col-sm-12.col-xs-12
-                        label.col-xs-12.input-group
-                          | User Type
-                          select.form.form-control(ng-options='item.id as item.name for item in Company.UserType' ng-model='Company.company.user_type_id' )
-                  .line.line-dashed.b-b.line-lg.pull-in
-                    .row
-                      .col-md-12.col-sm-12.col-xs-12
-                        label.col-xs-12.input-group
-                          | Location
-                          select.form.form-control(ng-options='item.id as item.name for item in Company.Location' ng-model='Company.company.location_id' )
-
-
-                  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid' ) Company
+        .col-md-12
+          .col-md-6.col-xs-4
+            button.btn.btn-primary.pull-right(type='submit' ng-click='Company.openNewCompany()') Add
 
 
 

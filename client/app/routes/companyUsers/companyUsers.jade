@@ -6,7 +6,7 @@
           h2.brand
             | Q Verify
 
-          //img.user-avatar(src='images/11-256.png')
+          img.user-avatar(src='images/11-256.png')
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
@@ -24,15 +24,10 @@
             a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        //div(id="grid1" ui-grid="{ data: myData,columnDefs:columnDefs}")
         #grid1.grid(ui-grid="gridOpts")
-        //div(id="grid1" ui-grid="{ data: myData, columnDefs: [{name: 'Client', field: 'Case.User.name'},{name: 'Vendor', field: 'User.name'},{name: 'Case', field: 'Case.name'},{name: 'Status', field: 'Case.Status.name'}] }")
 
-
-
-
-
-
-
-
-
+          .col-md-12
+            .col-md-6.col-xs-4
+              button.btn.btn-primary.pull-right(type='submit' ng-click='CompanyUsers.openRegister()') Add Users
 
