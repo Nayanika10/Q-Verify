@@ -331,6 +331,32 @@ angular.module('appApp')
 
     };
 
+    QVC.prototype.fetchState = (State)=> {
+      let defer = $q.defer();
+      Restangular.all(`states`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchPin = (Pin)=> {
+      let defer = $q.defer();
+      Restangular.all(`pins`).getList()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
     QVC.prototype.fetchAllocationByStatus = (status)=> {
       let defer = $q.defer();
       Restangular.all(`allocations`).one('status', status).getList()

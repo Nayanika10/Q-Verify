@@ -1,51 +1,36 @@
 div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
   div.container
+
     div.navbar-header
-      button.navbar-toggle(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='login') Logout
-
-      //  span.icon-bar
-      //  span.icon-bar
-      //  span.icon-bar
-      //a.navbar-brand(href='/') Partner
-      //a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-  .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-    .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
-      .panel-heading.font-bold.h4.text-ellipsis.bg-light
-        .fa.fa-mouse-pointer.text-dark
-        | &nbsp;&nbsp;Cases
-        //i.fa.fa-angle-right.pull-right.font-bold
-      .panel-body.p-5px
-        scrollable-table(watch="Dashboard.summary.applicantData")
-          table.table.table-striped.table-bordered.m-b
-            thead
-              tr
-                th.font-bold Case view
-                th.font-bold(style="width:25%") Status
-            //(ng-if='Dash.pipeline.length>0')
-            tbody
-              tr( ng-repeat='allocation in Partner.Allocated' ui-sref='view({case_id: allocation.cases_id })')
-                td: a.text-ellipsis {{allocation.Case.name}}
-                td: span.text-ellipsis {{allocation.Case.Status.name}}
-
-  .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-    .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
-      .panel-heading.font-bold.h4.text-ellipsis.bg-light
-        .fa.fa-mouse-pointer.text-dark
-        | &nbsp;&nbsp;Allocated Case
-        //i.fa.fa-angle-right.pull-right.font-bold
-      .panel-body.p-5px
-        scrollable-table(watch="Dashboard.summary.applicantData")
-          table.table.table-striped.table-bordered.m-b
-            thead
-              tr
-                th.font-bold Case
-                th.font-bold(style="width:25%") Allocated date
-            //(ng-if='Dash.pipeline.length>0')
-            tbody
-              tr( ng-repeat='allocation in Partner.Allocation' ui-sref='candidate({case_id: allocation.cases_id })')
-                td: a.text-ellipsis {{allocation.Case.name}} ({{allocation.Case.CaseType.name}})
-                td: span.text-ellipsis.moment.format("YYYY-MM-DD") {{allocation.Case.created_at}}
+      a.navbar-brand(href='#') Allocated Case
+      button.navbar-toggle.fa.fa-sign-out(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='login')
 
 
+
+
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+    //.panel-heading.font-bold.h4.text-ellipsis.bg-light
+    //
+    //  | &nbsp;&nbsp;Allocated Case
+      //i.fa.fa-angle-right.pull-right.font-bold
+    .panel-body.p-5px
+      scrollable-table(watch="Dashboard.summary.applicantData")
+        table.table.table-striped.table-bordered.m-b
+          thead
+            tr
+              th.font-bold Cases
+              th.font-bold(style="width:25%") Allocated date
+          //(ng-if='Dash.pipeline.length>0')
+          tbody
+            tr( ng-repeat='allocation in Partner.Allocation' ui-sref='candidate({case_id: allocation.case_id })')
+              td: a.text-ellipsis {{allocation.Case.name}} ({{allocation.Case.CaseType.name}})
+              td: span.text-ellipsis {{allocation.Case.created_at | date}}
+
+    div.fixed-nav.navbar
+      ul
+        li
+          a(href='/partner') New
+        li
+          a(href='/completed') Completed
 

@@ -10,7 +10,9 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Case, User, CaseType,Status, Minio, CaseAddressVerification, CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification} from '../../sqldb';
+import db, { Case, User, CaseType,Status, Minio, CaseAddressVerification,
+  CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification,
+  Allocation } from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -68,8 +70,15 @@ export function index(req, res) {
     };
   }
   return Case.findAll({
+      attributes: ['id', 'name','created_at','updated_at'],
       where: whereClause,
-      include: [Status, CaseType]
+      order: 'created_at DESC',
+      include: [
+        { model: Status, attributes:['id','name']},
+        { model: User, attributes:['id','name'] },
+        { model: CaseType, attributes:['id','name']},
+        { model: Allocation, attributes:['id'], include: [{ model: User, attributes:['id','name']}], required: false }
+      ]
     })
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
@@ -107,16 +116,15 @@ export function vendorUploaded(req, res) {
 
 export function getFile(req, res) {
   return Case.findById(req.params.id).then(caseObj => {
-    return res.json(caseObj.pdf)
     return Minio.downloadLink({
       object: caseObj.pdf,
+      name: `${caseObj.id}.pdf`
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
 }
 
 // Creates a new Case in the DB
 export function create(req, res) {
-  req.body.status_id = 1;
   return db.Case.create(req.body)
     .then((caseObj) => {
       /* Start Minio */
@@ -124,9 +132,9 @@ export function create(req, res) {
       const extention = filename.substring(filename.lastIndexOf('.') + 1);
 
 // only upload if valid file extension
-      if (~['doc', 'docx', 'pdf', 'rtf', 'txt'].indexOf(extention)) {
+      if (~['doc', 'docx', 'pdf', 'rtf', 'txt','png','jpeg'].indexOf(extention)) {
 
-        const rangeFolder = caseObj.id - (caseObj.id % 10000);
+        const rangeFolder = caseObj.id - (caseObj.id % 100000);
         const minioObject = {
           // object: 'cases/0/5/5.pdf'
           object: `cases/${rangeFolder}/${caseObj.id}/${caseObj.id}.${extention.toLowerCase()}`,
@@ -166,7 +174,7 @@ export function create(req, res) {
 
       return casePr.then(()=> {
         return res.json(caseObj);
-      })
+      }).catch(err => handleError(res, 500, err));
 
     })
     .catch(err => handleError(res, 500, err));

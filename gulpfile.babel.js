@@ -428,6 +428,7 @@ gulp.task('test:client', ['wiredep:test', 'constant'], (done) => {
     }, done).start();
 });
 
+
 // inject bower components
 gulp.task('wiredep:client', () => {
     return gulp.src(paths.client.mainView)
@@ -575,6 +576,13 @@ gulp.task('copy:extras', () => {
 gulp.task('copy:fonts', () => {
     return gulp.src(`${clientPath}/bower_components/{bootstrap,font-awesome}/fonts/**/*`, { dot: true })
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/bower_components`));
+});
+
+gulp.task('fonts:dev', function () {
+  return gulp.src($.mainBowerFiles())
+    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    .pipe($.flatten())
+    .pipe(gulp.dest(options.tmp + '/serve/fonts/'));
 });
 
 gulp.task('copy:assets', () => {

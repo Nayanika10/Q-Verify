@@ -104,7 +104,7 @@ export function create(req, res) {
           base64String: base64String,
         }
 
-        Minio.base64Upload(minioObject).then(re => {
+        return Minio.base64Upload(minioObject).then(re => {
           return caseObj.update({image: minioObject.object}).then(()=>{
 
             console.log("file saved success")
@@ -116,6 +116,7 @@ export function create(req, res) {
           })
         }).catch(err => handleError(res, 500, err));
       }
+      return res.json(caseObj);
     })
     .catch(err => handleError(res, 500, err));
 }

@@ -6,7 +6,7 @@
           h2.brand
             | Q Verify
 
-          //img.user-avatar(src='images/11-256.png')
+          img.user-avatar(src='assets/images/qverify3.png')
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
@@ -16,14 +16,18 @@
               span.sr-only (current)
           li(ng-class="{active: $state.includes('company')}")
             a(ui-sref='company') Company
-          li(ng-class="{active: $state.includes('register')}")
-            a(ui-sref='register') Register
-          li(ng-class="{active: $state.includes('allocation')}")
-            a(ui-sref='allocation') Allocation
-          li(ng-class="{active: $state.includes('creation')}")
-            a(ui-sref='creation') Creation
+          //li(ng-class="{active: $state.includes('register')}")
+          //  a(ui-sref='register') Register
+          //li(ng-class="{active: $state.includes('allocation')}")
+          //  a(ui-sref='allocation') Allocation
+          //li(ng-class="{active: $state.includes('creation')}")
+          //  a(ui-sref='creation') Creation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
+          .panel-heading.font-bold.h4.text-ellipsis.bg-light
+            .fa.fa-mouse-pointer.text-dark
+            | &nbsp;&nbsp;Register
         toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
         div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
@@ -38,38 +42,41 @@
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
-                            | Username
-                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' )
-                    .line.line-dashed.b-b.line-lg.pull-in
-                      .row
-                        .col-md-12.col-sm-12.col-xs-12
-                          label.col-xs-12.input-group
                             | Company
                             select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
-                            | Name
-                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  )
+                            | Username
+                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' )
+
+                    //.line.line-dashed.b-b.line-lg.pull-in
+                    //  .row
+                    //    .col-md-12.col-sm-12.col-xs-12
+                    //      label.col-xs-12.input-group
+                    //        | Name
+                    //        input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  )
+
+
+                    //.line.line-dashed.b-b.line-lg.pull-in
+                    //  .row
+                    //    .col-md-12.col-sm-12.col-xs-12
+                    //      label.col-xs-12.input-group
+                    //        |  Confirm Password
+                    //        input.form.form-control(type='password' placeholder=' confirm password' ng-model='Register.user.confirm_password' )
+                    .line.line-dashed.b-b.line-lg.pull-in
+                      .row
+                        .col-md-12.col-sm-12.col-xs-12
+                          label.col-xs-12.input-group
+                            | E-mail
+                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'   )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Password
                             input.form.form-control(type='password' placeholder='password' ng-model='Register.user.password' )
-                    .line.line-dashed.b-b.line-lg.pull-in
-                      .row
-                        .col-md-12.col-sm-12.col-xs-12
-                          label.col-xs-12.input-group
-                            |  Confirm Password
-                            input.form.form-control(type='password' placeholder=' confirm password' ng-model='Register.user.confirm_password' )
-                    .line.line-dashed.b-b.line-lg.pull-in
-                      .row
-                        .col-md-12.col-sm-12.col-xs-12
-                          label.col-xs-12.input-group
-                            | E-mail
-                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'  )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
@@ -83,6 +90,6 @@
 
 
 
-                  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid') Register
+                  button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid' style='background-color:#083040' ) Register
 
 

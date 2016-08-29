@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  function AllocationComponent(QverifyConnection, toaster) {
+  function AllocationComponent(QverifyConnection, toaster,$state) {
     const vm = this;
     let qverifyConnection = new QverifyConnection();
     qverifyConnection.fetchVendor().then((vendors)=> {
@@ -13,7 +13,9 @@
 
     vm.create = ()=>{
       console.log(vm.allocation);
-      qverifyConnection.createAllocation(vm.allocation).then((allocation)=>{});
+      qverifyConnection.createAllocation(vm.allocation).then((allocation)=>{
+        $state.go("overview")
+      });
       toaster.pop('success', "Allocated")
     }
   }

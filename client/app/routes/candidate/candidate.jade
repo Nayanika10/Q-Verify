@@ -1,4 +1,12 @@
-.container
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+  div.container
+    div.navbar-header
+      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+
+
+  .container
+
   .panel.panel-default
     .panel-heading
       p
@@ -13,28 +21,20 @@
           |  Phone = {{Candidate.Case.phone}}
         li.list-group-item( style="color:#383f44")
           |  Client = {{Candidate.Case.User.name}}
-      //p
-      //  i.fa.fa-bookmark(style="color:#383f44")
-      //    | &nbsp;&nbsp;{{Candidate.Case.name}}
-      //p
-      //  i.fa.fa-briefcase(style="color:#383f44")
-      //    | &nbsp;{{Candidate.Case.address}}
-      //p
-      //  i.fa.fa-briefcase(style="color:#383f44")
-      //    | &nbsp;{{Candidate.Case.phone}}
-      //p
-      //  i.fa.fa-briefcase(style="color:#383f44")
-      //    | &nbsp;{{Candidate.Case.User.name}}
+        li.list-group-item( style="color:#383f44")
+          //|  Document = {{Candidate.Case.pdf}}
+          |  Document =
+          a(target="_blank" ng-href='{{Candidate.URLS.QVERIFY_API}}/cases/{{Candidate.Case.id}}/getFile?access_token={{Candidate.AccessToken}}') download
 
 
 
       .col-md-12
           .col-md-3.col-xs-4
-            button.btn.btn-primary.pull-right(type='submit' ng-click='Candidate.updateStatus(3)') Accept
+            button.btn.btn-primary.pull-right(type='submit' ng-show='Candidate.Case.status_id == 1 || Candidate.Case.status_id == 4' ng-click='Candidate.updateStatus(3)') Accept
 
           .col-md-3.col-xs-4
-            button.btn.btn-success.pull-right(type='submit' ng-click='Candidate.openCase()') Upload
+            button.btn.btn-success.pull-right(type='submit' ng-show='Candidate.Case.status_id == 3 || Candidate.Case.status_id == 4' ng-click='Candidate.openCase()') Upload
 
           .col-md-3.col-xs-4
-            button.btn.btn-danger.pull-right(type='submit' ng-click='Candidate.updateStatus(4)') Reject
+            button.btn.btn-danger.pull-right(type='submit' ng-show='Candidate.Case.status_id == 1 || Candidate.Case.status_id == 3' ng-click='Candidate.updateStatus(4)') Reject
 

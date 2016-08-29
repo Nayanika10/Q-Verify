@@ -1,3 +1,9 @@
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+  div.container
+    div.navbar-header
+      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
   //toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
@@ -51,16 +57,6 @@
                     | Remarks
                     input.form.form-control(type='text' placeholder='eg.remarks ' ng-model='Address.address.remark'  )
 
-
-
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='visiting address' ng-model='Address.address.visiting_address' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='visiting person name' ng-model='Address.address.visiting_person_name' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='relation with candidate' ng-model='Address.address.relation_with_candidate' required)
-            //.list-group-item: select.form-control.no-border(type='text' placeholder='house types id' ng-options='item.id as item.name for item in Address.HouseType' ng-model='Address.address.house_type_id' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='years of staying' ng-model='Address.address.years_of_staying' required)
-            //.list-group-item: input.form-control.no-border(type='file' placeholder='image' ng-model='Address.address.img' base-sixty-four-input maxsize="10000" name='file' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='remarks' ng-model='Address.address.remark' required)
-
-            button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' )
+            button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')
               i.fa.fa-upload
               | &nbsp;&nbsp;Submit

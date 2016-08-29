@@ -59,18 +59,45 @@ db.Minio.bufferUpload = function(minioObject){
   return db.Minio.putObjectAsync(minioObject.bucket,minioObject.object, minioObject.buffer, 'application/octet-stream')
 }
 
+function qualifyBucket(bucketName) {
+  let bucket = bucketName;
+  if (typeof bucket === 'string' && bucket[0] === '/') {
+    bucket = bucket.slice(1);
+  }
+  return bucket.toLowerCase();
+}
+
 db.Minio.base64Upload = function(minioObject){
   minioObject.buffer = Buffer.from(minioObject.base64String, 'base64');
   return db.Minio.bufferUpload(minioObject)
 }
 
-db.Minio.downloadLink = function(minioObject){
-  minioObject.bucket = minioObject.bucket || 'qverify'   // Bucket name always in lowercaseObj
-  minioObject.expires = minioObject.expires || 24*60*60;   // Expired in one day
-  minioObject.headers = minioObject.download ? {
-    'response-content-disposition': `attachment; filename=${minioObject.filename ||  minioObject.bucket.split('/').pop()};`
-  } : {};
-  return db.Minio.presignedGetObjectAsync(minioObject.bucket, minioObject.object, minioObject.expires, minioObject.headers)
+db.Minio.base64UploadMulti = (minioObjects) => {
+  return Promise.all(minioObjects.map(m => Minio.base64Upload(m)))
 }
+
+db.Minio.downloadLinkBase = (minioObject) => {
+  const minObj = minioObject;
+  minObj.bucket = minObj.bucket || 'qverify';   // Bucket name always in lowercaseObj
+  minObj.expires = minObj.expires || 24 * 60 * 60;   // Expired in one day
+  minObj.headers = {
+    'response-content-disposition':
+      `attachment; filename="${minObj.name.replace(/[^a-zA-Z0-9-_\.]/g, '')}"` };
+  return db.Minio.presignedGetObjectAsync(
+    minObj.bucket.toLowerCase(), qualifyBucket(minObj.object),
+    minObj.expires, minObj.headers
+  );
+};
+
+db.Minio.downloadLink = (minioObject) => {
+  const minObj = minioObject;
+  minObj.bucket = minObj.bucket || 'qverify';   // Bucket name always in lowercase
+  return db.Minio.statObjectAsync(minObj.bucket, qualifyBucket(minObj.object))
+    .then(() => db.Minio.downloadLinkBase(minObj))
+    .catch((err) => {
+      console.log('Minio: File not found', minObj, err)
+      return `${config.PREFIX}api.${config.DOMAIN}/api/404.pdf`;
+    });
+};
 
 module.exports = db;

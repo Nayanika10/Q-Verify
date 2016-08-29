@@ -100,7 +100,13 @@ export function show(req, res) {
 export function create(req, res) {
   req.body.allocation_status_id = 1;
   return Allocation.create(req.body)
-    .then(respondWithResult(res, 201))
+    .then(allocation => {
+      Case.update({status_id: 1}, {
+        where: {
+          id: req.body.case_id
+        }
+      }).then(() => res.json(allocation))
+    })
     .catch(handleError(res));
 }
 
@@ -170,7 +176,7 @@ export function byStatusId(req, res) {
       include: [
         {
           model: Case,
-          where: {status_id: req.params.status_id},
+          where: {status_id: req.params.status_id.split(',')},
           include: [db.User, db.Status, db.CaseType]
         },
         {model: db.User},

@@ -1,5 +1,10 @@
-.container
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
+  div.container
+    div.navbar-header
+      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
     .panel-heading
       p
         h4.text-ellipsis(style="color:#1750a9" title='{{View.Case.name}}') {{View.Case.name}}
@@ -10,12 +15,14 @@
       .panel.panel-info
         .panel-heading Visiting person name
         .panel-body {{View.Case.CaseAddressVerifications[0].visiting_person_name}}
+
       .panel.panel-info
         .panel-heading Relation with candidate
         .panel-body {{View.Case.CaseAddressVerifications[0].relation_with_candidate}}
       .panel.panel-info
         .panel-heading File
-        .panel-body {{View.Case.CaseAddressVerifications[0].image}}
+        .panel-body
+          a(target="_" ng-href='{{View.URLS.QVERIFY_API}}/cases/{{View.Case.id}}/getFile?access_token={{View.AccessToken}}') download
       .panel.panel-info
         .panel-heading House Type
         .panel-body {{View.Case.CaseAddressVerifications[0].HouseType.name}}
@@ -36,7 +43,7 @@
         .panel-body {{View.Case.CaseCriminalVerifications[0].remark}}
       .panel.panel-warning
         .panel-heading Date Of Birth
-        .panel-body {{View.Case.CaseCriminalVerifications[0].dob}}
+        .panel-body {{View.Case.CaseCriminalVerifications[0].dob | date}}
       .panel.panel-warning
         .panel-heading Father's Name
         .panel-body {{View.Case.CaseCriminalVerifications[0].father_name}}

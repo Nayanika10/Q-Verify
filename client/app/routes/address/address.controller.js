@@ -5,6 +5,7 @@
   function AddressComponent($log, QverifyConnection,toaster ,$stateParams) {
     const LOG_TAG = 'AddressComponent';
     const vm = this;
+    vm.address = {};
     let qverifyConnection = new QverifyConnection();
     qverifyConnection.fetchHouseType().then((house_types)=> {
       vm.HouseType = house_types;

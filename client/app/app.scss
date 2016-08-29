@@ -17,6 +17,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
  * App-wide Styles
  */
 
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -26,12 +27,12 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 // Component styles are injected through grunt
 /* inject:scss */
-@import 'main/main';
 @import 'routes/address/address';
 @import 'routes/allocation/allocation';
 @import 'routes/candidate/candidate';
 @import 'routes/company/company';
 @import 'routes/companyUsers/companyUsers';
+@import 'routes/completed/completed';
 @import 'routes/creation/creation';
 @import 'routes/criminal/criminal';
 @import 'routes/dashboard/dashboard';

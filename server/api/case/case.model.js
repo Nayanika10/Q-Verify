@@ -37,6 +37,7 @@ export default function(sequelize, DataTypes) {
           models.Case.belongsTo(models.Status, {
             foreignKey: `status_id`
           });
+          models.Case.hasMany(models.Allocation);
           models.Case.hasMany(models.CaseAddressVerification);
           models.Case.hasMany(models.CaseEducationVerification);
           models.Case.hasMany(models.CaseSiteVerification);

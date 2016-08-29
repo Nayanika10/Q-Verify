@@ -5,6 +5,7 @@
   function SiteComponent($log, QverifyConnection,toaster ,$stateParams) {
     const LOG_TAG = 'SiteComponent';
     const vm = this;
+    vm.site = {};
     let qverifyConnection = new QverifyConnection();
     qverifyConnection.fetchDesignation().then((designations)=> {
       vm.Designation = designations;

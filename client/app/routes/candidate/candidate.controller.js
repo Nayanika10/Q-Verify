@@ -1,14 +1,17 @@
 'use strict';
 
 (function () {
-  function CandidateComponent($log, QverifyConnection, $stateParams, $state, Restangular) {
+  function CandidateComponent($log, QverifyConnection, $stateParams, $state, Restangular, URLS, OAuthToken) {
     const LOG_TAG = 'CandidateComponent';
     const vm = this;
+    vm.URLS = URLS;
+    vm.AccessToken = OAuthToken.getAccessToken();
     console.log(LOG_TAG, $stateParams.case_id);
     let qverifyConnection = new QverifyConnection();
     qverifyConnection.fetchCase($stateParams.case_id).then((caseObj)=> {
       vm.Case = caseObj;
     });
+
 
     vm.openCase = ()=> {
       switch (vm.Case.case_type_id) {
@@ -31,6 +34,7 @@
       Restangular.one(`cases`, $stateParams.case_id).put({status_id:status_id})
         .then((data)=> {
           console.log("Request successful")
+          location.reload();
         })
         .catch((error)=> {
           console.log("Request failed")

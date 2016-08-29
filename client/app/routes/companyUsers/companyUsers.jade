@@ -6,7 +6,7 @@
           h2.brand
             | Q Verify
 
-          img.user-avatar(src='images/11-256.png')
+          img.user-avatar(src='assets/images/qverify3.png')
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
@@ -16,18 +16,26 @@
               span.sr-only (current)
           li(ng-class="{active: $state.includes('company')}")
             a(ui-sref='company') Company
-          li(ng-class="{active: $state.includes('register')}")
-            a(ui-sref='register') Register
-          li(ng-class="{active: $state.includes('allocation')}")
-            a(ui-sref='allocation') Allocation
-          li(ng-class="{active: $state.includes('creation')}")
-            a(ui-sref='creation') Creation
+          //li(ng-class="{active: $state.includes('register')}")
+          //  a(ui-sref='register') Register
+          //li(ng-class="{active: $state.includes('creation')}")
+          //  a(ui-sref='creation') Creation
+          //li(ng-class="{active: $state.includes('allocation')}")
+          //  a(ui-sref='allocation') Allocation
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-        //div(id="grid1" ui-grid="{ data: myData,columnDefs:columnDefs}")
-        #grid1.grid(ui-grid="gridOpts")
+        .col-md-12
+          .col-md-12.col-xs-4
+            button.btn.btn-primary.pull-right(type='submit' ng-click='CompanyUsers.openRegister()' style='background-color:#083040') Add Users
 
-          .col-md-12
-            .col-md-6.col-xs-4
-              button.btn.btn-primary.pull-right(type='submit' ng-click='CompanyUsers.openRegister()') Add Users
+
+        .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
+          .panel-heading.font-bold.h4.text-ellipsis.bg-light
+            .fa.fa-mouse-pointer.text-dark
+            | &nbsp;&nbsp; Users in Company
+          #grid1.grid(ui-grid="gridOpts")
+
+                    //.col-md-12
+                    //  .col-md-6.col-xs-4
+                    //    button.btn.btn-primary.pull-right(type='submit' ng-click='CompanyUsers.openRegister()' style='background-color:#083040') Add Users
 

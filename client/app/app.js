@@ -55,7 +55,7 @@ angular.module('appApp', [
 
     RestangularProvider.setBaseUrl(URLS.QVERIFY_API);
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('/login');
 
     $locationProvider.html5Mode(true);
 

@@ -5,6 +5,7 @@
   function CriminalComponent($log, $stateParams, QverifyConnection,toaster) {
     const LOG_TAG = 'CriminalComponent';
     const vm = this;
+    vm.criminal = {};
     let qverifyConnection = new QverifyConnection();
     qverifyConnection.fetchDesignation().then((designations)=> {
       vm.Designation = designations;

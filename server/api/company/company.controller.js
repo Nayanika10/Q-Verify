@@ -60,7 +60,9 @@ function handleError(res, statusCode) {
 
 // Gets a list of Companys
 export function index(req, res) {
-  return Company.findAll()
+  return Company.findAll({
+      attributes: ['id', 'name','created_on','address'],
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

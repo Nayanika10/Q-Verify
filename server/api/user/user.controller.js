@@ -62,7 +62,13 @@ function handleError(res, statusCode) {
 
 // Gets a list of Users
 export function index(req, res) {
-  return User.findAll()
+  return User.findAll({
+    attributes: ['id', 'name'],
+    where: whereClause,
+    include: [
+      { model: Company, attributes:['name']},
+       ]
+  })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -155,14 +161,13 @@ export function register(req, res) {
   //console.log(req.params);
   //console.log(req.query);
   //console.log(req.body);
-
   return User.create(
     req.body
   ).then((user)=> {
     return res.json(user);
   }).catch((err)=> {
     console.log(err);
-    return res.status(404).json("Invalid data")
+    return res.status(404).json(err)
   });
 }
 

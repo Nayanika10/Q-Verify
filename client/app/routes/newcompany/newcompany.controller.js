@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  function NewcompanyComponent(QverifyConnection,  toaster) {
+  function NewcompanyComponent(QverifyConnection,  toaster, $state) {
     const LOG_TAG = 'NewcompanyComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection;
@@ -23,7 +23,9 @@
       var options = {};
 
       vm.create = function () {
-        qverifyConnection.createCompany(vm.company);
+        qverifyConnection.createCompany(vm.company).then(()=>{
+          $state.go("company");
+        });
       };
     };
     qverifyConnection.fetchLocation().then((locations)=> {

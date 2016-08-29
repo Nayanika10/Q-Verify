@@ -5,6 +5,7 @@
   function EducationComponent($log, QverifyConnection,toaster,$stateParams) {
     const LOG_TAG = 'EducationComponent';
     const vm = this;
+    vm.education = {};
     let qverifyConnection = new QverifyConnection();
     //qverifyConnection.fetchStatus().then((status)=> {
     //  vm.Status = status;

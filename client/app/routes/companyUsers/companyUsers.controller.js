@@ -21,13 +21,13 @@ class CompanyUsersComponent {
 
       enableFiltering: true,
       columnDefs:[
-        {name: 'User', field: 'name'},
+        {name: 'User', field: 'username'},
       ]
     };
   }
 
   openRegister() {
-    this.$state.go("register")
+    this.$state.go("register", { cid: this.$stateParams.id })
   }
 
   fetchUsers(){

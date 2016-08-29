@@ -68,13 +68,15 @@
       padding: 0 20px 20px 20px;
       overflow-x: hidden;
       overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-      background-color: #3ca2e0;
+      //background-color: #3ca2e0;
+      background-color: #083040;
       border-right: 1px solid #eee;
     }
   }
 
   .nav > li > a:hover, .nav > li > a:focus {
-    background: #2698dd;;
+    //background-color: #2698dd;
+    background: #0c4055;;
   }
 
   /* Sidebar navigation */
@@ -93,7 +95,8 @@
   .nav-sidebar > .active > a:hover,
   .nav-sidebar > .active > a:focus {
     color: #fff;
-    background-color: #2698dd;;
+    //background-color: #2698dd;
+    background-color: #0c4055;
   }
 
 

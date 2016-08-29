@@ -1,3 +1,9 @@
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+  div.container
+    div.navbar-header
+      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
   //toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
@@ -46,13 +52,7 @@
                     | Designation
                     select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in Criminal.Designation' ng-model='Criminal.criminal.designation_id'  )
 
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='police station name' ng-model='Criminal.criminal.police_station_name' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='police authority name' ng-model='Criminal.criminal.police_authority_name' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='father name' ng-model='Criminal.criminal.father_name' required)
-            //.list-group-item: input.form-control.no-border(type='text' placeholder='remarks' ng-model='Criminal.criminal.remark' required)
-            //.list-group-item: input.form-control.no-border(type='date' placeholder='DOB' ng-model='Criminal.criminal.dob' required)
-            //.list-group-item: select.form-control.no-border(type='text' placeholder='designation id' ng-options='item.id as item.name for item in Criminal.Designation' ng-model='Criminal.criminal.designation_id' required)
 
-            button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' )
+            button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')
               i.fa.fa-upload
               | &nbsp;&nbsp;Submit
