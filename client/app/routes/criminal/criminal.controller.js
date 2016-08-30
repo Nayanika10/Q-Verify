@@ -2,14 +2,14 @@
 
 (function(){
 
-  function CriminalComponent($log, $stateParams, QverifyConnection,toaster) {
+  function CriminalComponent($log, $stateParams, QverifyConnection,toaster,$state) {
     const LOG_TAG = 'CriminalComponent';
     const vm = this;
     vm.criminal = {};
     let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchDesignation().then((designations)=> {
-      vm.Designation = designations;
-    });
+    //qverifyConnection.fetchDesignation().then((designations)=> {
+    //  vm.Designation = designations;
+    //});
     qverifyConnection.fetchStatus().then((status)=> {
       vm.Status = status;
     });
@@ -17,6 +17,7 @@
       vm.criminal.case_id = $stateParams.case_id;
       console.log(vm.criminal.dob);
       qverifyConnection.createCriminal(vm.criminal);
+      $state.go("completed")
       //toaster.pop('success', "Criminal Created")
     };
 }

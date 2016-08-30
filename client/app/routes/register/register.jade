@@ -43,7 +43,7 @@
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Company
-                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' )
+                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' ng-disabled="true" )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
@@ -51,12 +51,12 @@
                             | Username
                             input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' )
 
-                    //.line.line-dashed.b-b.line-lg.pull-in
-                    //  .row
-                    //    .col-md-12.col-sm-12.col-xs-12
-                    //      label.col-xs-12.input-group
-                    //        | Name
-                    //        input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  )
+                    .line.line-dashed.b-b.line-lg.pull-in
+                      .row
+                        .col-md-12.col-sm-12.col-xs-12
+                          label.col-xs-12.input-group
+                            | Name
+                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  )
 
 
                     //.line.line-dashed.b-b.line-lg.pull-in

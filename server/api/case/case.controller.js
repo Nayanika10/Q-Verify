@@ -91,10 +91,13 @@ export function show(req, res) {
         id: req.params.id
       },
       include: [
-        {model: CaseCriminalVerification, include: [db.Designation]},
+        //{model: CaseCriminalVerification, include: [db.Designation]},
+        {model: CaseCriminalVerification},
         {model: CaseAddressVerification, include: [db.HouseType]},
-        {model: CaseEducationVerification, include: [db.Degree, db.Designation]},
-        {model: CaseSiteVerification, include: [db.Designation]},
+        {model: CaseEducationVerification},
+        {model: CaseSiteVerification},
+        //{model: CaseEducationVerification, include: [db.Degree, db.Designation]},
+        //{model: CaseSiteVerification, include: [db.Designation]},
         {model: User}
       ]
     })
@@ -174,7 +177,7 @@ export function create(req, res) {
 
       return casePr.then(()=> {
         return res.json(caseObj);
-      }).catch(err => handleError(res, 500, err));
+      }).catch
 
     })
     .catch(err => handleError(res, 500, err));

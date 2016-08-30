@@ -2,7 +2,7 @@
 
 (function(){
 
-  function AddressComponent($log, QverifyConnection,toaster ,$stateParams) {
+  function AddressComponent($log, QverifyConnection,toaster ,$stateParams, $state) {
     const LOG_TAG = 'AddressComponent';
     const vm = this;
     vm.address = {};
@@ -13,6 +13,7 @@
     vm.createAddress = function () {
       vm.address.case_id = $stateParams.case_id;
       qverifyConnection.createAddress(vm.address)
+      $state.go("completed")
         //.then(res=> toaster.pop('success', "Address Created"))
         //.catch(err => toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
     };

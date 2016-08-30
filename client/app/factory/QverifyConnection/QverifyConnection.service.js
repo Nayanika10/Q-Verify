@@ -85,44 +85,44 @@ angular.module('appApp')
 
     };
 
-    QVC.prototype.fetchDegree = ()=> {
-      let defer = $q.defer();
-      Restangular.all(`degrees`).getList()
-        .then((data)=> {
-          defer.resolve(data);
-        })
-        .catch((error)=> {
-          defer.reject(error);
-        });
-      return defer.promise;
+    //QVC.prototype.fetchDegree = ()=> {
+    //  let defer = $q.defer();
+    //  Restangular.all(`degrees`).getList()
+    //    .then((data)=> {
+    //      defer.resolve(data);
+    //    })
+    //    .catch((error)=> {
+    //      defer.reject(error);
+    //    });
+    //  return defer.promise;
+    //
+    //};
 
-    };
+    //QVC.prototype.fetchDesignation = ()=> {
+    //  let defer = $q.defer();
+    //  Restangular.all(`designations`).getList()
+    //    .then((data)=> {
+    //      defer.resolve(data);
+    //    })
+    //    .catch((error)=> {
+    //      defer.reject(error);
+    //    });
+    //  return defer.promise;
+    //
+    //};
 
-    QVC.prototype.fetchDesignation = ()=> {
-      let defer = $q.defer();
-      Restangular.all(`designations`).getList()
-        .then((data)=> {
-          defer.resolve(data);
-        })
-        .catch((error)=> {
-          defer.reject(error);
-        });
-      return defer.promise;
-
-    };
-
-    QVC.prototype.fetchUniversityName = ()=> {
-      let defer = $q.defer();
-      Restangular.all(`university_names`).getList()
-        .then((data)=> {
-          defer.resolve(data);
-        })
-        .catch((error)=> {
-          defer.reject(error);
-        });
-      return defer.promise;
-
-    };
+    //QVC.prototype.fetchUniversityName = ()=> {
+    //  let defer = $q.defer();
+    //  Restangular.all(`university_names`).getList()
+    //    .then((data)=> {
+    //      defer.resolve(data);
+    //    })
+    //    .catch((error)=> {
+    //      defer.reject(error);
+    //    });
+    //  return defer.promise;
+    //
+    //};
 
     QVC.prototype.fetchStatus = ()=> {
       let defer = $q.defer();
@@ -318,18 +318,18 @@ angular.module('appApp')
 
     };
 
-    QVC.prototype.fetchLocation = (location)=> {
-      let defer = $q.defer();
-      Restangular.all(`locations`).getList()
-        .then((data)=> {
-          defer.resolve(data);
-        })
-        .catch((error)=> {
-          defer.reject(error);
-        });
-      return defer.promise;
-
-    };
+    //QVC.prototype.fetchLocation = (location)=> {
+    //  let defer = $q.defer();
+    //  Restangular.all(`locations`).getList()
+    //    .then((data)=> {
+    //      defer.resolve(data);
+    //    })
+    //    .catch((error)=> {
+    //      defer.reject(error);
+    //    });
+    //  return defer.promise;
+    //
+    //};
 
     QVC.prototype.fetchState = (State)=> {
       let defer = $q.defer();

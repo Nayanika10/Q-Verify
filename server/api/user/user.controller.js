@@ -63,10 +63,10 @@ function handleError(res, statusCode) {
 // Gets a list of Users
 export function index(req, res) {
   return User.findAll({
-    attributes: ['id', 'name'],
+    attributes: ['id', 'name','username'],
     where: whereClause,
     include: [
-      { model: Company, attributes:['name']},
+      { model: Company, attributes:['name','username']},
        ]
   })
     .then(respondWithResult(res))

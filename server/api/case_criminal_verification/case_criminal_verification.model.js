@@ -13,15 +13,16 @@ export default function(sequelize, DataTypes) {
     remark: DataTypes.STRING,
     dob: DataTypes.DATE,
     father_name: DataTypes.STRING,
+    designation: DataTypes.STRING,
   }, {
   tableName: `case_criminal_verifications`,
     underscored: true,
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.CaseCriminalVerification.belongsTo(models.Designation, {
-          foreignKey: `designation_id`
-        });
+        //models.CaseCriminalVerification.belongsTo(models.Designation, {
+        //  foreignKey: `designation_id`
+        //});
         models.CaseCriminalVerification.belongsTo(models.Case, {
           foreignKey: `case_id`
         });

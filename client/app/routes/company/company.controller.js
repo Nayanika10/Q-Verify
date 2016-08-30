@@ -19,8 +19,12 @@
           cellTemplate: '<div class="ui-grid-cell-contents">'
           + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ COL_FIELD }} ">{{ COL_FIELD }}</a>' + '</div>'
         },
-        {name: 'Company', field: 'name'},
+        {name: 'Company', field: 'name' },
+
+        {name: 'User-Type', field: 'UserType.name'},
+
         {name: 'Address', field: 'address'},
+
         {name: 'Created on', field:'created_on', type: 'date', cellFilter: 'date:"dd-MM-yy "'}
 
       ]

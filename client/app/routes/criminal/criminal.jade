@@ -50,7 +50,8 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Designation
-                    select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in Criminal.Designation' ng-model='Criminal.criminal.designation_id'  )
+                    input.form.form-control(type='Designation' placeholder='eg.designation' ng-model='Criminal.Criminal.criminal.designation'  )
+                    //select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in Criminal.Designation' ng-model='Criminal.criminal.designation_id'  )
 
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')

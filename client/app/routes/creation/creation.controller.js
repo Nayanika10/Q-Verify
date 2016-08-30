@@ -20,9 +20,9 @@
     qverifyConnection.fetchCaseTypes().then((case_types)=> {
       vm.CaseTypes = case_types;
     });
-    qverifyConnection.fetchDegree().then((degrees)=> {
-      vm.Degree = degrees;
-    });
+    //qverifyConnection.fetchDegree().then((degrees)=> {
+    //  vm.Degree = degrees;
+    //});
     //qverifyConnection.fetchState().then((states)=> {
     //  vm.State = states;
     //});

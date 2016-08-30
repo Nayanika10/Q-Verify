@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Company,User} from '../../sqldb';
+import db, {Company,User,UserType} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -61,7 +61,8 @@ function handleError(res, statusCode) {
 // Gets a list of Companys
 export function index(req, res) {
   return Company.findAll({
-      attributes: ['id', 'name','created_on','address'],
+      attributes: ['id', 'name','created_on','address','user_type_id'],
+    include: [UserType]
     })
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -73,7 +74,7 @@ export function show(req, res) {
     where: {
       id: req.params.id
     },
-    include: [db.Location]
+
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))

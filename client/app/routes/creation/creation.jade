@@ -51,7 +51,7 @@
 
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
-                          | Users in company
+                          | Users in
                           select.form.form-control(ng-options="item.id as item.cname for item in Creation.Users" ng-model="Creation.case.user_id" )
 
                     .row(ng-if='Creation.case.case_type_id != undefined')
@@ -101,7 +101,7 @@
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
                           | State
-                          input.form.form-control(type="text" placeholder='eg. state'  ng-model='Creation.case.state' q-text-maxlength="60" )
+                          input.form.form-control(type="text" placeholder='eg. state' ng-model='Creation.case.state'   )
 
                       .col-md-6.col-sm-12.col-xs-6
                         label.col-xs-12.input-group
@@ -123,7 +123,7 @@
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
                           | Degree
-                          select.form.form-control(ng-options="item.id as item.name for item in Creation.Degree" ng-model="Creation.case.education.degree_id" )
+                          input.form.form-control(type="text" placeholder='eg. degree' ng-model="Creation.case.education.degree" )
 
                     .row(ng-if = 'Creation.case.case_type_id != undefined')
                       .col-md-12.col-sm-12.col-xs-12
@@ -135,7 +135,7 @@
 
                     .row(ng-if='Creation.case.case_type_id != undefined')
                       .col-md-4.col-xs-12
-                        button.btn.btn-primary.pull-left(type='submit' ng-click='Creation.create()' style='background-color:#083040' ui-sref='overview' )
+                        button.btn.btn-primary.pull-left(type='submit' ng-click='Creation.create()' style='background-color:#083040'  )
                           i.fa.fa-upload
                           | &nbsp;&nbsp;Submit
 

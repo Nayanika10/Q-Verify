@@ -19,13 +19,13 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | University Name
-                    select.form.form-control(type='text' placeholder='eg.university name id' ng-options='item.id as item.name for item in Education.UniversityName' ng-model='Education.education.university_name_id'  )
+                    input.form.form-control(type='text' placeholder='eg.university name'  ng-model='Education.education.university_name'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Degree
-                    select.form.form-control(type='text' placeholder='eg.Degree' ng-options='item.id as item.name for item in Education.Degree' ng-model='Education.education.degree_id'  )
+                    input.form.form-control(type='text' placeholder='eg.Degree'  ng-model='Education.education.degree'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
@@ -37,7 +37,8 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Designation
-                    select.form.form-control(type='text' placeholder='eg.Designation' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id'  )
+                    input.form.form-control(type='text' placeholder='eg.Designation' ng-model='Education.education.designation'  )
+                    //select.form.form-control(type='text' placeholder='eg.Designation' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12

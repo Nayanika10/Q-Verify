@@ -31,6 +31,7 @@ export default function (sequelize, DataTypes) {
       comment: DataTypes.STRING,
       concern_person: DataTypes.STRING,
       company_name: DataTypes.STRING,
+      designation: DataTypes.STRING,
     }
     , {
       tableName: `case_site_verifications`,
@@ -41,9 +42,9 @@ export default function (sequelize, DataTypes) {
           models.CaseSiteVerification.belongsTo(models.Case, {
             foreignKey: `case_id`
           });
-          models.CaseSiteVerification.belongsTo(models.Designation, {
-            foreignKey: `designation_id`
-          });
+          //models.CaseSiteVerification.belongsTo(models.Designation, {
+          //  foreignKey: `designation_id`
+          //});
 
         }
       }

@@ -10,6 +10,7 @@ export default function(sequelize, DataTypes) {
     },
     name: DataTypes.STRING,
     address: DataTypes.STRING,
+    location: DataTypes.STRING,
     is_active: DataTypes.INTEGER
   }, {
     tableName: `companys`,
@@ -19,9 +20,9 @@ export default function(sequelize, DataTypes) {
     createdAt: 'created_on',
     classMethods: {
       associate(models) {
-        models.Company.belongsTo(models.Location, {
-          foreignKey: `location_id`
-        });
+        //models.Company.belongsTo(models.Location, {
+        //  foreignKey: `location_id`
+        //});
         models.Company.belongsTo(models.UserType, {
           foreignKey: `user_type_id`
         });

@@ -49,14 +49,14 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         .panel-body {{View.Case.CaseCriminalVerifications[0].father_name}}
       .panel.panel-warning
         .panel-heading Designation
-        .panel-body {{View.Case.CaseCriminalVerifications[0].Designation.name}}
+        .panel-body {{View.Case.CaseCriminalVerifications[0].designation}}
 
 
       // education //
     ul.list-group(ng-show="View.Case.CaseEducationVerifications.length>0")
       .panel.panel-success
         .panel-heading Degree
-        .panel-body {{View.Case.CaseEducationVerifications[0].Degree.name}}
+        .panel-body {{View.Case.CaseEducationVerifications[0].degree}}
       .panel.panel-success
         .panel-heading Role no
         .panel-body {{View.Case.CaseEducationVerifications[0].role_no}}
@@ -68,10 +68,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         .panel-body {{View.Case.CaseEducationVerifications[0].verifier_name}}
       .panel.panel-success
         .panel-heading Designation
-        .panel-body {{View.Case.CaseEducationVerifications[0].Designation.name}}
+        .panel-body {{View.Case.CaseEducationVerifications[0].designation}}
       .panel.panel-success
         .panel-heading University name
-        .panel-body {{View.Case.CaseEducationVerifications[0].university_name_id}}
+        .panel-body {{View.Case.CaseEducationVerifications[0].university_name}}
       .panel.panel-success
         .panel-heading Remarks
         .panel-body {{View.Case.CaseEducationVerifications[0].remarks}}
@@ -129,7 +129,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         .panel-body {{View.Case.CaseSiteVerifications[0].neighbours_name}}
       .panel.panel-danger
         .panel-heading Designation
-        .panel-body {{View.Case.CaseSiteVerifications[0].Designation.name}}
+        .panel-body {{View.Case.CaseSiteVerifications[0].designation}}
       .panel.panel-danger
         .panel-heading Remarks
         .panel-body {{View.Case.CaseSiteVerifications[0].remarks}}
