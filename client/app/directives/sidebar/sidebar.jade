@@ -1,0 +1,17 @@
+.col-sm-3.col-md-2.sidebar
+  .text-center
+    h2.brand
+      | Q Verify
+
+    img.user-avatar(src='assets/images/qverify1.png')
+    br
+    a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ng-click='$ctrl.logout()') Logout
+  ul.nav.nav-sidebar
+    li(ng-class="{active: $state.includes('overview')}")
+      a(ui-sref='overview')
+        | Candidates
+        span.sr-only (current)
+    li(ng-class="{active: $state.includes('case')}")
+      a(ui-sref='case') Cases
+    li(ng-class="{active: $state.includes('company')}")
+      a(ui-sref='company') Company
