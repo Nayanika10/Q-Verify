@@ -13,7 +13,7 @@ export default function(sequelize, DataTypes) {
     remark: DataTypes.STRING,
     dob: DataTypes.DATE,
     father_name: DataTypes.STRING,
-    designation: DataTypes.STRING,
+    designation:DataTypes.STRING,
   }, {
   tableName: `case_criminal_verifications`,
     underscored: true,
@@ -23,9 +23,8 @@ export default function(sequelize, DataTypes) {
         //models.CaseCriminalVerification.belongsTo(models.Designation, {
         //  foreignKey: `designation_id`
         //});
-        models.CaseCriminalVerification.belongsTo(models.Case, {
-          foreignKey: `case_id`
-        });
+        models.CaseCriminalVerification.hasMany(models.CandidateMap);
+        //});
 
       }
     }

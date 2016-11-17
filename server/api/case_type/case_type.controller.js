@@ -104,7 +104,7 @@ export function update(req, res) {
 export function destroy(req, res) {
   return CaseType.find({
     where: {
-      _id: req.params.id
+      id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))

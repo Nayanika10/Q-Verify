@@ -10,7 +10,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
   div.m-t-xl.padder.no-margin(style="padding-left:2px")
     .hbox
       .wrapper-md.bg-light
-        form.form-validation(name="form" ng-submit='Education.createEducation()')
+        form.form-validation(name="form" ng-submit='$ctrl.update()')
 
 
           .list-group.list-group-sm.m-b-md
@@ -19,45 +19,52 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | University Name
-                    input.form.form-control(type='text' placeholder='eg.university name'  ng-model='Education.education.university_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.university name'  ng-model='$ctrl.data.university_name' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Degree
-                    input.form.form-control(type='text' placeholder='eg.Degree'  ng-model='Education.education.degree'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Degree'  ng-model='$ctrl.data.degree' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Remarks
-                    input.form.form-control(type='text' placeholder='eg.Remarks' ng-model='Education.education.remarks'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Remarks' ng-model='$ctrl.data.remarks'  required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Designation
-                    input.form.form-control(type='text' placeholder='eg.Designation' ng-model='Education.education.designation'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Designation' ng-model='$ctrl.data.designation'  required )
                     //select.form.form-control(type='text' placeholder='eg.Designation' ng-options='item.id as item.name for item in Education.Designation' ng-model='Education.education.designation_id'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Verifier name
-                    input.form.form-control(type='text' placeholder='eg.verifier name' ng-model='Education.education.verifier_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.verifier name' ng-model='$ctrl.data.verifier_name' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Role no
-                    input.form.form-control(type='text' placeholder='eg.role no' ng-model='Education.education.role_no'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.role no' ng-model='$ctrl.data.role_no' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Passing year
-                    input.form.form-control(type='text' placeholder='eg.passing year' ng-model='Education.education.passing_year'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.passing year' ng-model='$ctrl.data.passing_year' required )
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' )
               i.fa.fa-upload
-              | &nbsp;&nbsp;Submit
+              | &nbsp;&nbsp;Update

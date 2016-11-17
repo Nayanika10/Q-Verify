@@ -10,7 +10,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
   div.m-t-xl.padder.no-margin(style="padding-left:2px")
     .hbox
       .wrapper-md.bg-light
-        form.form-validation(name="form" ng-submit='Address.createAddress()')
+        form.form-validation(name="form" ng-submit='$ctrl.update()')
 
 
           .list-group.list-group-sm.m-b-md
@@ -19,44 +19,51 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Visiting address
-                    input.form.form-control(type='text' placeholder='eg.Visiting address' ng-model='Address.address.visiting_address'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Visiting address' ng-model='$ctrl.data.visiting_address'   required  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Visiting person name
-                    input.form.form-control(type='text' placeholder='eg.Visiting person name' ng-model='Address.address.visiting_person_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Visiting person name' ng-model='$ctrl.data.visiting_person_name'    required  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Relation with candidate
-                    input.form.form-control(type='text' placeholder='eg.Relation with candidate' ng-model='Address.address.relation_with_candidate'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.Relation with candidate' ng-model='$ctrl.data.relation_with_candidate'  required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | House types id
-                    select.form.form-control(type='text' placeholder='eg.House types id' ng-options='item.id as item.name for item in Address.HouseType' ng-model='Address.address.house_type_id'  )
+                    span.text-danger *
+                    select.form.form-control( ng-options='item.id as item.name for item in $ctrl.HouseType' ng-model='$ctrl.data.house_type_id' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Years of staying
-                    input.form.form-control(type='text' placeholder='eg.years of staying' ng-model='Address.address.years_of_staying'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.years of staying' ng-model='$ctrl.data.years_of_staying'  required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Image
-                    input.form.form-control(type='file' placeholder='eg.image' ng-model='Address.address.img' base-sixty-four-input maxsize="10000" name='file'  )
+                    span.text-danger *
+                    input.form.form-control(type='file' placeholder='eg.image' ng-model='$ctrl.data.img' base-sixty-four-input maxsize="10000" name='file'  required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Remarks
-                    input.form.form-control(type='text' placeholder='eg.remarks ' ng-model='Address.address.remark'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.remarks ' ng-model='$ctrl.data.remarks'  required )
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')
               i.fa.fa-upload
-              | &nbsp;&nbsp;Submit
+              | &nbsp;&nbsp;Update

@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {CaseAddressVerification, Minio, Case} from '../../sqldb';
+import db, {CaseAddressVerification, Minio, Candidate} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -65,22 +65,18 @@ export function index(req, res) {
 
 // Gets a single CaseAddressVerification from the DB
 export function show(req, res) {
-  return CaseAddressVerification.find({
-      where: {
-        _id: req.params.id
-      }
-    })
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  return CaseAddressVerification
+    .find({where: {id: req.params.id}})
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json(err));
 }
 
 export function getFile(req, res) {
-  return CaseAddressVerification.findById(req.params.id).then(caseObj => {
-    console.log(caseObj.image)
-    if(!caseObj.image) return res.status(404).json({message: 'not found'})
+  return CaseAddressVerification.findById(req.params.id).then(candidateObj => {
+    console.log(candidateObj.image)
+    if(!candidateObj.image) return res.status(404).json({message: 'not found'})
     return Minio.downloadLink({
-      object: caseObj.image,
+      object: candidateObj.image,
       download: true,
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
@@ -90,51 +86,49 @@ export function getFile(req, res) {
 export function create(req, res) {
   req.body.status_id = 1;
   return db.CaseAddressVerification.create(req.body)
-    .then((caseObj) => {
+    .then((candidateObj) => {
       const { base64:base64String, filename } = req.body.img;
       const extention = filename.substring(filename.lastIndexOf('.') + 1);
 
       // only upload if valid file extension
-      if (~['doc', 'docx', 'pdf', 'rtf', 'txt'].indexOf(extention)) {
+      if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png'].indexOf(extention)) {
 
-        const rangeFolder = caseObj.id - (caseObj.id % 10000);
+        const rangeFolder = candidateObj.id - (candidateObj.id % 10000);
         const minioObject = {
           // object: 'cases/0/5/5.pdf'
-          object: `case_address_verifications/${rangeFolder}/${caseObj.id}/${caseObj.id}.${extention.toLowerCase()}`,
+          object: `case_address_verifications/${rangeFolder}/${candidateObj.id}/${candidateObj.id}.${extention.toLowerCase()}`,
           base64String: base64String,
         }
 
         return Minio.base64Upload(minioObject).then(re => {
-          return caseObj.update({image: minioObject.object}).then(()=>{
-
+          return candidateObj.update({image: minioObject.object}).then(()=>{
             console.log("file saved success")
-            return Case.update({status_id:2},{
-              where:{id: caseObj.case_id}
+            return Candidate.update({status_id:2},{
+              where:{id: candidateObj.candidate_id}
             }).then(()=>{
-              return res.json(caseObj);
+              return res.json(candidateObj);
             }).catch(err => handleError(res, 500, err));
           })
         }).catch(err => handleError(res, 500, err));
       }
-      return res.json(caseObj);
+      return Candidate.update({status_id:2},{
+        where:{id: candidateObj.candidate_id}
+      }).then(()=>{
+        return res.json(candidateObj);
+      }).catch(err => handleError(res, 500, err));;
     })
     .catch(err => handleError(res, 500, err));
 }
 
 // Updates an existing CaseAddressVerification in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  return CaseAddressVerification.find({
-      where: {
-        _id: req.params.id
-      }
-    })
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  delete req.body.image;
+  return CaseAddressVerification
+    .update(
+      req.body,
+      { where: {id: req.params.id} })
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json(err));
 }
 
 // Deletes a CaseAddressVerification from the DB

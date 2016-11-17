@@ -1,29 +1,7 @@
 .dashboard-page
   .container-fluid
     .row
-      .col-sm-3.col-md-2.sidebar
-        .text-center
-          h2.brand
-            | Q Verify
-
-          img.user-avatar(src='assets/images/qverify3.png')
-          br
-          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-        ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview')
-              | Cases
-              span.sr-only (current)
-          li(ng-class="{active: $state.includes('company')}")
-            a(ui-sref='company') Company
-          //li(ng-class="{active: $state.includes('register')}")
-          //  a(ui-sref='register') Register
-          //li(ng-class="{active: $state.includes('creation')}")
-          //              a(ui-sref='creation') Creation
-          //li(ng-class="{active: $state.includes('allocation')}")
-          //  a(ui-sref='allocation') Allocation
-
-
+      sidebar
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
         toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
@@ -39,20 +17,39 @@
                     // Form Items
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
-                        .col-md-6.col-sm-6.col-xs-12
+                        .col-md-4.col-sm-4.col-xs-12
                           label.col-xs-12.input-group
-                            | Case
-                            select.form.form-control(ng-options="item.id as item.name for item in Allocation.Case" ng-model="Allocation.allocation.case_id" )
+                            | Client
+                            span.text-danger *
+                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.Client" ng-model="ctrl.allocation.client_id" ng-change='ctrl.getCandidates()')
+                              option(value="") Please select Client
+                        .col-md-4.col-sm-4.col-xs-12
+                          label.col-xs-12.input-group
+                            | Candidate
+                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.Candidate" ng-model="ctrl.allocation.candidate_id" ng-change='ctrl.getCandidateCase()' )
+                              option(value="") Please select Candidate
+                        .col-md-4.col-sm-4.col-xs-12
+                          label.col-xs-12.input-group
+                            | Case Types
+                            select.form.form-control(ng-options="item as item.name for item in ctrl.CaseTypes" ng-model="ctrl.allocation.caseType"  )
+                              option(value="") Please select Case Types
                     .line.line-dashed.b-b.line-lg.pull-in
-                      .row
+                       .row
                         .col-md-6.col-sm-6.col-xs-12
                           label.col-xs-12.input-group
                             | Vendor
-                            select.form.form-control(ng-options="item.id as item.name for item in Allocation.Vendor" ng-model="Allocation.allocation.user_id")
+                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.Vendor" ng-model="ctrl.allocation.vendor_id" ng-change='ctrl.getUsers(ctrl.allocation.vendor_id)')
+                              option(value="") Please select Vendor
+                        .col-md-6.col-sm-6.col-xs-12
+                          label.col-xs-12.input-group
+                            | Users
+                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.users" ng-model="ctrl.allocation.user_id" )
+                              option(value="") Please select user
+
                     .line.line-dashed.b-b.line-lg.pull-in
                     .row
                       .col-md-4.col-xs-12
                         //ng-disabled='AllocationDataForm.$invalid'
-                        button.btn.btn-primary.pull-left(type='submit' ng-click='Allocation.create()' style='background-color:#083040'  )
+                        button.btn.btn-primary.pull-left(type='submit' ng-click='ctrl.create()' ui-sref='overview' style='background-color:#083040'  )
                           i.fa.fa-upload
                           | &nbsp;&nbsp;Submit

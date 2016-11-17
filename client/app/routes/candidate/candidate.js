@@ -4,7 +4,7 @@ angular.module('appApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('candidate', {
-        url: '/candidate/:case_id',
+        url: '/candidate',
         template: '<candidate></candidate>'
       });
   });

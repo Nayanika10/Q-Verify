@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import {CaseCriminalVerification, Case} from '../../sqldb';
+import {CaseCriminalVerification, Candidate} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -67,13 +67,9 @@ export function index(req, res) {
 
 // Gets a single CaseCriminalVerification from the DB
 export function show(req, res) {
-  return CaseCriminalVerification.find({
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
+  return CaseCriminalVerification
+    .find({ where: { id: req.params.id }})
+    .then(data => res.json(data))
     .catch(handleError(res));
 }
 
@@ -81,8 +77,8 @@ export function show(req, res) {
 export function create(req, res) {
   return CaseCriminalVerification.create(req.body)
     .then(caseTypeObj=> {
-      return Case.update({status_id:2},{
-        where:{id: caseTypeObj.case_id}
+      return Candidate.update({status_id:2},{
+        where:{id: caseTypeObj.candidate_id}
       }).then(()=>{
         return res.json(caseTypeObj);
       })
@@ -92,17 +88,9 @@ export function create(req, res) {
 
 // Updates an existing CaseCriminalVerification in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  return CaseCriminalVerification.find({
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(respondWithResult(res))
+  return CaseCriminalVerification
+    .update(req.body, { where: {id: req.params.id}})
+    .then(data => res.json(data))
     .catch(handleError(res));
 }
 

@@ -120,6 +120,7 @@ export function destroy(req, res) {
 export function companyUsers(req, res) {
   console.log(req.params.id)
   return User.findAll({
+    attributes: ['id', 'name','username'],
     where: {
       company_id: req.params.id,
     }

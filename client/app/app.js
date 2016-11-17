@@ -9,7 +9,6 @@ angular.module('appApp', [
   'ui.bootstrap',
   'restangular',
   'ngAnimate',
-  //'angularMoment',
   'toaster',
   //'chart.js'
   "naif.base64",

@@ -4,10 +4,11 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./client.controller');
+var controller = require('./user.controller.js');
 
 var router = express.Router();
 
-router.get('/', controller.index);
+router.get('/:clientId/users', controller.index);
+
 
 module.exports = router;

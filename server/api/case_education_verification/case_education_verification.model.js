@@ -17,6 +17,7 @@ export default function(sequelize, DataTypes) {
     designation:DataTypes.STRING,
 
 
+
   }, {
     tableName: `case_education_verifications`,
     underscored: true,
@@ -32,9 +33,10 @@ export default function(sequelize, DataTypes) {
         //models.CaseEducationVerification.belongsTo(models.Designation, {
         //  foreignKey: `designation_id`
         //});
-        models.CaseEducationVerification.belongsTo(models.Case, {
-          foreignKey: `case_id`
-        });
+        //models.CaseEducationVerification.belongsTo(models.Case, {
+        //  foreignKey: `case_id`
+        //});
+        models.CaseEducationVerification.hasMany(models.CandidateMap);
       }
     }
   });

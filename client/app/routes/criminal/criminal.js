@@ -3,8 +3,8 @@
 angular.module('appApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('criminal', {
-        url: '/case/:case_id/criminal',
+      .state('allocation.criminal', {
+        url: '/criminal/:criminal_id',
         template: '<criminal></criminal>'
       });
   });

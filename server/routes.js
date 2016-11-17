@@ -9,6 +9,8 @@ import path from 'path';
 
 export default function (app) {
   // Insert routes below
+  app.use('/api/candidates', app.oauth.authenticate(), require('./api/candidate'));
+  app.use('/api/candidate_maps', require('./api/candidate_map'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
   app.use('/api/users_phone_relations', app.oauth.authenticate(), require('./api/users_phone_relation'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
@@ -19,7 +21,7 @@ export default function (app) {
   app.use('/api/status', app.oauth.authenticate(), require('./api/status'));
   app.use('/api/allocation_status', app.oauth.authenticate(), require('./api/allocation_status'));
   app.use('/api/allocations', app.oauth.authenticate(), require('./api/allocation'));
-  app.use('/api/cases', app.oauth.authenticate(), require('./api/case'));
+  //app.use('/api/cases', app.oauth.authenticate(), require('./api/case'));
   app.use('/api/case_site_verifications', app.oauth.authenticate(), require('./api/case_site_verification'));
   app.use('/api/case_education_verifications', app.oauth.authenticate(), require('./api/case_education_verification'));
   app.use('/api/case_criminal_verifications', app.oauth.authenticate(), require('./api/case_criminal_verification'));
@@ -28,6 +30,10 @@ export default function (app) {
   app.use('/api/companys', require('./api/company'));
   app.use('/api/user_types', app.oauth.authenticate(), require('./api/user_type'));
   app.use('/api/users', app.oauth.authenticate(), require('./api/user'));
+  app.use('/api/clients', app.oauth.authenticate(), require('./api/client'));
+  app.use('/api/vendors', app.oauth.authenticate(), require('./api/vendor'));
+  app.use('/api/clients', app.oauth.authenticate(), require('./api/client/user'));
+  app.use('/api/vendors', app.oauth.authenticate(), require('./api/vendor/user'));
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
     .get(errors[404]);

@@ -4,33 +4,44 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
     div.navbar-header
       a.navbar-brand(href='#') Allocated Case
-      button.navbar-toggle.fa.fa-sign-out(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='login')
+      button.navbar-toggle.fa.fa-sign-out(type='button', ng-click='Partner.logout()')
 
 
 
 
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-    //.panel-heading.font-bold.h4.text-ellipsis.bg-light
-    //
-    //  | &nbsp;&nbsp;Allocated Case
-      //i.fa.fa-angle-right.pull-right.font-bold
-    .panel-body.p-5px
-      scrollable-table(watch="Dashboard.summary.applicantData")
-        table.table.table-striped.table-bordered.m-b
-          thead
-            tr
-              th.font-bold Cases
-              th.font-bold(style="width:25%") Allocated date
-          //(ng-if='Dash.pipeline.length>0')
-          tbody
-            tr( ng-repeat='allocation in Partner.Allocation' ui-sref='candidate({case_id: allocation.case_id })')
-              td: a.text-ellipsis {{allocation.Case.name}} ({{allocation.Case.CaseType.name}})
-              td: span.text-ellipsis {{allocation.Case.created_at | date}}
+    #products.row.list-group
+      .item.col-xs-12.col-lg-9(ng-repeat='allocation in Partner.Allocation' ui-sref='allocation.view({id: allocation.id})')
+        .caption
+          h4.group.inner.list-group-item-heading
+            | {{allocation.CandidateMap.Candidate.name}}
+          .row
+            .col-xs-6
+              p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseAddressVerification")
+                | Address Verification
+              p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseCriminalVerification")
+                | Criminal Verification
+              p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseEducationVerification")
+                | Education Verification
+              p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseSiteVerification")
+                | Site Verification
+
+            .col-xs-6
+              p.group.inner.list-group-item-text
+                | {{allocation.created_on | date}}
+          //p.group.inner.list-group-item-text(ng-bind="allocation.Case.name + '-' + allocation.Case.CaseType.name ")
+          //span.text-ellipsis(style="width:25%") {{allocation.Case.created_at | date}}
+
 
     div.fixed-nav.navbar
       ul
         li
           a(href='/partner') New
+        //li
+        //  a(href='/completed') On going
         li
           a(href='/completed') Completed
+
+
+
 

@@ -1,0 +1,69 @@
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+  div.container
+    div.navbar-header
+      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+
+
+
+.container
+  .panel.panel
+    .panel-heading-info
+      p
+        h4.text-ellipsis(style="color:#1750a9" title='{{$ctrl.data.CandidateMap.Candidate.name}}') {{$ctrl.data.CandidateMap.Candidate.name}}
+    .panel-body
+      ul.list-group
+        li.list-group-item(style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.name")
+          |  Case Name : {{$ctrl.data.CandidateMap.Candidate.name}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.address")
+          |  Address : {{$ctrl.data.CandidateMap.Candidate.address}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.phone")
+          |  Phone : {{$ctrl.data.CandidateMap.Candidate.phone}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseCriminalVerification.father_name")
+          |  Father's name : {{$ctrl.data.CandidateMap.CaseCriminalVerification.father_name}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseCriminalVerification.dob")
+          |  Date of Birth : {{$ctrl.data.CandidateMap.CaseCriminalVerification.dob | date}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.concern_person")
+          |  Concern Person : {{$ctrl.data.CandidateMap.CaseSiteVerification.concern_person}}
+        //li.list-group-item( style="color:#383f44")(ng-show="$ctrl.CaseSiteVerifications.length>0")
+        //  |  Concern Person : {{$ctrl.CaseSiteVerifications[0].concern_person}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.company_name")
+          |  Company Name : {{$ctrl.data.CandidateMap.CaseSiteVerification.company_name}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.email_id")
+          |  Email id : {{$ctrl.data.CandidateMap.CaseSiteVerification.email_id}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseEducationVerification.degree")
+          |  Degree : {{$ctrl.data.CandidateMap.CaseEducationVerification.degree}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseEducationVerification.role_no")
+          |  Role no : {{$ctrl.data.CandidateMap.CaseEducationVerification.role_no}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.state")
+          |  State : {{$ctrl.data.CandidateMap.Candidate.state}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.pin")
+
+          |  Pin : {{$ctrl.data.CandidateMap.Candidate.pin}}
+        //li.list-group-item( style="color:#383f44")
+        ////  |  Client = {{$ctrl.Case.User.name}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.pdf")
+          //|  Document = {{$ctrl.Case.pdf}}
+          |  Document :
+          a(target="_blank" ng-href='{{$ctrl.data.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.Candidate.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
+
+
+
+      .col-md-12
+        //.col-md-3.col-xs-4
+        //  button.btn.btn-primary.pull-right(type='submit' ng-show='$ctrl.status_id == 1 || $ctrl.status_id == 4' ng-click='$ctrl.updateStatus(3)') Accept
+        //
+        //.col-md-3.col-xs-4
+        //  button.btn.btn-success.pull-right(type='submit' ng-show='$ctrl.status_id == 3 || $ctrl.$ctrl.status_id == 4' ng-click='$ctrl.$ctrl.Allocations.openCase()') Upload
+        //
+        //.col-md-3.col-xs-4
+        //  button.btn.btn-danger.pull-right(type='submit' ng-show='$ctrl.status_id == 1 || $ctrl.status_id == 3' ng-click='$ctrl.updateStatus(4)') Reject
+
+        .col-md-3.col-xs-4
+          button.btn.btn-primary.pull-right(type='submit'   ng-click='$ctrl.updateStatus(3)') Accept
+
+        .col-md-3.col-xs-4
+          button.btn.btn-success.pull-right(type='submit'  ng-click='$ctrl.openCase()') Upload
+
+        .col-md-3.col-xs-4
+          button.btn.btn-danger.pull-right(type='submit'  ng-click='$ctrl.updateStatus(4)') Reject

@@ -1,19 +1,27 @@
 .dashboard-page
   .container-fluid
     .row
+      div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+        div.container
+
+          div.navbar-header
+            a.navbar-brand(href='#') Q verify
       .col-sm-3.col-md-2.sidebar
         .text-center
           h2.brand
             | Q Verify
 
-          img.user-avatar(src='assets/images/qverify3.png')
+          img.user-avatar(src='assets/images/qverify1.png')
           br
           a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
         ul.nav.nav-sidebar
           li(ng-class="{active: $state.includes('overview')}")
             a(ui-sref='overview')
-              | Cases
+              | Candidates
               span.sr-only (current)
+          li(ng-class="{active: $state.includes('case')}")
+            a(ui-sref='case') Cases
           li(ng-class="{active: $state.includes('company')}")
             a(ui-sref='company') Company
           //li(ng-class="{active: $state.includes('register')}")

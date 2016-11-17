@@ -39,12 +39,13 @@ export default function (sequelize, DataTypes) {
       timestamps: false,
       classMethods: {
         associate(models) {
-          models.CaseSiteVerification.belongsTo(models.Case, {
-            foreignKey: `case_id`
-          });
+          //models.CaseSiteVerification.belongsTo(models.Case, {
+          //  foreignKey: `case_id`
+          //});
           //models.CaseSiteVerification.belongsTo(models.Designation, {
           //  foreignKey: `designation_id`
           //});
+          models.CaseSiteVerification.hasMany(models.CandidateMap);
 
         }
       }

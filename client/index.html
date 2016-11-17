@@ -1,8 +1,8 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="appApp"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app="appApp"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" ng-app="appApp"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="appApp"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -23,7 +23,7 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="appApp">
+  <body  ng-controller="AppCtrl as App">
     <!--[if lt IE 7]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -74,16 +74,24 @@
       <!-- injector:js -->
       <script src="components/util/util.module.js"></script>
       <script src="app/app.constant.js"></script>
+      <script src="app/app.controller.js"></script>
+      <script src="app/directives/sidebar/sidebar.directive.js"></script>
+      <script src="app/event.js"></script>
       <script src="app/factory/QverifyConnection/QverifyConnection.service.js"></script>
       <script src="app/factory/URLS/URLS.service.js"></script>
       <script src="app/factory/auth.js"></script>
+      <script src="app/factory/auth_events.js"></script>
       <script src="app/factory/session.js"></script>
+      <script src="app/factory/user.js"></script>
       <script src="app/routes/address/address.controller.js"></script>
       <script src="app/routes/address/address.js"></script>
       <script src="app/routes/allocation/allocation.controller.js"></script>
       <script src="app/routes/allocation/allocation.js"></script>
+      <script src="app/routes/allocation/view/view.controller.js"></script>
       <script src="app/routes/candidate/candidate.controller.js"></script>
       <script src="app/routes/candidate/candidate.js"></script>
+      <script src="app/routes/case/case.controller.js"></script>
+      <script src="app/routes/case/case.js"></script>
       <script src="app/routes/companyUsers/companyUsers.controller.js"></script>
       <script src="app/routes/companyUsers/companyUsers.js"></script>
       <script src="app/routes/company/company.controller.js"></script>

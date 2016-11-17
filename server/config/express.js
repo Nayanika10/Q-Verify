@@ -36,7 +36,7 @@ export default function(app) {
   app.set('view engine', 'jade');
   app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: '50mb' }));
   app.use(methodOverride());
   app.use(cookieParser());
   app.use('/api/open/users', function(req,res,next){

@@ -1,27 +1,7 @@
 .dashboard-page
   .container-fluid
     .row
-      .col-sm-3.col-md-2.sidebar
-        .text-center
-          h2.brand
-            | Q Verify
-
-          img.user-avatar(src='assets/images/qverify3.png')
-          br
-          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-        ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview')
-              | Cases
-              span.sr-only (current)
-          li(ng-class="{active: $state.includes('company')}")
-            a(ui-sref='company') Company
-          //li(ng-class="{active: $state.includes('register')}")
-          //  a(ui-sref='register') Register
-          //li(ng-class="{active: $state.includes('allocation')}")
-          //  a(ui-sref='allocation') Allocation
-          //li(ng-class="{active: $state.includes('creation')}")
-          //  a(ui-sref='creation') Creation
+      sidebar
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
         .col-md-12.col-sm-12.col-xs-12.panel.panel-info.no-padder
@@ -43,20 +23,23 @@
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Company
-                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' ng-disabled="true" )
+                            span.text-danger *
+                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' ng-disabled="true"  required)
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Username
-                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' )
+                            span.text-danger *
+                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' required)
 
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Name
-                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  )
+                            span.text-danger *
+                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  required  )
 
 
                     //.line.line-dashed.b-b.line-lg.pull-in
@@ -70,19 +53,22 @@
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | E-mail
-                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'   )
+                            span.text-danger *
+                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'  required )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Password
-                            input.form.form-control(type='password' placeholder='password' ng-model='Register.user.password' )
+                            span.text-danger *
+                            input.form.form-control(type='password' placeholder='password' ng-model='Register.user.password'  required)
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Contact
-                            input.form.form-control(type='text' placeholder='contact' ng-model='Register.user.mobile'  )
+                            span.text-danger *
+                            input.form.form-control(type='text' placeholder='contact' ng-model='Register.user.mobile'  required )
 
 
 

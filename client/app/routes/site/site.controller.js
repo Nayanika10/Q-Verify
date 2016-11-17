@@ -1,28 +1,37 @@
-'use strict';
 
-(function(){
+  class SiteComponent {
+    constructor($http, $stateParams, $state) {
+      this.$state = $state;
+      this.$http = $http;
+      this.$stateParams = $stateParams;
 
-  function SiteComponent($log, QverifyConnection,toaster ,$stateParams,$state) {
-    const LOG_TAG = 'SiteComponent';
-    const vm = this;
-    vm.site = {};
-    let qverifyConnection = new QverifyConnection();
-    //qverifyConnection.fetchDesignation().then((designations)=> {
-    //  vm.Designation = designations;
-    //});
-    vm.createSite = function () {
-      vm.site.case_id = $stateParams.case_id;
-      qverifyConnection.createSite(vm.site);
-      $state.go("completed")
-      //toaster.pop('success', "Site Created")
-    };
-}
+    }
 
+    $onInit() {
+      this
+        .$http
+        .get(`/api/case_site_verifications/${this.$stateParams.site_id}`)
+        .then(({ data }) => {
+          this.data = data;
+          console.log(this.data)
+        })
+    }
+
+    update() {
+      console.log(this.data)
+      this
+        .$http
+        .put(`/api/case_site_verifications/${this.$stateParams.site_id}`, this.data)
+        .then(data =>  this
+          .$http
+          .put(`/api/allocations/${this.$stateParams.id}`, { status_id: 2 })
+          .then(() => this.$state.go('completed')));
+    }
+  }
 angular.module('appApp')
   .component('site', {
     templateUrl: 'app/routes/site/site.html',
     controller: SiteComponent,
-    controllerAs: 'Site',
+    controllerAs: '$ctrl',
   });
 
-})();

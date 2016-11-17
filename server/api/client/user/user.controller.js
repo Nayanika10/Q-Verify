@@ -11,9 +11,9 @@
  */
 
 import _ from 'lodash';
-import config from '../../config/environment';
-import { User, Company } from '../../sqldb';
-var rp = require('request-promise');
+import config from '../../../config/environment';
+import { User, Company } from '../../../sqldb';
+import rp from 'request-promise';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -62,10 +62,10 @@ function handleError(res, statusCode) {
 }
 
 export function index(req, res) {
-  return Company.findAll({
+  return User.findAll({
       attributes: [ 'id', 'name'],
       where: {
-        user_type_id: 2
+        company_id: req.params.clientId
       }
     })
     .then(respondWithResult(res))

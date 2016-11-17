@@ -1,32 +1,38 @@
-'use strict';
+class CriminalComponent {
+  constructor($http,  $stateParams, $state) {
+    this.$state = $state;
+    this.$http = $http;
+    this.$stateParams = $stateParams;
+    this.moment = moment;
+  }
 
-(function(){
+  $onInit() {
+    this
+      .$http
+      .get(`/api/case_criminal_verifications/${this.$stateParams.criminal_id}`)
+      .then(({ data }) => {
+        this.data = data;
+        console.log(this.data)
+        this.data.dob = this.moment(this.data.dob).toDate();
+        console.log(this.data)
+      })
+  }
 
-  function CriminalComponent($log, $stateParams, QverifyConnection,toaster,$state) {
-    const LOG_TAG = 'CriminalComponent';
-    const vm = this;
-    vm.criminal = {};
-    let qverifyConnection = new QverifyConnection();
-    //qverifyConnection.fetchDesignation().then((designations)=> {
-    //  vm.Designation = designations;
-    //});
-    qverifyConnection.fetchStatus().then((status)=> {
-      vm.Status = status;
-    });
-    vm.createCriminal = function () {
-      vm.criminal.case_id = $stateParams.case_id;
-      console.log(vm.criminal.dob);
-      qverifyConnection.createCriminal(vm.criminal);
-      $state.go("completed")
-      //toaster.pop('success', "Criminal Created")
-    };
+  update() {
+    console.log(this.data)
+    this
+      .$http
+      .put(`/api/case_criminal_verifications/${this.$stateParams.criminal_id}`, this.data)
+      .then(data =>  this
+        .$http
+        .put(`/api/allocations/${this.$stateParams.id}`, { status_id: 2 })
+        .then(() => this.$state.go('completed')));
+  }
 }
 
 angular.module('appApp')
   .component('criminal', {
     templateUrl: 'app/routes/criminal/criminal.html',
     controller: CriminalComponent,
-    controllerAs: 'Criminal',
+    controllerAs: '$ctrl',
   });
-
-})();

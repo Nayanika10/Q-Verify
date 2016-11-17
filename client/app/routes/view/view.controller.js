@@ -1,19 +1,19 @@
 'use strict';
 
-(function () {
-
-  function ViewComponent($log, QverifyConnection, $stateParams, URLS, OAuthToken) {
+class ViewComponent {
+  constructor($stateParams, toaster, $state, $http) {
     const LOG_TAG = 'ViewComponent';
-    const vm = this;
-    vm.URLS = URLS;
-    vm.AccessToken = OAuthToken.getAccessToken();
-    console.log(LOG_TAG, $stateParams.case_id);
-    let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchCase($stateParams.case_id).then(caseObj=> {
-      //console.log(caseObj.plain());
-      vm.Case = caseObj;
-    })
+    console.log(LOG_TAG, $stateParams.id);
+    this.$state = $state;
+    this.$http = $http;
+    this.$stateParams = $stateParams;
+
   }
+
+  $onInit() {
+    this.$http.get(`/api/allocations/${this.$stateParams.id}`).then(({ data }) => (this.data = data))
+  }
+}
 
   angular.module('appApp')
     .component('view', {
@@ -22,4 +22,44 @@
       controllerAs: 'View',
     });
 
-})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//if( candidateObj.CaseAddressVerifications.length > 0) {
+//  candidateObj.CaseAddressVerifications[0] = candidateObj.CaseAddressVerifications[candidateObj.CaseAddressVerifications.length - 1];
+//}
+// if( candidateObj.CaseCriminalVerifications.length > 0) {
+//   candidateObj.CaseCriminalVerifications[0] = candidateObj.CaseCriminalVerifications[candidateObj.CaseCriminalVerifications.length - 1];
+// }
+// if( candidateObj.CaseSiteVerifications.length > 0) {
+//   candidateObj.CaseSiteVerifications[0] = candidateObj.CaseSiteVerifications[candidateObj.CaseSiteVerifications.length - 1];
+// }
+// if( candidateObj.CaseEducationVerifications.length > 0) {
+//   candidateObj.CaseEducationVerifications[0] = candidateObj.CaseEducationVerifications[candidateObj.CaseEducationVerifications.length - 1];
+// }
+//  vm.Candidate = candidateObj;
+//})

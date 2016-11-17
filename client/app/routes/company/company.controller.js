@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 (function () {
 
   function CompanyComponent($log, QverifyConnection,$scope,$stateParams,$state, URLS) {
@@ -19,13 +19,17 @@
           cellTemplate: '<div class="ui-grid-cell-contents">'
           + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ COL_FIELD }} ">{{ COL_FIELD }}</a>' + '</div>'
         },
-        {name: 'Company', field: 'name' },
+        {name: 'Company', field: 'name', cellTemplate: '<div class="ui-grid-cell-contents">'
+        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
+        },
 
-        {name: 'User-Type', field: 'UserType.name'},
+        {name: 'User-Type', field: 'UserType.name' ,cellTemplate: '<div class="ui-grid-cell-contents">'
+    + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
 
-        {name: 'Address', field: 'address'},
+        {name: 'Address', field: 'address', cellTemplate: '<div class="ui-grid-cell-contents">'
+        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
 
-        {name: 'Created on', field:'created_on', type: 'date', cellFilter: 'date:"dd-MM-yy "'}
+        {name: 'Created on', field:'created_on', type: 'date', cellFilter: 'date:"dd-MMM-yyyy "'}
 
       ]
 

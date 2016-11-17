@@ -77,7 +77,7 @@ export function index(req, res) {
 export function show(req, res) {
   return User.find({
       where: {
-        _id: req.params.id
+        id: req.params.id
       }
     })
     .then(handleEntityNotFound(res))

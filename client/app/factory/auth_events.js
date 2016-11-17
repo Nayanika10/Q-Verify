@@ -1,3 +1,8 @@
-/**
- * Created by sif on 8/30/2016.
- */
+angular.module('appApp')
+  .constant('AUTH_EVENTS', {
+    loginConfirmed: 'event:auth-loginConfirmed',
+    loginCancelled: 'event:auth-loginCancelled',
+    logoutConfirmed: 'event:auth-logoutConfirmed',
+    loginRequired: 'event:auth-loginRequired',
+    forbidden: 'event:auth-forbidden',
+  });

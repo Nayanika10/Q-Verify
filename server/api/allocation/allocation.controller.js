@@ -10,7 +10,9 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Allocation, Case, minio} from '../../sqldb';
+import db, {Allocation,minio,CandidateMap,User,Company,Candidate,AllocationStatus,
+  CaseSiteVerification,CaseAddressVerification,CaseCriminalVerification,
+  CaseEducationVerification} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -73,11 +75,29 @@ export function index(req, res) {
       where: whereClause,
       include: [
         {
-          model: Case,
-          include: [db.User, db.Status, db.CaseType]
+          //model: Candidate,attributes:['id','name'],
+          //include: [db.User, db.Status, db.CaseType]
+          model: db.CandidateMap,include:[{model: db.Candidate, attributes: ['id', 'name'],
+          include: [
+            {
+              model: db.User,
+              attributes: ['id', 'name'],
+              include: [
+                {
+                  model: db.Company,
+                  attributes: ['id', 'name']
+                }
+              ]
+            }
+
+          ]
+        }
+          ]
         },
-        {model: db.User},
-        {model: db.AllocationStatus}
+        {model: db.User, attributes:['id','name']},
+        {model: db.AllocationStatus},
+        {model: db.Status, attributes:['id','name']},
+
       ]
     })
     .then(respondWithResult(res))
@@ -86,44 +106,65 @@ export function index(req, res) {
 
 // Gets a single Allocation from the DB
 export function show(req, res) {
-  return Allocation.find({
+  return Allocation
+    .find({
       where: {
-        _id: req.params.id
-      }
+        id: req.params.id
+      },
+      include:[{model: CandidateMap, include:[
+        {model: Candidate},
+        {model:CaseCriminalVerification},
+        {model: CaseAddressVerification},
+        {model: CaseEducationVerification},
+        {model: CaseSiteVerification},
+      ]
+      }]
     })
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json(err));
 }
 
 // Creates a new Allocation in the DB
 export function create(req, res) {
   req.body.allocation_status_id = 1;
-  return Allocation.create(req.body)
-    .then(allocation => {
-      Case.update({status_id: 1}, {
-        where: {
-          id: req.body.case_id
-        }
-      }).then(() => res.json(allocation))
+  req.body.status_id = 1;
+  const {
+    candidate_id,
+    case_criminal_verification_id,
+    case_address_verification_id,
+    case_education_verification_id,
+    case_site_verification_id,
+    } = req.body;
+  const where = { candidate_id: req.body.candidate_id};
+  if (req.body.case_criminal_verification_id) {
+    where.case_criminal_verification_id = req.body.case_criminal_verification_id;
+  }
+  if (req.body.case_address_verification_id) {
+    where.case_address_verification_id = req.body.case_address_verification_id;
+  }
+  if (req.body.case_education_verification_id) {
+    where.case_education_verification_id = req.body.case_education_verification_id;
+  }
+  if (req.body.case_site_verification_id) {
+    where.case_site_verification_id = req.body.case_site_verification_id;
+  }
+  return CandidateMap
+    .find({ where })
+    .then(candidateMap => {
+      req.body.candidate_map_id = candidateMap.id;
+      return Allocation
+        .create(req.body)
+        .then(allocation => res.json(allocation));
     })
     .catch(handleError(res));
 }
 
 // Updates an existing Allocation in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  return Allocation.find({
-      where: {
-        _id: req.params.id
-      }
-    })
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+  return Allocation
+    .update(req.body, {where: {id: req.params.id}})
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json(err));
 }
 
 // Deletes a Allocation from the DB
@@ -148,9 +189,24 @@ export function vendorUpload(req, res) {
       },
       include: [
         {
-          model: Case,
-          where: {status_id: 3},
-          include: [db.User, db.Status, db.CaseType]
+          model: db.CandidateMap,include:[{model: db.Candidate,
+          attributes:['id','name'],
+          include : [
+            {
+              model: db.User,
+              attributes: ['id', 'name'],
+              include : [
+                {
+                  model: db.Company,
+                  attributes: ['id', 'name']
+                }
+              ]
+            },
+            ]
+
+        }]
+          //where: {status_id: 3},
+          //include: [db.User, db.Status, db.CaseType]
         },
         {model: db.User},
         {model: db.AllocationStatus}
@@ -165,19 +221,41 @@ export function byStatusId(req, res) {
     return res.status(404).json([{message: "not authorized"}]);
   if(!req.params.status_id)
     return res.status(404).json([{message: "Invalid request"}]);
-  let whereClause;
+  let whereClause = {status_id : req.params.status_id ? req.params.status_id.split(',') : []};
   if(req.user.Company.user_type_id != 1) {
-    whereClause = {
-      user_id: req.user.id
-    };
+    whereClause.user_id = req.user.id;
   }
+  //if(req.allocation.status_id=1)
+  //return res.partner;
   return Allocation.findAll({
       where: whereClause,
       include: [
         {
-          model: Case,
-          where: {status_id: req.params.status_id.split(',')},
-          include: [db.User, db.Status, db.CaseType]
+          model: db.CandidateMap ,
+          attributes: ['id'],
+          include:[{
+            model: db.Candidate,
+            attributes: ['id', 'name'],
+            include: [
+              {
+                model: db.User,
+                attributes: ['id', 'name'],
+                include: [
+                  {
+                    model: db.Company,
+                    attributes: ['id', 'name']
+                  }
+                ]
+              },
+            ]},
+            { model: CaseAddressVerification },
+            { model: CaseCriminalVerification },
+            { model: CaseEducationVerification },
+            { model: CaseSiteVerification },
+        ]
+
+          //where: {status_id: req.params.status_id.split(',')},
+          //include: [db.User, db.Status, db.CaseType]
         },
         {model: db.User},
         {model: db.AllocationStatus}

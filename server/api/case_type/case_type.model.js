@@ -1,4 +1,4 @@
-'use strict';
++'use strict';
 
 export default function(sequelize, DataTypes) {
   return sequelize.define('CaseType', {
@@ -15,7 +15,6 @@ export default function(sequelize, DataTypes) {
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.CaseType.hasMany(models.Case);
       }
     }
   });

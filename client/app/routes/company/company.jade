@@ -1,22 +1,7 @@
 .dashboard-page
   .container-fluid
     .row
-      .col-sm-3.col-md-2.sidebar
-        .text-center
-          h2.brand
-            | Q Verify
-
-          img.user-avatar(src='assets/images/qverify3.png')
-          br
-          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-        ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview')
-              | Cases
-              span.sr-only (current)
-          li(ng-class="{active: $state.includes('company')}")
-            a(ui-sref='company') Company
-
+      sidebar
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
         .col-md-12

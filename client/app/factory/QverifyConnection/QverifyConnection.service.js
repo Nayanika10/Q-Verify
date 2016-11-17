@@ -366,7 +366,7 @@ angular.module('appApp')
         .catch((error)=> {
           defer.reject(error);
         });
-      return defer.promise;
+      return  defer.promise;
 
     };
 
@@ -383,9 +383,22 @@ angular.module('appApp')
 
     };
 
-    QVC.prototype.fetchCase = (id)=> {
+    QVC.prototype.fetchCandidate = (id)=> {
       let defer = $q.defer();
-      Restangular.one(`cases`, id).get()
+      Restangular.one(`candidates`, id).get()
+        .then((data)=> {
+          defer.resolve(data);
+        })
+        .catch((error)=> {
+          defer.reject(error);
+        });
+      return defer.promise;
+
+    };
+
+    QVC.prototype.fetchCandidateMap = (id)=> {
+      let defer = $q.defer();
+      Restangular.one(`candidate_maps`, id).get()
         .then((data)=> {
           defer.resolve(data);
         })

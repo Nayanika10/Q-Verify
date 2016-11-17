@@ -4,7 +4,7 @@ angular.module('appApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('view', {
-        url: '/view/:case_id',
+        url: '/view/allocations/:id',
         template: '<view></view>'
       });
   });

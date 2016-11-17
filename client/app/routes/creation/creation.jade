@@ -1,27 +1,7 @@
 .dashboard-page
   .container-fluid
     .row
-      .col-sm-3.col-md-2.sidebar
-        .text-center
-          h2.brand
-            | Q Verify
-
-          img.user-avatar(src='assets/images/qverify3.png')
-          br
-          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-        ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview')
-              | Cases
-              span.sr-only (current)
-          li(ng-class="{active: $state.includes('company')}")
-            a(ui-sref='company') Company
-          //li(ng-class="{active: $state.includes('register')}")
-          //  a(ui-sref='register') Register
-          //li(ng-class="{active: $state.includes('creation')}")
-          //  a(ui-sref='creation') Creation
-          //li(ng-class="{active: $state.includes('allocation')}")
-          //  a(ui-sref='allocation') Allocation
+      sidebar
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
         toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
@@ -30,86 +10,129 @@
           .hbox
             .wrapper-md.bg-light
               h1.m-n.font-thin.h3
-                span Case Creation
+                span Candidate Creation
               form.form-horizontal.wrapper-md( name="CreationDataForm")
                 .row
                   // Form Block
                   .col-md-7.col-sm-7.col-xs-7
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.address = !ctrl.checkbox.address' ng-checked='ctrl.checkbox.address')
+                      | Address
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.criminal = !ctrl.checkbox.criminal' ng-checked='ctrl.checkbox.criminal')
+                      | Criminal
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.education = !ctrl.checkbox.education' ng-checked='ctrl.checkbox.education')
+                      | Education
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.site = !ctrl.checkbox.site' ng-checked='ctrl.checkbox.site')
+                      | Site
                     // Form Items
+                    //.row
+                    //  .col-md-12.col-sm-12.col-xs-12
+                    //    label.col-xs-12.input-group
+                    //      | Type of Cases
+                    //      span.text-danger *
+                    //      select.form-control(ng-options="item.id as item.name for item in ctrl.caseTypes" ng-model="ctrl.case.case_type_id" ng-change='ctrl.getClients()')
+                    //        option(value="") Please select case type
                     .row
-                      .col-md-12.col-sm-12.col-xs-12
-                        label.col-xs-12.input-group
-                          | Type of Cases
-                          span.text-danger *
-                          select.form-control(ng-options="item.id as item.name for item in Creation.CaseTypes" ng-model="Creation.case.case_type_id" )
-
-                    .row(ng-if='Creation.case.case_type_id != undefined')
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
                           | Client
-                          select.form.form-control(ng-options="item.Company.id as item.Company.name for item in Creation.Client" ng-model="Creation.case.client_id" ng-change='Creation.updateUserList()' )
-
+                          span.text-danger *
+                          select.form.form-control(ng-options="item.id as item.name for item in ctrl.clients" ng-model="ctrl.candidate.client_id" ng-change='ctrl.getUsers(ctrl.candidate.client_id)')
+                            option(value="") Please select Client
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
-                          | Users in
-                          select.form.form-control(ng-options="item.id as item.cname for item in Creation.Users" ng-model="Creation.case.user_id" )
-
-                    .row(ng-if='Creation.case.case_type_id != undefined')
+                          | Users
+                          span.text-danger *
+                          select.form.form-control(ng-options="item.id as item.name for item in ctrl.users" ng-model="ctrl.candidate.user_id" )
+                            option(value="") Please select user
+                    .row
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
-                          | Case name
-                          input.form.form-control(type='text' placeholder='eg.Name' ng-model='Creation.case.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/' )
+                          | Candidate
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='eg.Name' ng-model='ctrl.candidate.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/'  required)
 
-                    .row(ng-if='Creation.case.case_type_id != undefined')
+                    .row
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Address
-                          textarea.form.form-control(placeholder='eg. Address' rows=5 ng-model='Creation.case.address' q-text-maxlength="600"  ng-pattern='/^[a-zA-Z ]*$/' )
+                          textarea.form.form-control(placeholder='eg. Address' ng-model='ctrl.candidate.address' q-text-maxlength="600"  )
 
-                    .row(ng-if = 'Creation.case.case_type_id != undefined')
+                    .row
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Contact No
-                          input.form.form-control(type='text' placeholder='eg. Phone no' ng-model='Creation.case.phone' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
+                          input.form.form-control(type='text' placeholder='eg. Phone no' ng-model='ctrl.candidate.phone' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/')
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Passing Year
+                          input.form.form-control(type='text' placeholder='eg. Passing Year' ng-model='ctrl.candidate.education.passing_year' q-text-maxlength="60" )
 
 
-                    .row(ng-if = 'Creation.case.case_type_id == "4"')
+                    .row(ng-if = 'ctrl.checkbox.site')
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Company Name
-                          input.form.form-control(type='text' placeholder='eg. Company Name' ng-model='Creation.case.company_name' q-text-maxlength="60")
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='eg. Company Name' ng-model='ctrl.candidate.site.company_name' q-text-maxlength="60" required)
 
-                    .row(ng-if = 'Creation.case.case_type_id == "4"')
+                    .row(ng-if = 'ctrl.checkbox.site')
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Concern person
-                          input.form.form-control(type='text' placeholder='eg. Concern person' ng-model='Creation.case.concern_person' q-text-maxlength="60")
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='eg. Concern person' ng-model='ctrl.candidate.site.concern_person' q-text-maxlength="60" required)
 
-                    .row(ng-if = 'Creation.case.case_type_id == "2"')
+                    .row(ng-if = 'ctrl.checkbox.site')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Email id
+                          input.form.form-control(type='email' placeholder='eg. email' ng-model='ctrl.candidate.site.email_id' q-text-maxlength="60")
+
+                    .row(ng-if = 'ctrl.checkbox.criminal')
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | DOB
-                          input.form.form-control(type='date' placeholder='eg. DOB' ng-model='Creation.case.criminal.dob' q-text-maxlength="60")
+                          span.text-danger *
+                          input.form.form-control(type='date'  ng-model='ctrl.candidate.criminal.dob' required)
 
-                    .row(ng-if = 'Creation.case.case_type_id == "2"')
+                    .row(ng-if = 'ctrl.checkbox.criminal')
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Father's Name
-                          input.form.form-control(type='text' placeholder='eg. Father Name' ng-model='Creation.case.criminal.father_name' q-text-maxlength="60")
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='eg. Father Name' ng-model='ctrl.candidate.criminal.father_name' q-text-maxlength="60" required)
 
-                    .row(ng-if='Creation.case.case_type_id != undefined')
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Role number
+                          input.form.form-control(type='text' placeholder='eg. role no' ng-model='ctrl.candidate.education.role_no' q-text-maxlength="60" )
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | University Name
+                          input.form.form-control(type='text' placeholder='eg. University Name' ng-model='ctrl.candidate.education.university_name' q-text-maxlength="60" )
+
+                    .row
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
                           | State
-                          input.form.form-control(type="text" placeholder='eg. state' ng-model='Creation.case.state'   )
+                          input.form.form-control(type="text" placeholder='eg. state' ng-model='ctrl.candidate.state'   )
 
                       .col-md-6.col-sm-12.col-xs-6
                         label.col-xs-12.input-group
                           | Pin
-                          input.form.form-control(type="text" placeholder='eg. pin' ng-model='Creation.case.pin' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
+                          input.form.form-control(type="text" placeholder='eg. pin' ng-model='ctrl.candidate.pin' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
 
 
-                    //.row(ng-if = 'Creation.case.case_type_id != undefined')
+                    //.row(ng-if = 'ctrl.case.case_type_id != undefined')
                     //  .col-md-12.col-sm-12.col-xs-12
                     //    label.col-xs-12.input-group
                     //      | Pin
@@ -119,25 +142,27 @@
                     //      map
 
 
-                    .row(ng-if = 'Creation.case.case_type_id == "3"')
+                    .row(ng-if = 'ctrl.checkbox.education')
                       .col-md-6.col-sm-6.col-xs-12
                         label.col-xs-12.input-group
                           | Degree
-                          input.form.form-control(type="text" placeholder='eg. degree' ng-model="Creation.case.education.degree" )
+                          pan.text-danger *
+                          input.form.form-control(type="text" placeholder='eg. degree' ng-model="ctrl.candidate.education.degree" )
 
-                    .row(ng-if = 'Creation.case.case_type_id != undefined')
+                    .row
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Document
-                          input.form-control(type="file" ng-model='Creation.case.logo' base-sixty-four-input maxsize="100000" name='file')
+                          input.form-control(type="file" ng-model='ctrl.candidate.logo' base-sixty-four-input maxsize="100000" name='file')
 
 
 
-                    .row(ng-if='Creation.case.case_type_id != undefined')
+                    .row
                       .col-md-4.col-xs-12
-                        button.btn.btn-primary.pull-left(type='submit' ng-click='Creation.create()' style='background-color:#083040'  )
+                        button.btn.btn-primary.pull-left(type='submit' ng-click='ctrl.create()' ui-sref='overview' style='background-color:#083040' )
                           i.fa.fa-upload
                           | &nbsp;&nbsp;Submit
+
 
 
 

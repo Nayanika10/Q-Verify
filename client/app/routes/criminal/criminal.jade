@@ -10,7 +10,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
   div.m-t-xl.padder.no-margin(style="padding-left:2px")
     .hbox
       .wrapper-md.bg-light
-        form.form-validation(name="form" ng-submit='Criminal.createCriminal()' )
+        form.form-validation(name="form" ng-submit='$ctrl.update()' )
 
 
           .list-group.list-group-sm.m-b-md
@@ -19,41 +19,47 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Police station name
-                    input.form.form-control(type='text' placeholder='eg.police station name' ng-model='Criminal.criminal.police_station_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.police station name' ng-model='$ctrl.data.police_station_name'  required)
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Police authority name
-                    input.form.form-control(type='text' placeholder='eg.police authority name' ng-model='Criminal.criminal.police_authority_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.police authority name' ng-model='$ctrl.data.police_authority_name' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Father name
-                    input.form.form-control(type='text' placeholder='eg.father name' ng-model='Criminal.criminal.father_name'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.father name' ng-model='$ctrl.data.father_name' required )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Remark
-                    input.form.form-control(type='text' placeholder='eg.remarks' ng-model='Criminal.criminal.remark'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.remarks' ng-model='$ctrl.data.remark'  required)
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | DOB
-                    input.form.form-control(type='date' placeholder='eg.dob' ng-model='Criminal.criminal.dob'  )
+                    span.text-danger *
+                    input.form.form-control(type='date' placeholder='eg.dob' ng-model='$ctrl.data.dob' required )
 
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Designation
-                    input.form.form-control(type='Designation' placeholder='eg.designation' ng-model='Criminal.Criminal.criminal.designation'  )
-                    //select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in Criminal.Designation' ng-model='Criminal.criminal.designation_id'  )
+                    span.text-danger *
+                    input.form.form-control(type='text' placeholder='eg.designation' ng-model='$ctrl.data.designation' required )
+                    //select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in $ctrl.data.Designation' ng-model='$ctrl.data.$ctrl.data.designation_id'  )
 
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')
               i.fa.fa-upload
-              | &nbsp;&nbsp;Submit
+              | &nbsp;&nbsp;Update

@@ -3,12 +3,13 @@
 (function(){
 
 class CompanyUsersComponent {
-  constructor(Restangular, $stateParams, $scope, $state) {
+  constructor(Restangular, $stateParams, $scope, $state, OAuthToken) {
     this.Restangular = Restangular;
     this.$stateParams = $stateParams;
     this.fetchUsers();
     this.$scope = $scope;
     this.$state = $state;
+    this.OAuthToken = OAuthToken;
     this.$onInit();
   }
 
@@ -21,7 +22,7 @@ class CompanyUsersComponent {
 
       enableFiltering: true,
       columnDefs:[
-        {name: 'User', field: 'username'},
+        {name: 'User', field: 'name'},
       ]
     };
   }
