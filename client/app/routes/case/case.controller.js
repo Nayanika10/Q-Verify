@@ -31,21 +31,11 @@
 
         {name: 'Allocated On', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MMM-yyyy "'},
         {
-          //name: ' Case status',
-          //field: 'status',
-          //editType: 'dropdown',
-          //enableCellEdit: true,
-          //editableCellTemplate: 'ui-grid',
-          //editDropdownOptionsArray: $scope.status,
-          //editDropdownIdLabel: 'type',
-          //editDropdownValueLabel: 'type'
+          field: ' Case Status',
+          cellTemplate: '<select ng-options="status.name for status in status " ng-model="row.entity.status"></select>'
 
-          field: 'status', editType: 'dropdown', enableCellEdit: true,
-          editableCellTemplate: 'ui-grid'
+        },
 
-        }
-
-        //{name: 'Case Status', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MMM-yyyy "'},
       ]
     };
     qverifyConnection.fetchStatus().then((status)=> {

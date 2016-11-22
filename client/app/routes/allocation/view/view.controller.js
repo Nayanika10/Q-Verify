@@ -1,12 +1,14 @@
 'use strict';
 class AllocationViewComponent {
-  constructor($stateParams, toaster, $state, $http, Restangular) {
+  constructor($stateParams, toaster, $state, $http, Restangular, URLS,OAuthToken) {
     const LOG_TAG = 'AllocationViewComponent';
     console.log(LOG_TAG, $stateParams.id);
     this.$state = $state;
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.Restangular = Restangular;
+    this.URLS = URLS;
+    this.AccessToken = OAuthToken.getAccessToken();
 
   }
 
@@ -49,6 +51,13 @@ class AllocationViewComponent {
     this
       .$http
       .put(`/api/allocations/${this.$stateParams.id}`, { status_id: status_id})
+      .then((data)=> {
+              console.log("Request successful")
+              location.reload();
+            })
+            .catch((error)=> {
+              console.log("Request failed")
+            });
   }
   //updateStatus(status_id) {
   //    this.Restangular.one(`candidates`,this.$stateParams.candidate_id).put({status_id: status_id})
