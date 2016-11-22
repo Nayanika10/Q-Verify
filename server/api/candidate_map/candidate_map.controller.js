@@ -41,6 +41,16 @@ function removeEntity(res) {
     }
   };
 }
+export function vendorUploaded(req, res) {
+  return CandidateMap.findAll({
+      include: [Status],
+      where: {status_id: [2, 3, 4]}
+    })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(err => handleError(res, 500, err));
+}
+
 
 function handleEntityNotFound(res) {
   return function(entity) {
@@ -89,13 +99,10 @@ export function index(req, res) {
         model: Allocation,
         attributes: [
           'id',
-          //'case_address_verification_id',
-          //'case_criminal_verification_id',
-          //'case_education_verification_id',
-          //'case_site_verification_id',
           'created_on'
         ],
         include: [
+          {model: Status , attribute: ['id', 'name']},
           {model: User, attributes: ['id', 'name']},
           {model: AllocationStatus}
         ]
@@ -150,12 +157,12 @@ export function create(req, res) {
 
 // Updates an existing CandidateMap in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
+  if (req.body.id) {
+    delete req.body.id;
   }
   return CandidateMap.find({
     where: {
-      _id: req.params.id
+      id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))

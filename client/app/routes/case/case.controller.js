@@ -27,13 +27,31 @@
         + '</div>'},
 
         {name: 'Status', field: 'Allocations.AllocationStatus.name'},
+        {name: 'Vendor Status', field: 'Allocations.Status.name'},
+
         {name: 'Allocated On', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MMM-yyyy "'},
+        {
+          //name: ' Case status',
+          //field: 'status',
+          //editType: 'dropdown',
+          //enableCellEdit: true,
+          //editableCellTemplate: 'ui-grid',
+          //editDropdownOptionsArray: $scope.status,
+          //editDropdownIdLabel: 'type',
+          //editDropdownValueLabel: 'type'
+
+          field: 'status', editType: 'dropdown', enableCellEdit: true,
+          editableCellTemplate: 'ui-grid'
+
+        }
+
+        //{name: 'Case Status', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MMM-yyyy "'},
       ]
     };
-    //qverifyConnection.fetchAllocation().then((allocations)=> {
-    //  $scope.myData = allocations;
-    //  $scope.gridOpts.data = allocations;
-    //});
+    qverifyConnection.fetchStatus().then((status)=> {
+      //$scope.myData = status;
+      //$scope.gridOpts.data = status;
+    });
 
     Restangular.all(`candidate_maps`).getList()
       .then((candidateMap)=> {

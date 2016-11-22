@@ -37,8 +37,11 @@ export default function(sequelize, DataTypes) {
         models.CandidateMap.belongsTo(models.CaseCriminalVerification, {
           foreignKey: `case_criminal_verification_id`
         });
+        models.CandidateMap.belongsTo(models.Status, {
+          foreignKey: `status_id`
+        });
         models.CandidateMap.hasMany(models.Allocation);
-        models.CandidateMap.hasMany(models.Status);
+        //models.CandidateMap.hasMany(models.Status);
 
 
 

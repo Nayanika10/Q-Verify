@@ -60,10 +60,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
           //  button.btn.btn-danger.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 3' ng-click='Candidate.updateStatus(4)') Reject
 
           .col-md-3.col-xs-4
-            button.btn.btn-primary.pull-right(type='submit'   ng-click='Candidate.updateStatus(3)') Accept
+            button.btn.btn-primary.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 4'  ng-click='Candidate.updateStatus(3)') Accept
 
           .col-md-3.col-xs-4
-            button.btn.btn-success.pull-right(type='submit'  ng-click='Candidate.openCase()') Upload
+            button.btn.btn-success.pull-right(type='submit' ng-show='Candidate.status_id == 3 || Candidate.status_id == 4' ng-click='Candidate.openCase()') Upload
 
           .col-md-3.col-xs-4
-            button.btn.btn-danger.pull-right(type='submit'  ng-click='Candidate.updateStatus(4)') Reject
+            button.btn.btn-danger.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 3'  ng-click='Candidate.updateStatus(4)') Reject

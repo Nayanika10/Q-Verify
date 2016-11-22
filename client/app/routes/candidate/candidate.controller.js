@@ -53,16 +53,16 @@
       //}
     }
 
-    vm.updateStatus = (status_id)=>{
-      Restangular.one(`candidates`, $stateParams.candidate_id).put({status_id:status_id})
-        .then((data)=> {
-          console.log("Request successful")
-          location.reload();
-        })
-        .catch((error)=> {
-          console.log("Request failed")
-        });
-    }
+    //vm.updateStatus = (status_id)=>{
+    //  Restangular.one(`candidates`, $stateParams.candidate_id).put({status_id:status_id})
+    //    .then((data)=> {
+    //      console.log("Request successful")
+    //      location.reload();
+    //    })
+    //    .catch((error)=> {
+    //      console.log("Request failed")
+    //    });
+    //}
   }
 
   angular.module('appApp')

@@ -258,6 +258,7 @@ export function byStatusId(req, res) {
           //include: [db.User, db.Status, db.CaseType]
         },
         {model: db.User},
+        //{model: db.Status},
         {model: db.AllocationStatus}
       ]
     })

@@ -45,7 +45,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.pdf")
           //|  Document = {{$ctrl.Case.pdf}}
           |  Document :
-          a(target="_blank" ng-href='{{$ctrl.data.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.Candidate.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
+          a(target="_blank" ng-href='{{$ctrl.data.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
 
 
 
@@ -60,10 +60,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         //  button.btn.btn-danger.pull-right(type='submit' ng-show='$ctrl.status_id == 1 || $ctrl.status_id == 3' ng-click='$ctrl.updateStatus(4)') Reject
 
         .col-md-3.col-xs-4
-          button.btn.btn-primary.pull-right(type='submit'   ng-click='$ctrl.updateStatus(3)') Accept
+          button.btn.btn-primary.pull-right(type='submit' ng-show='$ctrl.data.status_id == 1 || $ctrl.data.status_id == 4'  ng-click='$ctrl.updateStatus(3)') Accept
 
         .col-md-3.col-xs-4
-          button.btn.btn-success.pull-right(type='submit'  ng-click='$ctrl.openCase()') Upload
+          button.btn.btn-success.pull-right(type='submit' ng-show='$ctrl.data.status_id == 3 || $ctrl.data.status_id == 4' ng-click='$ctrl.openCase()') Upload
 
         .col-md-3.col-xs-4
-          button.btn.btn-danger.pull-right(type='submit'  ng-click='$ctrl.updateStatus(4)') Reject
+          button.btn.btn-danger.pull-right(type='submit' ng-show='$ctrl.data.status_id == 1 || $ctrl.data.status_id == 3' ng-click='$ctrl.updateStatus(4)') Reject

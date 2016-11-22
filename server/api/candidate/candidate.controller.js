@@ -129,6 +129,7 @@ export function show(req, res) {
     .then(respondWithResult(res))
     .catch(err => handleError(res, 500, err));
 }
+
 export function vendorUploaded(req, res) {
   return Candidate.findAll({
       include: [Status],
@@ -152,8 +153,8 @@ export function getFile(req, res) {
 // Creates a new Candidate in the DB
 export function create(req, res) {
   return Candidate.create(req.body)
-    .then((candidateObj) => {
-      candidateObj = candidateObj.toJSON();
+    .then((candidate) => {
+      const candidateObj = candidate.toJSON();
       if (req.body.logo) {
         /* Start Minio */
         const { base64:base64String, filename } = req.body.logo;
@@ -171,7 +172,7 @@ export function create(req, res) {
 
           // Async
           Minio.base64Upload(minioObject).then(res => {
-            return candidateObj.update({pdf: minioObject.object})
+            return candidate.updateAttributes({pdf: minioObject.object})
             console.log("file saved success")
           }).catch(err => console.log(err))
         }

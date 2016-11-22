@@ -19,7 +19,9 @@
           .panel-heading.font-bold.h4.text-ellipsis.bg-light
             .fa.fa-mouse-pointer.text-dark
             | &nbsp;&nbsp;Cases
-          #grid1.grid(ui-grid="gridOpts" style="height:720px"  ui-grid-pinning ui-grid-infinite-scroll ui-grid-exporte)
+          #grid1.grid(ui-grid="gridOpts" style="height:720px"  ui-grid-pinning ui-grid-infinite-scroll ui-grid-exporte )
+            select(ng-model='row.entity.status', data-ng-options='d as d.type for d in genderType')
+              option(value='', selected='', disabled='') Choose option
         //div(id="grid1" ui-grid="{ data: myData, columnDefs: [{name: 'Client', field: 'Case.User.name'},{name: 'Vendor', field: 'User.name'},{name: 'Case', field: 'Case.name'},{name: 'Status', field: 'Case.Status.name'}] }")
 
 
