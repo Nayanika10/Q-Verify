@@ -77,6 +77,7 @@ export function getFile(req, res) {
     if(!candidateObj.image) return res.status(404).json({message: 'not found'})
     return Minio.downloadLink({
       object: candidateObj.image,
+      name: `${candidateObj.id}.image`,
       download: true,
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))

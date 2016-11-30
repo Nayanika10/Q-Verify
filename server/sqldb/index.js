@@ -11,6 +11,10 @@ import Minio from 'minio';
 import Bluebird from 'bluebird';
 var db = {
   Sequelize,
+  sequelizeQuarc: new Sequelize(
+    config.quarc.database, config.quarc.username,
+    config.quarc.password, config.quarc
+  ),
   sequelizeQverify: new Sequelize(
     config.qverify.database, config.qverify.username,
     config.qverify.password, config.qverify
@@ -19,6 +23,8 @@ var db = {
 };
 
 // Insert models below
+db.QueuedTask = db.sequelizeQuarc.import('../api/queuedTask/queuedTask.model');
+db.Email = db.sequelizeQverify.import('../api/email/email.model');
 db.Candidate = db.sequelizeQverify.import('../api/candidate/candidate.model');
 db.CandidateMap = db.sequelizeQverify.import('../api/candidate_map/candidate_map.model');
 //db.UniversityName = db.sequelizeQverify.import('../api/university_name/university_name.model');
@@ -68,7 +74,6 @@ function qualifyBucket(bucketName) {
   }
   return bucket.toLowerCase();
 }
-
 db.Minio.base64Upload = function(minioObject){
   minioObject.buffer = Buffer.from(minioObject.base64String, 'base64');
   return db.Minio.bufferUpload(minioObject)

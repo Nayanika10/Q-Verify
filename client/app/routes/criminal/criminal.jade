@@ -20,35 +20,35 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                   label.col-xs-12.input-group
                     | Police station name
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.police station name' ng-model='$ctrl.data.police_station_name'  required)
+                    input.form.form-control(type='text' placeholder='eg.police station name' ng-model='$ctrl.data.police_station_name'  ng-required='true')
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Police authority name
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.police authority name' ng-model='$ctrl.data.police_authority_name' required )
+                    input.form.form-control(type='text' placeholder='eg.police authority name' ng-model='$ctrl.data.police_authority_name' ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Father name
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.father name' ng-model='$ctrl.data.father_name' required )
+                    input.form.form-control(type='text' placeholder='eg.father name' ng-model='$ctrl.data.father_name' ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Remark
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.remarks' ng-model='$ctrl.data.remark'  required)
+                    input.form.form-control(type='text' placeholder='eg.remarks' ng-model='$ctrl.data.remark'  ng-required='true')
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | DOB
                     span.text-danger *
-                    input.form.form-control(type='date' placeholder='eg.dob' ng-model='$ctrl.data.dob' required )
+                    input.form.form-control(type='date' placeholder='eg.dob' ng-model='$ctrl.data.dob' ng-required='true' )
 
             .line.line-dashed.b-b.line-lg.pull-in
               .row
@@ -56,7 +56,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                   label.col-xs-12.input-group
                     | Designation
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.designation' ng-model='$ctrl.data.designation' required )
+                    input.form.form-control(type='text' placeholder='eg.designation' ng-model='$ctrl.data.designation' ng-required='true' )
                     //select.form.form-control(type='text' placeholder='eg.designation' ng-options='item.id as item.name for item in $ctrl.data.Designation' ng-model='$ctrl.data.$ctrl.data.designation_id'  )
 
 

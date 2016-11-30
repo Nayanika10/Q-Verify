@@ -26,7 +26,10 @@ class CriminalComponent {
       .then(data =>  this
         .$http
         .put(`/api/allocations/${this.$stateParams.id}`, { status_id: 2 })
-        .then(() => this.$state.go('completed')));
+        .then(() => this.$state.go('ongoing')))
+        .then(res => this.toaster.pop('success', "Uploaded"))
+        .catch(err => this.toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
+
   }
 }
 

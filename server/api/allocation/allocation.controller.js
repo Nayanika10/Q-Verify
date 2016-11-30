@@ -12,7 +12,9 @@
 import _ from 'lodash';
 import db, {Allocation,minio,CandidateMap,User,Company,Candidate,AllocationStatus,
   CaseSiteVerification,CaseAddressVerification,CaseCriminalVerification,
-  CaseEducationVerification} from '../../sqldb';
+  CaseEducationVerification } from '../../sqldb';
+import email from '../../components/email';
+
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -154,7 +156,18 @@ export function create(req, res) {
       req.body.candidate_map_id = candidateMap.id;
       return Allocation
         .create(req.body)
-        .then(allocation => res.json(allocation));
+        .then(allocation => email.emailIndividualTemplate({
+          email: 'staging@quetzal.in',
+          subject: 'This is test email',
+        })
+        .then(() => res.json(allocation)))
+      //  .emailIndividualTemplate = emailObject => {
+      //  const html = swig.renderFile(`${config.root}/server/template/email_unread_message.html`);
+      //  return sendEmail(emailObject.email, emailObject.subject, html);
+      //};
+      //alert("Hello! I am an alert box!!");
+      //console.log('sent');
+
     })
     .catch(handleError(res));
 }

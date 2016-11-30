@@ -45,8 +45,8 @@
       }
       this.$http.post('/api/candidates', this.candidate)
         .then(() => this.$state.go("overview"))
-        //.then(res => this.toaster.pop('success', "Candidate Created"))
-        //.catch(err => this.toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
+        .then(res => this.toaster.pop('success', "Candidate Created"))
+        .catch(err => this.toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
 
     }
 

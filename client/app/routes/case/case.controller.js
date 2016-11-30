@@ -5,43 +5,58 @@
     const LOG_TAG = 'CaseComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
-    $scope.filterOptions = {
-      filterText: ''
-    };
+    $scope.statusList = [];
     $scope.gridOpts = {
-      //data:myData,
-      enableFiltering: true,
-      columnDefs: [
-        //{name: 'Id', field: 'Case.id'},
-        {name: 'Client', field: 'Candidate.User.Company.name'},
-        {name: 'Hiring Manager', field: 'Candidate.User.name'} ,
-        {name: 'Vendor', field: 'Allocations.User.name'},
-        {name: 'Candidate', field: 'Candidate.name' , cellTemplate: '<div class="ui-grid-cell-contents">'
-        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/{{ row.entity.id }} ">{{ COL_FIELD }} </a>' + '</div>'},
+      ienableRowSelection: true,
+      enableSelectAll: true,
+      selectionRowHeaderWidth: 35,
+      rowHeight: 35,
+      showGridFooter: true,
 
-        {name: 'Case Type', field: 'Candidate', cellTemplate: '<div class="ui-grid-cell-contents">'
-        + '<a target="_blank"" ng-if="row.entity.case_address_verification_id">Address</a>'
-        + '<a target="_blank"" ng-if="row.entity.case_criminal_verification_id">Criminal</a>'
-        + '<a target="_blank"" ng-if="row.entity.case_site_verification_id">Site</a>'
-        + '<a target="_blank"" ng-if="row.entity.case_education_verification_id">Education</a> '
-        + '</div>'},
-
-        {name: 'Status', field: 'Allocations.AllocationStatus.name'},
-        {name: 'Vendor Status', field: 'Allocations.Status.name'},
-
-        {name: 'Allocated On', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MMM-yyyy "'},
-        {
-          field: ' Case Status',
-          cellTemplate: '<select ng-options="status.name for status in status " ng-model="row.entity.status"></select>'
-
-        },
-
-      ]
     };
+    $scope.gridOpts.columnDefs = [
+         {name: 'Id', field: 'id'},
+         {name: 'Client', field: 'Candidate.User.Company.name'},
+         {name: 'Hiring Manager', field: 'Candidate.User.name'},
+         {name: 'Vendor', field: 'Allocations.User.name'},
+         {
+           name: 'Candidate', field: 'Candidate.name', cellTemplate: '<div class="ui-grid-cell-contents">'
+         + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.id }} ">{{ COL_FIELD }} </a>' + '</div>'
+         },
+         {
+           name: 'Case Type', field: 'Candidate', cellTemplate: '<div class="ui-grid-cell-contents">'
+         + '<span target="_blank" ng-if="row.entity.case_address_verification_id">Address</span>'
+         + '<span target="_blank" ng-if="row.entity.case_criminal_verification_id">Criminal</span>'
+         + '<span target="_blank" ng-if="row.entity.case_site_verification_id">Site</span>'
+         + '<span target="_blank" ng-if="row.entity.case_education_verification_id">Education</span> '
+         + '</div>'
+         },
+         {name: 'Status', field: 'Allocations.AllocationStatus.name'},
+         {name: 'Vendor Status', field: 'Allocations.Status.name'},
+         {name: 'Allocated On', field: 'Allocations.created_on', cellFilter: 'date:"dd-MMM-yyyy "'},
+         {
+           field: 'Allocations.Status.name',
+           displayName: 'Status(editable)',
+           //cellTemplate: '<select ng-options="status for status in getExternalScopes().statusList" ng-model="row.entity.status" > </select>'
+         },
+      ]
+
+    $scope.info = {};
+    $scope.gridOpts.multiSelect = true;
+
+    $scope.setSelectable = function() {
+      $scope.gridApi.selection.clearSelectedRows();
+
+    };
+
     qverifyConnection.fetchStatus().then((status)=> {
-      //$scope.myData = status;
+      $scope.statusList = status;
       //$scope.gridOpts.data = status;
     });
+    qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
+      vm.Allocated = allocations;
+    });
+
 
     Restangular.all(`candidate_maps`).getList()
       .then((candidateMap)=> {
@@ -79,5 +94,6 @@
     controller: CaseComponent,
     controllerAs: 'Case',
   });
+
 
 })();

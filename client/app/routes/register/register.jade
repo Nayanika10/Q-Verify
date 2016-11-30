@@ -24,14 +24,14 @@
                           label.col-xs-12.input-group
                             | Company
                             span.text-danger *
-                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' ng-disabled="true"  required)
+                            select.form.form-control(  ng-options='item.id as item.name for item in Register.Company' ng-model='Register.user.company_id' ng-disabled="true"  ng-required='true')
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Username
                             span.text-danger *
-                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' required)
+                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' ng-required='true')
 
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
@@ -39,7 +39,7 @@
                           label.col-xs-12.input-group
                             | Name
                             span.text-danger *
-                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  required  )
+                            input.form.form-control(type='text' placeholder='name' ng-model='Register.user.name'  ng-required='true'  )
 
 
                     //.line.line-dashed.b-b.line-lg.pull-in
@@ -54,21 +54,21 @@
                           label.col-xs-12.input-group
                             | E-mail
                             span.text-danger *
-                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'  required )
+                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'  ng-required='true' )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Password
                             span.text-danger *
-                            input.form.form-control(type='password' placeholder='password' ng-model='Register.user.password'  required)
+                            input.form.form-control(type='password' placeholder='password' ng-model='Register.user.password'  ng-required='true')
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
                           label.col-xs-12.input-group
                             | Contact
                             span.text-danger *
-                            input.form.form-control(type='text' placeholder='contact' ng-model='Register.user.mobile'  required )
+                            input.form.form-control(type='text' placeholder='contact' ng-model='Register.user.mobile'  ng-required='true' )
 
 
 

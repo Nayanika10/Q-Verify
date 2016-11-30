@@ -13,7 +13,8 @@ angular.module('appApp', [
   //'chart.js'
   "naif.base64",
   'ui.grid',
-  'angular-oauth2'
+  'angular-oauth2',
+  'ui.grid.selection'
 ])
   .config(function ($urlRouterProvider, $locationProvider, RestangularProvider, OAuthProvider, OAuthTokenProvider) {
 

@@ -80,6 +80,8 @@
   }
 
 
+
+
   angular.module('appApp')
     .component('allocation', {
       templateUrl: 'app/routes/allocation/allocation.html',

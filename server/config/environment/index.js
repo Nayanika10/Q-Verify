@@ -32,14 +32,19 @@ var all = {
     session: 'app-secret'
   },
   DOMAIN: process.env.DOMAIN,
-  // MongoDB connection options
-  mongo: {
-    options: {
-      db: {
-        safe: true
-      }
-    }
-  }
+  quarc: {
+    username: process.env.QUARC_MYSQL_USER,
+    password: process.env.QUARC_MYSQL_PASS,
+    database: process.env.QUARC_MYSQL_DB,
+    host: process.env.QUARC_MYSQL_HOST,
+    dialect: 'mysql',
+    logging: true,
+    timezone: '+05:30',
+  },
+
+  CNOTIFY_SERVER: process.env.CNOTIFY_SERVER,
+
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
 };
 
 // Export the config object based on the NODE_ENV

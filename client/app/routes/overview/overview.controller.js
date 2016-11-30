@@ -20,8 +20,10 @@
         // + '{{ COL_FIELD }} ({{row.entity.User.name}})' + '</div>'},
 
         //{name: 'Vendor', field: 'Allocations.User.name'},
-        {name: 'Candidate', field: 'name' , cellTemplate: '<div class="ui-grid-cell-contents">'
-        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
+        {name: 'Candidate', field: 'name'
+        //  , cellTemplate: '<div class="ui-grid-cell-contents">'
+        //+ '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
+        },
         //{name: 'Case Type', field: 'CandidateMaps[0]', cellTemplate: '<div class="ui-grid-cell-contents">'
         //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_address_verification_id">Address</a>&nbsp'
         //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_criminal_verification_id">Criminal</a>&nbsp'
@@ -39,10 +41,13 @@
         {name: 'Created On', field: 'created_at',   cellFilter: 'date:"dd-MMM-yyyy "'},
         {name: 'Updated On', field: 'updated_at',   cellFilter: 'date:"dd-MMM-yyyy "'},
         //{name: 'Allocated On', field: 'Allocations.created_on',   cellFilter: 'date:"dd-MM-yy "'},
-        {name: 'Candidate', field: 'name' , cellTemplate: '<div class="ui-grid-cell-contents">'
-        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
+        //{name: 'Candidate', field: 'name' , cellTemplate: '<div class="ui-grid-cell-contents">'
+        //+ '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
      ]
     };
+    qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
+      vm.Allocated = allocations;
+    });
 
     Restangular.all(`candidates`).getList()
       .then((candidates)=> {

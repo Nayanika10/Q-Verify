@@ -482,6 +482,7 @@ gulp.task('build', cb => {
             'copy:fonts',
             'copy:assets',
             'copy:server',
+            'copy:template',
             'transpile:server',
             'build:client'
         ],
@@ -598,6 +599,11 @@ gulp.task('copy:server', () => {
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
 });
+gulp.task('copy:template', () =>{
+   return gulp.src([paths.server.template])
+  .pipe(gulp.dest(`${paths.dist}/${serverPath}/template`));
+});
+
 
 gulp.task('coverage:pre', () => {
   return gulp.src(paths.server.scripts)
@@ -691,3 +697,4 @@ gulp.task('buildcontrol:openshift', function(done) {
         function() {done();}
     );
 });
+

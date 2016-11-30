@@ -9,6 +9,8 @@ import path from 'path';
 
 export default function (app) {
   // Insert routes below
+  //app.use('/api/queuedTasks', require('./api/queuedTask'));
+  //app.use('/api/emails', require('./api/email'));
   app.use('/api/candidates', app.oauth.authenticate(), require('./api/candidate'));
   app.use('/api/candidate_maps', require('./api/candidate_map'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
@@ -34,6 +36,7 @@ export default function (app) {
   app.use('/api/vendors', app.oauth.authenticate(), require('./api/vendor'));
   app.use('/api/clients', app.oauth.authenticate(), require('./api/client/user'));
   app.use('/api/vendors', app.oauth.authenticate(), require('./api/vendor/user'));
+  app.use('/api/emails', app.oauth.authenticate(), require('./api/email'));
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
     .get(errors[404]);

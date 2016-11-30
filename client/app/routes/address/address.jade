@@ -20,49 +20,49 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
                   label.col-xs-12.input-group
                     | Visiting address
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.Visiting address' ng-model='$ctrl.data.visiting_address'   required  )
+                    input.form.form-control(type='text' placeholder='eg.Visiting address' ng-model='$ctrl.data.visiting_address'   ng-required='true'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Visiting person name
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.Visiting person name' ng-model='$ctrl.data.visiting_person_name'    required  )
+                    input.form.form-control(type='text' placeholder='eg.Visiting person name' ng-model='$ctrl.data.visiting_person_name'    ng-required='true'  )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Relation with candidate
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.Relation with candidate' ng-model='$ctrl.data.relation_with_candidate'  required )
+                    input.form.form-control(type='text' placeholder='eg.Relation with candidate' ng-model='$ctrl.data.relation_with_candidate'  ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | House types id
                     span.text-danger *
-                    select.form.form-control( ng-options='item.id as item.name for item in $ctrl.HouseType' ng-model='$ctrl.data.house_type_id' required )
+                    select.form.form-control( ng-options='item.id as item.name for item in $ctrl.HouseType' ng-model='$ctrl.data.house_type_id' ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Years of staying
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.years of staying' ng-model='$ctrl.data.years_of_staying'  required )
+                    input.form.form-control(type='text' placeholder='eg.years of staying' ng-model='$ctrl.data.years_of_staying'  ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Image
                     span.text-danger *
-                    input.form.form-control(type='file' placeholder='eg.image' ng-model='$ctrl.data.img' base-sixty-four-input maxsize="10000" name='file'  required )
+                    input.form.form-control(type='file' placeholder='eg.image' ng-model='$ctrl.data.img' base-sixty-four-input maxsize="10000" name='file'  ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
                     | Remarks
                     span.text-danger *
-                    input.form.form-control(type='text' placeholder='eg.remarks ' ng-model='$ctrl.data.remarks'  required )
+                    input.form.form-control(type='text' placeholder='eg.remarks ' ng-model='$ctrl.data.remarks'  ng-required='true' )
 
             button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' style='background-color:#083040')
               i.fa.fa-upload
