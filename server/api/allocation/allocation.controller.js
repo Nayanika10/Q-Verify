@@ -200,6 +200,10 @@ export function vendorUpload(req, res) {
       where: {
         user_id: req.user.id
       },
+      attributes:[
+        'id',
+        'internal_status_id'
+      ],
       include: [
         {
           model: db.CandidateMap,include:[{model: db.Candidate,
@@ -241,6 +245,10 @@ export function byStatusId(req, res) {
   //if(req.allocation.status_id=1)
   //return res.partner;
   return Allocation.findAll({
+      attributes:[
+        'id',
+        'internal_status_id'
+      ],
       where: whereClause,
       include: [
         {

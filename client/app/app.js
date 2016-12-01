@@ -14,7 +14,8 @@ angular.module('appApp', [
   "naif.base64",
   'ui.grid',
   'angular-oauth2',
-  'ui.grid.selection'
+  'ui.grid.selection',
+  'ui.grid.edit'
 ])
   .config(function ($urlRouterProvider, $locationProvider, RestangularProvider, OAuthProvider, OAuthTokenProvider) {
 

@@ -99,7 +99,8 @@ export function index(req, res) {
         model: Allocation,
         attributes: [
           'id',
-          'created_on'
+          'created_on',
+          'internal_status_id'
         ],
         include: [
           {model: Status , attribute: ['id', 'name']},

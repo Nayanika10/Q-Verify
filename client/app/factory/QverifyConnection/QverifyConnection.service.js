@@ -370,6 +370,7 @@ angular.module('appApp')
 
     };
 
+
     QVC.prototype.fetchAllocation = (allocation)=> {
       let defer = $q.defer();
       Restangular.all(`allocations`).getList()

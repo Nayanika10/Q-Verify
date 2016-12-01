@@ -23,6 +23,7 @@ var db = {
 };
 
 // Insert models below
+//db.Internalstatus = db.sequelize.import('../api/internalstatus/internalstatus.model');
 db.QueuedTask = db.sequelizeQuarc.import('../api/queuedTask/queuedTask.model');
 db.Email = db.sequelizeQverify.import('../api/email/email.model');
 db.Candidate = db.sequelizeQverify.import('../api/candidate/candidate.model');

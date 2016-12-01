@@ -9,25 +9,25 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
     #products.row.list-group
-      .item.col-xs-12.col-lg-9(ng-repeat='allocation in Completed.Allocated' ui-sref='view({id: allocation.id })')
-        .caption
-          h4.group.inner.list-group-item-heading-info
-            | {{allocation.CandidateMap.Candidate.name}}
-          p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseAddressVerification")
-            | Address Verification
-          p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseCriminalVerification")
-            | Criminal Verification
-          p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseEducationVerification")
-            | Education Verification
-          p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseSiteVerification")
-            | Site Verification
+      //.item.col-xs-12.col-lg-9(ng-repeat='allocation in Completed.Allocated' ui-sref='view({id: allocation.id })')
+      //  .caption
+      //    h4.group.inner.list-group-item-heading-info
+      //      | {{allocation.CandidateMap.Candidate.name}}
+      //    p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseAddressVerification")
+      //      | Address Verification
+      //    p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseCriminalVerification")
+      //      | Criminal Verification
+      //    p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseEducationVerification")
+      //      | Education Verification
+      //    p.group.inner.list-group-item-text(ng-if="allocation.CandidateMap.CaseSiteVerification")
+      //      | Site Verification
 
     div.fixed-nav.navbar
       ul
         li
           a(href='/partner') New
         li
-          a(href='/completed') On going
+          a(href='/ongoing') On going
         li
           a(href='/completed') Completed
 

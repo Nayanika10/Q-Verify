@@ -9,6 +9,7 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
 
     },
+    internal_status_id: DataTypes.INTEGER
   }, {
     tableName: `allocations`,
     underscored: true,

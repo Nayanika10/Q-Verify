@@ -7,7 +7,7 @@
     const LOG_TAG = 'CompletedComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
+    qverifyConnection.fetchAllocationByInternalStatus(6).then((allocations)=> {
       vm.Allocated = allocations;
     });
     vm.logout =  function() {

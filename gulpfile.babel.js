@@ -43,6 +43,7 @@ const paths = {
           `${serverPath}/**/!(*.spec|*.integration).js`,
           `!${serverPath}/config/local.env.sample.js`
         ],
+      template: `${serverPath}/template/*`,
         json: [`${serverPath}/**/*.json`],
         test: {
           integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
@@ -469,24 +470,26 @@ gulp.task('wiredep:test', () => {
 //FIXME: looks like font-awesome isn't getting loaded
 gulp.task('build', cb => {
     runSequence(
-        [
-            'clean:dist',
-            'clean:tmp'
-        ],
-        'jade',
-        'inject',
-        'wiredep:client',
-        [
-            'build:images',
-            'copy:extras',
-            'copy:fonts',
-            'copy:assets',
-            'copy:server',
-            'copy:template',
-            'transpile:server',
-            'build:client'
-        ],
-        cb);
+      [
+        'clean:dist',
+        'clean:tmp',
+      ],
+      'jade',
+      'inject',
+      'wiredep:client',
+
+      'transpile:server',
+      [
+        'build:images',
+        'copy:extras',
+        'copy:fonts',
+        'copy:assets',
+
+        'copy:server',
+        'copy:template',
+        'build:client'
+      ],
+      cb);
 });
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
