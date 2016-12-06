@@ -6,6 +6,10 @@
       const LOG_TAG = 'AllocationComponent';
       this.qverifyConnection = new QverifyConnection();
       this.$http = $http;
+      this.gridApi = gridApi;
+      this.$uibModalInstance = $uibModalInstance;
+      this.toaster =toaster;
+
     }
 
     $onInit() {
@@ -82,11 +86,11 @@
 
 
 
-  angular.module('appApp')
-    .component('allocation', {
-      templateUrl: 'app/routes/allocation/allocation.html',
-      controller: AllocationComponent,
-      controllerAs: 'ctrl'
-    });
+  //angular.module('appApp')
+  //  .component('allocation', {
+  //    //templateUrl: 'app/routes/allocation/allocation.html',
+  //    //controller: AllocationComponent,
+  //    //controllerAs: 'ctrl'
+  //  });
 
 })();

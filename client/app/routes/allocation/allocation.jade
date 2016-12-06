@@ -3,53 +3,55 @@
     .row
       sidebar
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
-        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+        //toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
 
         div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
           .hbox
-            .wrapper-md.bg-light
-              h1.m-n.font-thin.h3
-                span Case Allocation
+            .modal-header
+              //h1.m-n.font-thin.h3
+              h3.modal-title  Case Allocation
               form.form-horizontal.wrapper-md( name="AllocationDataForm")
-                .row
+                //.row
                   // Form Block
+                .modal-body
                   .col-md-7.col-sm-7.col-xs-7
                     // Form Items
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
-                        .col-md-4.col-sm-4.col-xs-12
-                          label.col-xs-12.input-group
-                            | Client
-                            span.text-danger *
-                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.Client" ng-model="ctrl.allocation.client_id" ng-change='ctrl.getCandidates()')
-                              option(value="") Please select Client
-                        .col-md-4.col-sm-4.col-xs-12
-                          label.col-xs-12.input-group
-                            | Candidate
-                            select.form.form-control(ng-options="item.id as item.name for item in ctrl.Candidate" ng-model="ctrl.allocation.candidate_id" ng-change='ctrl.getCandidateCase()' )
-                              option(value="") Please select Candidate
+                        //.col-md-4.col-sm-4.col-xs-12
+                        //  label.col-xs-12.input-group
+                        //    | Client
+                        //    span.text-danger *
+                        //    select.form.form-control(ng-options="item.id as item.name for item in ctrl.Client" ng-model="ctrl.allocation.client_id" ng-change='ctrl.getCandidates()')
+                        //      option(value="") Please select Client
+                        //.col-md-4.col-sm-4.col-xs-12
+                        //  label.col-xs-12.input-group
+                        //    | Candidate
+                        //    select.form.form-control(ng-options="item.id as item.name for item in ctrl.Candidate" ng-model="ctrl.allocation.candidate_id" ng-change='ctrl.getCandidateCase()' )
+                        //      option(value="") Please select Candidate
                         .col-md-4.col-sm-4.col-xs-12
                           label.col-xs-12.input-group
                             | Case Types
                             select.form.form-control(ng-options="item as item.name for item in ctrl.CaseTypes" ng-model="ctrl.allocation.caseType"  )
                               option(value="") Please select Case Types
-                    .line.line-dashed.b-b.line-lg.pull-in
-                       .row
-                        .col-md-6.col-sm-6.col-xs-12
+
+                        .col-md-4.col-sm-4.col-xs-12
                           label.col-xs-12.input-group
                             | Vendor
                             select.form.form-control(ng-options="item.id as item.name for item in ctrl.Vendor" ng-model="ctrl.allocation.vendor_id" ng-change='ctrl.getUsers(ctrl.allocation.vendor_id)')
                               option(value="") Please select Vendor
-                        .col-md-6.col-sm-6.col-xs-12
+                        .col-md-4.col-sm-4.col-xs-12
                           label.col-xs-12.input-group
                             | Users
                             select.form.form-control(ng-options="item.id as item.name for item in ctrl.users" ng-model="ctrl.allocation.user_id" )
                               option(value="") Please select user
 
-                    .line.line-dashed.b-b.line-lg.pull-in
-                    .row
+                    //.line.line-dashed.b-b.line-lg.pull-in
+                    //.row
+                    .modal-footer( style='border-top:0px;')
                       .col-md-4.col-xs-12
                         //ng-disabled='AllocationDataForm.$invalid'
                         button.btn.btn-primary.pull-left(type='submit' ng-click='ctrl.create()' ui-sref='overview' style='background-color:#083040'  )
                           i.fa.fa-upload
-                          | &nbsp;&nbsp;Submit
+                          | &nbsp;&nbsp; Submit
+                        //button.btn.btn.primary(type='submit' ng-click='ctrl.cancel()') Cancel

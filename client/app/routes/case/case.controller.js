@@ -1,11 +1,12 @@
 'use strict';
 
 (function () {
-  function CaseComponent($log, QverifyConnection,$scope,Restangular,URLS) {
+  function CaseComponent($log, QverifyConnection,$scope,Restangular,URLS, $uibModal) {
     const LOG_TAG = 'CaseComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
     $scope.statusList = [];
+
 
     $scope.gridOpts = {
       ienableRowSelection: true,
@@ -48,16 +49,50 @@
     ]
 
 
+    function checkExist(incomingData, selectedTags, key) {
+      var names = _.pluck(selectedTags, key)
+
+      return _.filter(incomingData, function (item) {
+        return -1 === names.indexOf(item[key])
+      })
+    }
+
+    $scope.gridOpts.onRegisterApi = function(gridApi) {
+      $scope.gridApi = gridApi;
+      gridApi.selection.on.rowSelectionChanged($scope, () => {
+        vm.candidate_mapIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
+      });
+
+      gridApi.selection.on.rowSelectionChangedBatch($scope, () => {
+        vm.candidate_mapIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
+      });
+    }
+
+
+
+    $scope.open = size => {
+      $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'app/directives/allocation/allocation.html',
+        controller: 'AllocationController',
+        controllerAs: 'ctrl',
+        size,
+        resolve: {
+          candidateMapIds: () => vm.candidate_mapIdsToAllocation,
+          gridApi: () => $scope.gridApi,
+        },
+      });
+    };
 
 
 
     $scope.info = {};
     $scope.gridOpts.multiSelect = true;
 
-    $scope.setSelectable = function() {
-      $scope.gridApi.selection.clearSelectedRows();
-
-    };
+    //$scope.setSelectable = function() {
+    //  $scope.gridApi.selection.clearSelectedRows();
+    //
+    //};
 
     qverifyConnection.fetchStatus().then((status)=> {
       $scope.statusList = status;
