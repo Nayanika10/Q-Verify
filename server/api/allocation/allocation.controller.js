@@ -161,13 +161,6 @@ export function create(req, res) {
           subject: 'This is test email',
         })
         .then(() => res.json(allocation)))
-      //  .emailIndividualTemplate = emailObject => {
-      //  const html = swig.renderFile(`${config.root}/server/template/email_unread_message.html`);
-      //  return sendEmail(emailObject.email, emailObject.subject, html);
-      //};
-      //alert("Hello! I am an alert box!!");
-      //console.log('sent');
-
     })
     .catch(handleError(res));
 }
