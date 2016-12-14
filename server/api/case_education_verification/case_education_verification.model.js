@@ -36,7 +36,7 @@ export default function(sequelize, DataTypes) {
         //models.CaseEducationVerification.belongsTo(models.Case, {
         //  foreignKey: `case_id`
         //});
-        models.CaseEducationVerification.hasMany(models.CandidateMap);
+        //models.CaseEducationVerification.hasMany(models.CandidateMap);
       }
     }
   });

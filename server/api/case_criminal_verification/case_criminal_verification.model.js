@@ -23,7 +23,7 @@ export default function(sequelize, DataTypes) {
         //models.CaseCriminalVerification.belongsTo(models.Designation, {
         //  foreignKey: `designation_id`
         //});
-        models.CaseCriminalVerification.hasMany(models.CandidateMap);
+        //models.CaseCriminalVerification.hasMany(models.CandidateMap);
         //});
 
       }

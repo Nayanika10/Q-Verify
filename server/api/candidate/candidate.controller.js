@@ -77,11 +77,11 @@ export function index(req, res) {
         {
           model: CandidateMap,
           attributes:[
-            'id',
-            'case_address_verification_id',
-            'case_criminal_verification_id',
-            'case_education_verification_id',
-            'case_site_verification_id'
+            'id'
+            //'case_address_verification_id',
+            //'case_criminal_verification_id',
+            //'case_education_verification_id',
+            //'case_site_verification_id'
           ],
 
           //include: [

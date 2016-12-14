@@ -15,9 +15,9 @@ export default function(sequelize, DataTypes) {
     underscored: true,
     timestamps: false,
     classMethods: {
-      associate(models) {
-        models.Status.hasMany(models.CandidateMap);
-      }
+      //associate(models) {
+      //  models.Status.hasMany(models.CandidateMap);
+      //}
     }
   });
 }

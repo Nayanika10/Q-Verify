@@ -15,6 +15,7 @@ export default function(sequelize, DataTypes) {
     timestamps: false,
     classMethods: {
       associate(models) {
+        models.CaseType.hasMany(models.CandidateMap);
       }
     }
   });

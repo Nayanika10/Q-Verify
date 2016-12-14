@@ -45,7 +45,7 @@ export default function (sequelize, DataTypes) {
           //models.CaseSiteVerification.belongsTo(models.Designation, {
           //  foreignKey: `designation_id`
           //});
-          models.CaseSiteVerification.hasMany(models.CandidateMap);
+          //models.CaseSiteVerification.hasMany(models.CandidateMap);
 
         }
       }

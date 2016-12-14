@@ -4,7 +4,9 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
     div.navbar-header
       a.navbar-brand(href='#') Allocated Case
-      button.navbar-toggle.fa.fa-sign-out(type='button', ng-click='Partner.logout()')
+      button.navbar-toggle(type='button', ng-click='Partner.logout()')
+       a
+         img(src='assets/images/repeat (1).png')
 
 
 
@@ -36,11 +38,28 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
     div.fixed-nav.navbar
       ul
         li
-          a(href='/partner') New
+          div.new
+            img(src='assets/images/stopwatch (2).png' , href='/partner')
+            div
+              a(href='/partner') New
+
+          //img(src='assets/images/stopwatch (2).png' , href='/partner')
+          //a(href='/partner') New
         li
-          a(href='/ongoing') On going
+          div.new
+            img(src='assets/images/stopwatch (3).png' , href='/ongoing')
+            div
+              a(href='/ongoing') Ongoing
+          //img(src='assets/images/stopwatch (3).png' ,href='/ongoing')
+          //a(href='/ongoing') Ongoing
         li
-          a(href='/completed') Completed
+          div.new
+            img(src='assets/images/stopwatch (4).png' , href='/completed')
+            div
+              a(href='/completed') Complete
+
+          //img(src='assets/images/stopwatch (4).png' ,href='/completed')
+          //a(href='/completed') Complete
 
 
 

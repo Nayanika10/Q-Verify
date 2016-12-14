@@ -24,7 +24,7 @@ export default function(sequelize, DataTypes) {
         models.CaseAddressVerification.belongsTo(models.HouseType, {
           foreignKey: `house_type_id`
         });
-        models.CaseAddressVerification.hasMany(models.CandidateMap);
+        //models.CaseAddressVerification.hasMany(models.CandidateMap);
 
       }
     }

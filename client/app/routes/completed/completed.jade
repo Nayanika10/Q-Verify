@@ -4,7 +4,9 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
     div.navbar-header
       a.navbar-brand(href='#')  Completed Cases
-      button.navbar-toggle.fa.fa-sign-out(type='button', ng-click='Completed.logout()')
+      button.navbar-toggle(type='button', ng-click='Completed.logout()')
+          a
+          img(src='assets/images/repeat (1).png')
 
 
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
@@ -25,11 +27,21 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
     div.fixed-nav.navbar
       ul
         li
-          a(href='/partner') New
+          div.new
+            img(src='assets/images/stopwatch (2).png' , href='/partner')
+            div
+              a(href='/partner') New
         li
-          a(href='/ongoing') On going
+          div.new
+            img(src='assets/images/stopwatch (3).png' , href='/ongoing')
+            div
+              a(href='/ongoing') Ongoing
         li
-          a(href='/completed') Completed
+          div.new
+            img(src='assets/images/stopwatch (4).png' , href='/completed')
+            div
+              a(href='/completed') Complete
+
 
 
 
