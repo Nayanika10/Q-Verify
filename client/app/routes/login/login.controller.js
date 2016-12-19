@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  function LoginComponent(QverifyConnection, $state, Restangular, OAuthToken, Auth) {
+  function LoginComponent(QverifyConnection, $state, Restangular, OAuthToken, Auth ) {
     let LOG_TAG = 'LoginComponent';
     let user = JSON.parse(localStorage.getItem("user"));
     if (user != undefined) {
@@ -18,6 +18,7 @@
     };
     vm.login = function (user) {
       console.log(user);
+      vm.isLoading = true;
       Restangular.all(`open/users/login`).post({
         username: user.username,
         password: user.password
@@ -33,7 +34,11 @@
           });
         })
         .catch((error)=> {
+          vm.isError = true;
           console.log(LOG_TAG, error);
+          vm.error = 'Invalid Username or Password';
+          vm.isLoading = false;
+          //alert("Incorrect");
         });
     }
 
