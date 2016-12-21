@@ -13,7 +13,7 @@
         div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
           .hbox
             .wrapper-md.bg-light
-              form.form-validation(name="form" ng-submit='Register.register(Register.user)')
+              form.form.form-validation(name="form" ng-submit='Register.register(Register.user)')
 
 
                 .list-group.list-group-sm.m-b-md
@@ -31,7 +31,7 @@
                           label.col-xs-12.input-group
                             | Username
                             span.text-danger *
-                            input.form.form-control(type='text' placeholder='eg.Username' ng-model='Register.user.username' ng-required='true')
+                            input.form.form-control(type='text' placeholder='username' ng-model='Register.user.username' ng-required='true')
 
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
@@ -54,7 +54,7 @@
                           label.col-xs-12.input-group
                             | E-mail
                             span.text-danger *
-                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email' ng-show=''  ng-required='true' )
+                            input.form.form-control(type='email' placeholder='email id' ng-model='Register.user.email'   ng-required='true' )
                     .line.line-dashed.b-b.line-lg.pull-in
                       .row
                         .col-md-12.col-sm-12.col-xs-12
@@ -68,7 +68,7 @@
                           label.col-xs-12.input-group
                             | Contact
                             span.text-danger *
-                            input.form.form-control(type='text' placeholder='contact' ng-model='Register.user.mobile'  ng-required='true' )
+                            input.form.form-control(type='number', maxlength='10', ng-maxlength='10', ng-minlength='10', placeholder='contact', ng-model='Register.user.mobile' , ng-required='true' )
 
 
 

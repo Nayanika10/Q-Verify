@@ -36,3 +36,10 @@
   -ms-user-select: none;
   user-select: none;
 }
+.form-validation .form-control.ng-dirty.ng-valid, .form-validation .form-control.ng-dirty.ng-valid:focus {
+  border-color: #58883E;
+}
+
+.form-validation .form-control.ng-dirty.ng-invalid {
+  border-color: #d14836;
+}

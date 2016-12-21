@@ -1,29 +1,7 @@
 .dashboard-page
   .container-fluid
     .row
-      .col-sm-3.col-md-2.sidebar
-        .text-center
-          h2.brand
-            | Q Verify
-
-          img.user-avatar(src='assets/images/qverify3.png')
-          br
-          a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ui-sref='login') Logout
-        ul.nav.nav-sidebar
-          li(ng-class="{active: $state.includes('overview')}")
-            a(ui-sref='overview')
-              | Candidates
-              span.sr-only (current)
-          li(ng-class="{active: $state.includes('case')}")
-            a(ui-sref='case') Cases
-          li(ng-class="{active: $state.includes('company')}")
-            a(ui-sref='company') Company
-          //li(ng-class="{active: $state.includes('register')}")
-          //  a(ui-sref='register') Register
-          //li(ng-class="{active: $state.includes('creation')}")
-          //  a(ui-sref='creation') Creation
-          //li(ng-class="{active: $state.includes('allocation')}")
-          //  a(ui-sref='allocation') Allocation
+      sidebar
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
         toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
@@ -31,7 +9,7 @@
         div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
           .hbox
             .wrapper-md.bg-light
-              form.form-validation(name="form" ng-submit='Newcompany.createCompany(Newcompany.company)')
+              form.form.form-validation(name="form"   )
 
 
                 .list-group.list-group-sm.m-b-md
@@ -42,14 +20,14 @@
                         label.col-xs-12.input-group
                           | Company Name
                           span.text-danger *
-                          input.form.form-control(type='text' placeholder='eg.Name' ng-model='Newcompany.company.name'  required )
+                          input.form.form-control(type='text' placeholder='company name' ng-model='Newcompany.company.name'  required )
                   .line.line-dashed.b-b.line-lg.pull-in
                     .row
                       .col-md-12.col-sm-12.col-xs-12
                         label.col-xs-12.input-group
                           | Address
                           span.text-danger *
-                          input.form.form-control(type='text' placeholder='eg.address' ng-model='Newcompany.company.address'  required )
+                          input.form.form-control(type='text' placeholder='address' ng-model='Newcompany.company.address'  required )
                   .line.line-dashed.b-b.line-lg.pull-in
                     .row
                       .col-md-12.col-sm-12.col-xs-12
@@ -63,7 +41,7 @@
                         label.col-xs-12.input-group
                           | Location
                           span.text-danger *
-                          input.form.form-control(type='text' placeholder='eg.Location'  ng-model='Newcompany.company.location' required )
+                          input.form.form-control(type='text' placeholder='location'  ng-model='Newcompany.company.location' required )
 
 
                   button.btn.btn-lg.btn-primary.btn-block(type='submit' ng-disabled='form.$invalid' style='background-color:#083040') Submit
