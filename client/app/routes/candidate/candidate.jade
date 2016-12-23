@@ -1,8 +1,12 @@
 div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
   div.container
+
     div.navbar-header
-      button.navbar-toggle.pull-left(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed',ui-sref='partner') Back
+      a.navbar-brand(href='#') Allocated Case
+      button.navbar-toggle(type='button', ng-click='Partner.logout()')
+        a
+          img(src='assets/images/repeat (1).png')
 
 
 
@@ -38,7 +42,6 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         li.list-group-item( style="color:#383f44")(ng-if="Candidate.Candidate.Candidate.state")
           |  State : {{Candidate.Candidate.Candidate.state}}
         li.list-group-item( style="color:#383f44")(ng-if="Candidate.Candidate.Candidate.pin")
-
           |  Pin : {{Candidate.Candidate.Candidate.pin}}
         //li.list-group-item( style="color:#383f44")
         ////  |  Client = {{Candidate.Case.User.name}}

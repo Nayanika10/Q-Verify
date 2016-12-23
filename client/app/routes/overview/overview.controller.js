@@ -48,6 +48,7 @@
     qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
       vm.Allocated = allocations;
     });
+    
 
     Restangular.all(`candidates`).getList()
       .then((candidates)=> {
@@ -78,10 +79,6 @@
       .catch((error)=> {
         console.log(error)
       });
-    //qverifyConnection.fetchAllocation().then((allocations)=> {
-    //  $scope.myData = allocations;
-    //  $scope.gridOpts.data = allocations;
-    //});
   }
 
   angular.module('appApp')

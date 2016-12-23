@@ -60,11 +60,11 @@
     $scope.gridOpts.onRegisterApi = function(gridApi) {
       $scope.gridApi = gridApi;
       gridApi.selection.on.rowSelectionChanged($scope, () => {
-        vm.candidate_mapIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
+        vm.candidate_caseIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
       });
 
       gridApi.selection.on.rowSelectionChangedBatch($scope, () => {
-        vm.candidate_mapIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
+        vm.candidate_caseIdsToAllocation = gridApi.selection.getSelectedRows().map(x => x.id);
       });
     }
 
@@ -78,7 +78,7 @@
         controllerAs: 'ctrl',
         size,
         resolve: {
-          candidateMapIds: () => vm.candidate_mapIdsToAllocation,
+          candidateCaseIds: () => vm.candidate_caseIdsToAllocation,
           gridApi: () => $scope.gridApi,
         },
       });
@@ -102,14 +102,14 @@
     });
 
 
-    Restangular.all(`candidate_maps`).getList()
-      .then((candidateMap)=> {
+    Restangular.all(`candidate_cases`).getList()
+      .then((candidateCase)=> {
         vm.myData = [];
-        candidateMap.forEach( candidateMapObj => {
-          let c = Object.assign({}, candidateMapObj.plain());
-          if (candidateMapObj.Allocations && candidateMapObj.Allocations.length !== 0){
-            candidateMapObj.Allocations.forEach(allocation => {
-              if (candidateMapObj.id === 1) {
+        candidateCase.forEach( candidateCaseObj => {
+          let c = Object.assign({}, candidateCaseObj.plain());
+          if (candidateCaseObj.Allocations && candidateCaseObj.Allocations.length !== 0){
+            candidateCaseObj.Allocations.forEach(allocation => {
+              if (candidateCaseObj.id === 1) {
                 console.log(allocation)
                 console.log(Object.assign(c, {Allocations: allocation}))
               }

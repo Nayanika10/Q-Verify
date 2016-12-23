@@ -13,7 +13,7 @@ export default function (app) {
   //app.use('/api/queuedTasks', require('./api/queuedTask'));
   //app.use('/api/emails', require('./api/email'));
   app.use('/api/candidates', app.oauth.authenticate(), require('./api/candidate'));
-  app.use('/api/candidate_maps', require('./api/candidate_map'));
+  app.use('/api/candidate_cases', require('./api/candidate_case'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
   app.use('/api/users_phone_relations', app.oauth.authenticate(), require('./api/users_phone_relation'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));

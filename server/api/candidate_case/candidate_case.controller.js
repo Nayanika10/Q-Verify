@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {CandidateMap,Candidate,User,CaseType, CaseAddressVerification,Allocation,
+import db, {CandidateCase,Candidate,User,CaseType, CaseAddressVerification,Allocation,
   CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification,Company ,Status ,AllocationStatus} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
@@ -42,7 +42,7 @@ function removeEntity(res) {
   };
 }
 export function vendorUploaded(req, res) {
-  return CandidateMap.findAll({
+  return CandidateCase.findAll({
       include: [Status],
       where: {status_id: [2, 3, 4]}
     })
@@ -67,9 +67,9 @@ function handleError(res, statusCode, err) {
   res.status(statusCode).send(err);
 }
 
-// Gets a list of CandidateMaps
+// Gets a list of CandidateCases
 export function index(req, res) {
-  return CandidateMap.findAll({
+  return CandidateCase.findAll({
       attributes:[
         'id',
         //'case_address_verification_id',
@@ -113,8 +113,8 @@ export function index(req, res) {
   })
     .then(data => {
       const result = [];
-      data.forEach(candidateMap => {
-        const c = candidateMap.toJSON();
+      data.forEach(CandidateCase => {
+        const c = CandidateCase.toJSON();
         if (!c.Allocations.length) {
           c.Allocations.push({
             AllocationStatus: { id:0 , name: 'Unallocated' }
@@ -127,9 +127,9 @@ export function index(req, res) {
     .catch(err => handleError(res, 500, err));
 }
 
-// Gets a single CandidateMap from the DB
+// Gets a single CandidateCase from the DB
 export function show(req, res) {
-  return CandidateMap.find({
+  return CandidateCase.find({
     where: {
       _id: req.params.id
     },
@@ -149,19 +149,19 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-// Creates a new CandidateMap in the DB
+// Creates a new CandidateCase in the DB
 export function create(req, res) {
-  return CandidateMap.create(req.body)
+  return CandidateCase.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing CandidateMap in the DB
+// Updates an existing CandidateCase in the DB
 export function update(req, res) {
   if (req.body.id) {
     delete req.body.id;
   }
-  return CandidateMap.find({
+  return CandidateCase.find({
     where: {
       id: req.params.id
     }
@@ -172,9 +172,9 @@ export function update(req, res) {
     .catch(handleError(res));
 }
 
-// Deletes a CandidateMap from the DB
+// Deletes a CandidateCase from the DB
 export function destroy(req, res) {
-  return CandidateMap.find({
+  return CandidateCase.find({
     where: {
       _id: req.params.id
     }

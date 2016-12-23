@@ -11,7 +11,45 @@
 
 import _ from 'lodash';
 import db, { Candidate,User, CaseType,Status, Minio, CaseAddressVerification,
-  CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification,Company, CandidateMap,Allocation } from '../../sqldb';
+  CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification,Company,
+  CandidateCase,Allocation } from '../../sqldb';
+
+//const candidate = req.body
+//const candidate  = {
+//  "client_id": 3,
+//  "user_id": 3,
+//  "name": "Manjesh",
+//  "address": "Thirthahalli",
+//  "phone": "9844717202",
+//  "state": "Karnataka",
+//  "pin": "577432",
+//  "father_name": "Vinayaka",
+//  "logo": {"filetype": "application/pdf", "filename": "cast.pdf", "filesize": 37907, "base64": "xyz"},
+//  "types": [1]
+//}
+
+
+const CASE_TYPES  = {
+  ADDRESS: 1,
+  CRIMINAL: 2,
+  EDUCATION: 3,
+  SITE: 4,
+}
+//const save = {
+//  name: candidate.name,
+//  address: candidate.address,
+//  phone: candidate.phone,
+//  state: candidate.state,
+//  pin: candidate.pin,
+//  logo: candidate.pdf
+//}
+
+//if(candidate.types.indexOf(CASE_TYPES.ADDRESS) !== -1) {
+//  save.n
+//}
+
+
+db.Candidate.create()
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -75,7 +113,7 @@ export function index(req, res) {
       order: 'created_at DESC',
       include: [
         {
-          model: CandidateMap,
+          model: CandidateCase,
           attributes:[
             'id'
             //'case_address_verification_id',
@@ -112,7 +150,7 @@ export function index(req, res) {
 
 // Gets a single Candidate from the DB
 export function show(req, res) {
-  return CandidateMap.find({
+  return CandidateCase.find({
       where: {
         candidate_id: req.params.id
       },
@@ -142,10 +180,10 @@ export function vendorUploaded(req, res) {
 
 
 export function getFile(req, res) {
-  return Candidate.findById(req.params.id).then(candidateObj => {
+  return Candidate.findById(req.params.id).then(candidate => {
     return Minio.downloadLink({
-      object: candidateObj.pdf,
-      name: `${candidateObj.id}.pdf`
+      object: candidate.pdf,
+      name: `${candidate.id}.pdf`
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
 }
@@ -153,81 +191,62 @@ export function getFile(req, res) {
 // Creates a new Candidate in the DB
 export function create(req, res) {
   return Candidate.create(req.body)
-    .then((candidate) => {
-      const candidateObj = candidate.toJSON();
+    .then((candidateObj) => {
+      const candidate = candidateObj.toJSON();
       if (req.body.logo) {
         /* Start Minio */
         const { base64:base64String, filename } = req.body.logo;
         const extention = filename.substring(filename.lastIndexOf('.') + 1);
 
-      // only upload if valid file extension
+        // only upload if valid file extension
         if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png', 'jpeg'].indexOf(extention)) {
 
-          const rangeFolder = candidateObj.id - (candidateObj.id % 100000);
+          const rangeFolder = candidate.id - (candidate.id % 100000);
           const minioObject = {
             // object: 'cases/0/5/5.pdf'
-            object: `candidates/${rangeFolder}/${candidateObj.id}/${candidateObj.id}.${extention.toLowerCase()}`,
+            object: `candidates/${rangeFolder}/${candidate.id}/${candidate.id}.${extention.toLowerCase()}`,
             base64String: base64String,
           }
 
           // Async
           Minio.base64Upload(minioObject).then(res => {
-            return candidate.updateAttributes({pdf: minioObject.object})
+            return candidateObj.updateAttributes({ pdf: minioObject.object })
             console.log("file saved success")
           }).catch(err => console.log(err))
         }
 
         /* End Minio */
       }
-      let casePromise = [];
-      for (let i = 0; i < req.body.types.length; i++) {
-        switch (req.body.types[i]) {
-          case 1:
+      let casePromises = req.body.types.map(typeId => {
+        switch (typeId) {
+          case CASE_TYPES.ADDRESS:
             req.body.address = {};
-            casePromise.push(CaseAddressVerification.create(req.body.address));
+            return CaseAddressVerification.create(req.body.address);
             break;
-          case 2:
-            casePromise.push(CaseCriminalVerification.create(req.body.criminal));
+          case CASE_TYPES.CRIMINAL:
+            return CaseCriminalVerification.create(req.body.criminal);
             break;
-          case 3:
-            casePromise.push(CaseEducationVerification.create(req.body.education));
+          case CASE_TYPES.EDUCATION:
+            return CaseEducationVerification.create(req.body.education);
             break;
-          case 4:
-            casePromise.push(CaseSiteVerification.create(req.body.site));
+          case CASE_TYPES.SITE:
+            return CaseSiteVerification.create(req.body.site);
             break;
         }
-      }
-      return Promise.all(casePromise).then(resultArray => {
-        const candidateMapPromises = [];
-        const candidateMap = { candidate_id: candidateObj.id };
-        for (let i = 0; i < req.body.types.length; i++) {
-          switch (req.body.types[i]) {
-            case 1:
-              candidateMapPromises.push(CandidateMap.create(Object.assign({
-                case_address_verification_id: resultArray[i].id,
-              }, candidateMap)));
-              break;
-            case 2:
-              candidateMapPromises.push(CandidateMap.create(Object.assign({
-                case_criminal_verification_id: resultArray[i].id,
-              }, candidateMap)));
-              break;
-            case 3:
-              candidateMapPromises.push(CandidateMap.create(Object.assign({
-                case_education_verification_id: resultArray[i].id,
-              }, candidateMap)));
-              break;
-            case 4:
-              candidateMapPromises.push(CandidateMap.create(Object.assign({
-                case_site_verification_id: resultArray[i].id,
-              }, candidateMap)));
-              break;
+      })
+      return Promise.all(casePromises).then(cases => {
+        const candidateCasePromises = cases.map((caseObj, index) => {
+          return CandidateCase.create({
+            case_id: caseObj.id,
+            case_type_id: req.body.types[index],
+            candidate_id: candidate.id,
+          });
+        });
 
-          }
-        }
+
         return Promise
-          .all(candidateMapPromises)
-          .then(data => res.json(data))
+          .all(candidateCasePromises)
+          .then(candidateCases => res.json(candidateCases.map(cc => cc.toJSON())))
           .catch(err => handleError(res, 500, err));
       });
     })
@@ -263,37 +282,37 @@ export function destroy(req, res) {
 }
 
 export function caseTypes(req, res) {
-  return CandidateMap
+  return CandidateCase
     .findAll({
       where: { candidate_id: req.params.id },
     })
-    .then(candidateMaps => {
+    .then(candidateCases => {
       const result = [];
-      candidateMaps.forEach(candidateMap => {
-        if (candidateMap.case_address_verification_id) {
+      candidateCases.forEach(candidateCase => {
+        if (candidateCase.case_address_verification_id) {
           result.push({
-            id: candidateMap.case_address_verification_id,
+            id: candidateCase.case_address_verification_id,
             name: 'Address Verification',
             case_type_id: 1,
           })
         }
-        if (candidateMap.case_criminal_verification_id) {
+        if (candidateCase.case_criminal_verification_id) {
           result.push({
-            id: candidateMap.case_criminal_verification_id,
+            id: candidateCase.case_criminal_verification_id,
             name: 'Criminal Verification',
             case_type_id: 2,
           })
         }
-        if (candidateMap.case_education_verification_id) {
+        if (candidateCase.case_education_verification_id) {
           result.push({
-            id: candidateMap.case_education_verification_id,
+            id: candidateCase.case_education_verification_id,
             name: 'Education Verification',
             case_type_id: 3,
           })
         }
-        if (candidateMap.case_site_verification_id) {
+        if (candidateCase.case_site_verification_id) {
           result.push({
-            id: candidateMap.case_site_verification_id,
+            id: candidateCase.case_site_verification_id,
             name: 'Site Verification',
             case_type_id: 4,
           })

@@ -21,8 +21,8 @@ export default function(sequelize, DataTypes) {
         models.Allocation.belongsTo(models.AllocationStatus, {
           foreignKey: `allocation_status_id`
         });
-        models.Allocation.belongsTo(models.CandidateMap, {
-          foreignKey: `candidate_map_id`
+        models.Allocation.belongsTo(models.CandidateCase, {
+          foreignKey: `candidate_case_id`
         });
         //models.Allocation.belongsTo(models.User, {
         //  foreignKey: `updated_by`

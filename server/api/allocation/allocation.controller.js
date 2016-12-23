@@ -10,7 +10,7 @@
 'use strict';
 
 import _ from 'lodash';
-import db, {Allocation,minio,CandidateMap,User,Company,Candidate,AllocationStatus,
+import db, {Allocation,minio,CandidateCase,User,Company,Candidate,AllocationStatus,
   CaseSiteVerification,CaseAddressVerification,CaseCriminalVerification,
   CaseEducationVerification } from '../../sqldb';
 import email from '../../components/email';
@@ -79,7 +79,7 @@ export function index(req, res) {
         {
           //model: Candidate,attributes:['id','name'],
           //include: [db.User, db.Status, db.CaseType]
-          model: db.CandidateMap,include:[{model: db.Candidate, attributes: ['id', 'name'],
+          model: db.CandidateCase,include:[{model: db.Candidate, attributes: ['id', 'name'],
           include: [
             {
               model: db.User,
@@ -113,7 +113,7 @@ export function show(req, res) {
       where: {
         id: req.params.id
       },
-      include:[{model: CandidateMap, include:[
+      include:[{model: CandidateCase, include:[
         {model: Candidate},
         {model:CaseCriminalVerification},
         {model: CaseAddressVerification},
@@ -150,10 +150,10 @@ export function create(req, res) {
   if (req.body.case_site_verification_id) {
     where.case_site_verification_id = req.body.case_site_verification_id;
   }
-  return CandidateMap
+  return CandidateCase
     .find({ where })
-    .then(candidateMap => {
-      req.body.candidate_map_id = candidateMap.id;
+    .then(candidateCase => {
+      req.body.candidate_case_id = candidateCase.id;
       return Allocation
         .create(req.body)
         .then(allocation => email.emailIndividualTemplate({
@@ -199,7 +199,7 @@ export function vendorUpload(req, res) {
       ],
       include: [
         {
-          model: db.CandidateMap,include:[{model: db.Candidate,
+          model: db.CandidateCase,include:[{model: db.Candidate,
           attributes:['id','name'],
           include : [
             {
@@ -245,7 +245,7 @@ export function byStatusId(req, res) {
       where: whereClause,
       include: [
         {
-          model: db.CandidateMap ,
+          model: db.CandidateCase ,
           attributes: ['id'],
           include:[{
             model: db.Candidate,
