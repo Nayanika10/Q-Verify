@@ -10,6 +10,7 @@ router.get('/vendorUpload', controller.vendorUpload);
 router.get('/status/:status_id', controller.byStatusId);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
+//router.post('/', controller.manyToManyAllocations);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);

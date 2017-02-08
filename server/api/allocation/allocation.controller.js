@@ -126,18 +126,9 @@ export function show(req, res) {
     .catch(err => res.status(500).json(err));
 }
 
-// Creates a new Allocation in the DB
 export function create(req, res) {
   req.body.allocation_status_id = 1;
   req.body.status_id = 1;
-  const {
-    candidate_id,
-    case_criminal_verification_id,
-    case_address_verification_id,
-    case_education_verification_id,
-    case_site_verification_id,
-    } = req.body;
-  const where = { candidate_id: req.body.candidate_id};
   if (req.body.case_criminal_verification_id) {
     where.case_criminal_verification_id = req.body.case_criminal_verification_id;
   }
@@ -150,20 +141,60 @@ export function create(req, res) {
   if (req.body.case_site_verification_id) {
     where.case_site_verification_id = req.body.case_site_verification_id;
   }
-  return CandidateCase
-    .find({ where })
-    .then(candidateCase => {
-      req.body.candidate_case_id = candidateCase.id;
+      const toAllo = req.body || [];
+      console.log(toAllo);
       return Allocation
-        .create(req.body)
+        .bulkCreate(toAllo)
         .then(allocation => email.emailIndividualTemplate({
           email: 'staging@quetzal.in',
           subject: 'This is test email',
+        }))
+        .then(() => {
+          return res.json({
+            message: 'success',
+          });
+
         })
-        .then(() => res.json(allocation)))
-    })
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }
+// Creates a new Allocation in the DB
+//export function create(req, res) {
+//  req.body.allocation_status_id = 1;
+//  req.body.status_id = 1;
+//  const {
+//    candidate_id,
+//    case_criminal_verification_id,
+//    case_address_verification_id,
+//    case_education_verification_id,
+//    case_site_verification_id,
+//    } = req.body;
+//  const where = { candidate_id: req.body.candidate_id};
+//  if (req.body.case_criminal_verification_id) {
+//    where.case_criminal_verification_id = req.body.case_criminal_verification_id;
+//  }
+//  if (req.body.case_address_verification_id) {
+//    where.case_address_verification_id = req.body.case_address_verification_id;
+//  }
+//  if (req.body.case_education_verification_id) {
+//    where.case_education_verification_id = req.body.case_education_verification_id;
+//  }
+//  if (req.body.case_site_verification_id) {
+//    where.case_site_verification_id = req.body.case_site_verification_id;
+//  }
+//  return CandidateCase
+//    .find({ where })
+//    .then(candidateCase => {
+//      req.body.candidate_case_id = candidateCase.id;
+//      return Allocation
+//        .create(req.body)
+//        .then(allocation => email.emailIndividualTemplate({
+//          email: 'staging@quetzal.in',
+//          subject: 'This is test email',
+//        })
+//        .then(() => res.json(allocation)))
+//    })
+//    .catch(handleError(res));
+//}
 
 // Updates an existing Allocation in the DB
 export function update(req, res) {
