@@ -2,8 +2,8 @@
 (function () {
 
   function NewcompanyComponent(QverifyConnection, toaster, $state) {
-    const LOG_TAG = 'NewcompanyComponent';
-    const vm = this;
+    //const LOG_TAG = 'NewcompanyComponent';
+    let vm = this;
     let qverifyConnection = new QverifyConnection;
     vm.createCompany = function (company) {
       //qverifyConnection.company(company).then((company)=> {
@@ -23,8 +23,9 @@
       //var options = {};
 
 
-      qverifyConnection.company(company).then(()=> {
-        $state.go("company")
+      qverifyConnection.company(company).then((company)=> {
+        console.log(company);
+        $state.go("company");
       });
 
     };
