@@ -7,141 +7,141 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
     .panel-heading
       p
-        h4.text-ellipsis(style="color:#1750a9" title='{{View.data.CandidateMap.Candidate.name}}') {{View.data.CandidateMap.Candidate.name}}
-    ul.list-group(ng-if="View.data.CandidateMap.CaseAddressVerification")
+        h4.text-ellipsis(style="color:#1750a9" title='{{View.data.CandidateCase.Candidate.name}}') {{View.data.CandidateCase.Candidate.name}}
+    ul.list-group(ng-if="View.data.CandidateCase.CaseAddressVerification")
       .panel.panel-info
         .panel-heading Visiting address
-        .panel-body {{View.data.CandidateMap.CaseAddressVerification.visiting_address}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.visiting_address}}
       .panel.panel-info
         .panel-heading Visiting person name
-        .panel-body {{View.data.CandidateMap.CaseAddressVerification.visiting_person_name}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.visiting_person_name}}
 
       .panel.panel-info
         .panel-heading Relation with candidate
-        .panel-body {{View.data.CandidateMap.CaseAddressVerification.relation_with_candidate}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.relation_with_candidate}}
       .panel.panel-info
         .panel-heading File
         .panel-body
           a(target="_" ng-href='{{View.URLS.QVERIFY_API}}/candidates/{{View.Candidate.id}}/getFile?access_token={{View.AccessToken}}') download
       .panel.panel-info
         .panel-heading House Type
-        .panel-body {{View.data.CandidateMap.CaseAddressVerification.HouseType.name}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.HouseType.name}}
       .panel.panel-info(style="color:#383f44")
         .panel-heading Years of staying
-        .panel-body {{View.data.CandidateMap.CaseAddressVerification.years_of_staying}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.years_of_staying}}
 
       // criminal //
-    ul.list-group(ng-if="View.data.CandidateMap.CaseCriminalVerification")
+    ul.list-group(ng-if="View.data.CandidateCase.CaseCriminalVerification")
       .panel.panel-warning
         .panel-heading Police Station Name
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.police_station_name}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.police_station_name}}
       .panel.panel-warning
         .panel-heading Police Authority Name
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.police_authority_name}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.police_authority_name}}
       .panel.panel-warning
         .panel-heading Remark
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.remark}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.remark}}
       .panel.panel-warning
         .panel-heading Date Of Birth
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.dob | date}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.dob | date}}
       .panel.panel-warning
         .panel-heading Father's Name
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.father_name}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.father_name}}
       .panel.panel-warning
         .panel-heading Designation
-        .panel-body {{View.data.CandidateMap.CaseCriminalVerification.designation}}
+        .panel-body {{View.data.CandidateCase.CaseCriminalVerification.designation}}
 
 
       // education //
-    ul.list-group(ng-if="View.data.CandidateMap.CaseEducationVerification")
+    ul.list-group(ng-if="View.data.CandidateCase.CaseEducationVerification")
       .panel.panel-success
         .panel-heading Degree
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.degree}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.degree}}
       .panel.panel-success
         .panel-heading Role no
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.role_no}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.role_no}}
       .panel.panel-success
         .panel-heading Passing year
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.passing_year}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.passing_year}}
       .panel.panel-success
         .panel-heading Verifier's Name
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.verifier_name}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.verifier_name}}
       .panel.panel-success
         .panel-heading Designation
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.designation}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.designation}}
       .panel.panel-success
         .panel-heading University name
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.university_name}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.university_name}}
       .panel.panel-success
         .panel-heading Remarks
-        .panel-body {{View.data.CandidateMap.CaseEducationVerification.remarks}}
+        .panel-body {{View.data.CandidateCase.CaseEducationVerification.remarks}}
 
 
       // Site//
-    ul.list-group(ng-if="View.data.CandidateMap.CaseSiteVerification" )
+    ul.list-group(ng-if="View.data.CandidateCase.CaseSiteVerification" )
       .panel.panel-danger
         .panel-heading Company Name
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.company_name}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.company_name}}
       .panel.panel-danger
         .panel-heading Company Address
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.address}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.address}}
       .panel.panel-danger
         .panel-heading Phone no
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.telephone}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.telephone}}
       .panel.panel-danger
         .panel-heading Fax no
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.fax_no}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.fax_no}}
       .panel.panel-danger
         .panel-heading Name of the company
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.name_of_company}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.name_of_company}}
       .panel.panel-danger
         .panel-heading Email id
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.email_id}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.email_id}}
       .panel.panel-danger
         .panel-heading Website
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.website}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.website}}
       .panel.panel-danger
         .panel-heading Name of chief executive
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.name_of_chief_executive}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.name_of_chief_executive}}
       .panel.panel-danger
         .panel-heading Director
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.director}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.director}}
       .panel.panel-danger
         .panel-heading Company sign present
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.company_sign_present}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.company_sign_present}}
       .panel.panel-danger
         .panel-heading Computers present
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.computers}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.computers}}
       .panel.panel-danger
         .panel-heading Tables present
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.tables}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.tables}}
       .panel.panel-danger
         .panel-heading Chairs present
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.chairs}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.chairs}}
       .panel.panel-danger
         .panel-heading Approx
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.approx}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.approx}}
       .panel.panel-danger
         .panel-heading Area
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.area}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.area}}
       .panel.panel-danger
         .panel-heading Employee Awareness
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.employee_awareness}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.employee_awareness}}
       .panel.panel-danger
         .panel-heading Neighbours name
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.neighbours_name}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.neighbours_name}}
       .panel.panel-danger
         .panel-heading Designation
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.designation}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.designation}}
       .panel.panel-danger
         .panel-heading Remarks
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.remarks}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.remarks}}
       .panel.panel-danger
         .panel-heading Comment
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.comment}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.comment}}
       .panel.panel-danger
         .panel-heading Concern Person
-        .panel-body {{View.data.CandidateMap.CaseSiteVerification.concern_person}}
+        .panel-body {{View.data.CandidateCase.CaseSiteVerification.concern_person}}
 
 
 

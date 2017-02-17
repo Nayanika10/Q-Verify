@@ -10,39 +10,42 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
   .panel.panel
     .panel-heading-info
       p
-        h4.text-ellipsis(style="color:#1750a9" title='{{$ctrl.data.CandidateMap.Candidate.name}}') {{$ctrl.data.CandidateMap.Candidate.name}}
+        h4.text-ellipsis(style="color:#1750a9" title='{{$ctrl.data.CandidateCase.Candidate.name}}') {{$ctrl.data.CandidateCase.Candidate.name}}
     .panel-body
       ul.list-group
-        li.list-group-item(style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.name")
-          |  Case Name : {{$ctrl.data.CandidateMap.Candidate.name}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.address")
-          |  Address : {{$ctrl.data.CandidateMap.Candidate.address}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.phone")
-          |  Phone : {{$ctrl.data.CandidateMap.Candidate.phone}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseCriminalVerification.father_name")
-          |  Father's name : {{$ctrl.data.CandidateMap.CaseCriminalVerification.father_name}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseCriminalVerification.dob")
-          |  Date of Birth : {{$ctrl.data.CandidateMap.CaseCriminalVerification.dob | date}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.concern_person")
-          |  Concern Person : {{$ctrl.data.CandidateMap.CaseSiteVerification.concern_person}}
+        li.list-group-item(style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.name")
+          |  Case Name : {{$ctrl.data.CandidateCase.Candidate.name}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.address")
+          |  Address : {{$ctrl.data.CandidateCase.Candidate.address}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.phone")
+          |  Phone : {{$ctrl.data.CandidateCase.Candidate.phone}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseCriminalVerification.father_name")
+          |  Father's name : {{$ctrl.data.CandidateCase.CaseCriminalVerification.father_name}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseCriminalVerification.dob")
+          |  Date of Birth : {{$ctrl.data.CandidateCase.CaseCriminalVerification.dob | date}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseSiteVerification.concern_person")
+          |  Concern Person : {{$ctrl.data.CandidateCase.CaseSiteVerification.concern_person}}
         //li.list-group-item( style="color:#383f44")(ng-show="$ctrl.CaseSiteVerifications.length>0")
         //  |  Concern Person : {{$ctrl.CaseSiteVerifications[0].concern_person}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.company_name")
-          |  Company Name : {{$ctrl.data.CandidateMap.CaseSiteVerification.company_name}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseSiteVerification.email_id")
-          |  Email id : {{$ctrl.data.CandidateMap.CaseSiteVerification.email_id}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseEducationVerification.degree")
-          |  Degree : {{$ctrl.data.CandidateMap.CaseEducationVerification.degree}}
-        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateMap.CaseEducationVerification.role_no")
-          |  Role no : {{$ctrl.data.CandidateMap.CaseEducationVerification.role_no}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.state")
-          |  State : {{$ctrl.data.CandidateMap.Candidate.state}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.pin")
-
-          |  Pin : {{$ctrl.data.CandidateMap.Candidate.pin}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseSiteVerification.company_name")
+          |  Company Name : {{$ctrl.data.CandidateCase.CaseSiteVerification.company_name}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseSiteVerification.email_id")
+          |  Email id : {{$ctrl.data.CandidateCase.CaseSiteVerification.email_id}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CaseEducationVerification.degree")
+          |  Degree : {{$ctrl.data.CaseEducationVerification.degree}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseEducationVerification.passing_year")
+          |  Passing Year : {{$ctrl.data.CandidateCase.CaseEducationVerification.passing_year}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseEducationVerification.role_no")
+          |  Role no : {{$ctrl.data.CandidateCase.CaseEducationVerification.role_no}}
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseEducationVerification.university_name")
+          |  University Name : {{$ctrl.data.CandidateCase.CaseEducationVerification.university_name}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.state")
+          |  State : {{$ctrl.data.CandidateCase.Candidate.state}}
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.pin")
+          |  Pin : {{$ctrl.data.CandidateCase.Candidate.pin}}
         //li.list-group-item( style="color:#383f44")
         ////  |  Client = {{$ctrl.Case.User.name}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateMap.Candidate.pdf")
+        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.pdf")
           //|  Document = {{$ctrl.Case.pdf}}
           |  Document :
           a(target="_blank" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.id}}/getFile?access_token={{$ctrl.AccessToken}}') download

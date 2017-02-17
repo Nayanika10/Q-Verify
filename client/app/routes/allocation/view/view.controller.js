@@ -17,31 +17,31 @@ class AllocationViewComponent {
   }
 
   openCase() {
-      if (this.data.CandidateMap.case_address_verification_id) {
+      if (this.data.CandidateCase.case_type_id(1)) {
         this.$state.go("allocation.address", {
           candidate_id: this.$stateParams.candidate_id,
-          address_id: this.data.CandidateMap.case_address_verification_id
+          address_id: this.data.CandidateCase.case_address_verification_id
          });
       }
 
-      if (this.data.CandidateMap.case_criminal_verification_id) {
+      if (this.data.CandidateCase.case_type_id(2)) {
         this.$state.go("allocation.criminal", {
           candidate_id: this.$stateParams.candidate_id,
-          criminal_id: this.data.CandidateMap.case_criminal_verification_id
+          criminal_id: this.data.CandidateCase.case_criminal_verification_id
         });
       }
 
-      if (this.data.CandidateMap.case_education_verification_id) {
+      if (this.data.CandidateCase.case_type_id(3)) {
         this.$state.go("allocation.education", {
           candidate_id: this.$stateParams.candidate_id,
-          education_id: this.data.CandidateMap.case_education_verification_id
+          education_id: this.data.CandidateCase.case_education_verification_id
         });
       }
 
-      if (this.data.CandidateMap.case_site_verification_id) {
+      if (this.data.CandidateCase.case_type_id(4)) {
         this.$state.go("allocation.site", {
           candidate_id: this.$stateParams.candidate_id,
-          site_id: this.data.CandidateMap.case_site_verification_id
+          site_id: this.data.CandidateCase.case_site_verification_id
         });
       }
 

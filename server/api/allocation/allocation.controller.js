@@ -11,7 +11,7 @@
 
 import _ from 'lodash';
 import db, {Allocation,minio,CandidateCase,User,Company,Candidate,AllocationStatus,
-  CaseSiteVerification,CaseAddressVerification,CaseCriminalVerification,
+  CaseSiteVerification,CaseAddressVerification,CaseCriminalVerification,CaseType,
   CaseEducationVerification } from '../../sqldb';
 import email from '../../components/email';
 
@@ -115,10 +115,11 @@ export function show(req, res) {
       },
       include:[{model: CandidateCase, include:[
         {model: Candidate},
-        {model:CaseCriminalVerification},
+        {model: CaseCriminalVerification},
         {model: CaseAddressVerification},
         {model: CaseEducationVerification},
         {model: CaseSiteVerification},
+        {model: CaseType},
       ]
       }]
     })
@@ -129,18 +130,19 @@ export function show(req, res) {
 export function create(req, res) {
   req.body.allocation_status_id = 1;
   req.body.status_id = 1;
-  if (req.body.case_criminal_verification_id) {
-    where.case_criminal_verification_id = req.body.case_criminal_verification_id;
-  }
-  if (req.body.case_address_verification_id) {
-    where.case_address_verification_id = req.body.case_address_verification_id;
-  }
-  if (req.body.case_education_verification_id) {
-    where.case_education_verification_id = req.body.case_education_verification_id;
-  }
-  if (req.body.case_site_verification_id) {
-    where.case_site_verification_id = req.body.case_site_verification_id;
-  }
+  //if (req.body.case_type_id(1)) {
+  //  where.case_type_id = req.body.case_criminal_verification_id;
+  //}
+  //if (req.body.case_type_id(2)) {
+  //  where.case_address_verification_id = req.body.case_address_verification_id;
+  //}
+  //if (req.body.case_type_id(3)) {
+  //  where.case_education_verification_id = req.body.case_education_verification_id;
+  //}
+  //if (req.body.case_type_id(4)) {
+  //  where.case_site_verification_id = req.body.case_site_verification_id;
+  //}
+  //return CandidateCase
       const toAllo = req.body || [];
       console.log(toAllo);
       return Allocation
@@ -226,6 +228,7 @@ export function vendorUpload(req, res) {
       },
       attributes:[
         'id',
+        'created_on',
         'internal_status_id'
       ],
       include: [
@@ -271,6 +274,7 @@ export function byStatusId(req, res) {
   return Allocation.findAll({
       attributes:[
         'id',
+        'created_on',
         'internal_status_id'
       ],
       where: whereClause,
@@ -297,6 +301,7 @@ export function byStatusId(req, res) {
             { model: CaseCriminalVerification },
             { model: CaseEducationVerification },
             { model: CaseSiteVerification },
+            { model: CaseType},
         ]
 
           //where: {status_id: req.params.status_id.split(',')},

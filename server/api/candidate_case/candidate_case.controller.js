@@ -95,6 +95,7 @@ export function index(req, res) {
           },
         ]
       },
+      {model: CaseType},
       {
         model: Allocation,
         attributes: [
@@ -139,6 +140,7 @@ export function show(req, res) {
         {model: CaseAddressVerification, include: [db.HouseType]},
         {model: CaseEducationVerification},
         {model: CaseSiteVerification},
+        {model: CaseType},
         {model: User, attributes: ['name']},
         //{model: CaseEducationVerification, include: [db.Degree, db.Designation]},
         //{model: CaseSiteVerification, include: [db.Designation]},

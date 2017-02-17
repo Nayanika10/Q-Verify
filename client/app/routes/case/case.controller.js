@@ -26,14 +26,15 @@
         name: 'Candidate', field: 'Candidate.name', cellTemplate: '<div class="ui-grid-cell-contents">'
       + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.id }} ">{{ COL_FIELD }} </a>' + '</div>'
       },
-      {
-        name: 'Case Type', field: 'Candidate', cellTemplate: '<div class="ui-grid-cell-contents">'
-      + '<span target="_blank" ng-if="row.entity.case_address_verification_id">Address</span>'
-      + '<span target="_blank" ng-if="row.entity.case_criminal_verification_id">Criminal</span>'
-      + '<span target="_blank" ng-if="row.entity.case_site_verification_id">Site</span>'
-      + '<span target="_blank" ng-if="row.entity.case_education_verification_id">Education</span> '
-      + '</div>'
-      },
+      //{
+      //  name: 'Case Type', field: 'Candidate', cellTemplate: '<div class="ui-grid-cell-contents">'
+      //+ '<span target="_blank" ng-if="row.entity.CaseAddressVerification">Address</span>'
+      //+ '<span target="_blank" ng-if="row.entity.CaseCriminalVerification">Criminal</span>'
+      //+ '<span target="_blank" ng-if="row.entity.CaseSiteVerification">Site</span>'
+      //+ '<span target="_blank" ng-if="row.entity.CaseEducationVerification">Education</span> '
+      //+ '</div>'
+      //},
+      {name: 'Case Type', field: 'CaseType.name'},
       {name: 'Status', field: 'Allocations.AllocationStatus.name'},
       {name: 'Vendor Status', field: 'Allocations.Status.name'},
       {name: 'Allocated On', field: 'Allocations.created_on', cellFilter: 'date:"dd-MMM-yyyy "'},
