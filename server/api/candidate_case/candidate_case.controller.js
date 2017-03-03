@@ -130,6 +130,13 @@ export function index(req, res) {
 
 // Gets a single CandidateCase from the DB
 export function show(req, res) {
+  //if ()
+  //const caseIdMap = {
+  //  1: ,
+  //  2: ,
+  //  3: ,
+  //  4: ,
+  //};
   return CandidateCase.find({
     where: {
       _id: req.params.id
@@ -142,6 +149,7 @@ export function show(req, res) {
         {model: CaseSiteVerification},
         {model: CaseType},
         {model: User, attributes: ['name']},
+
         //{model: CaseEducationVerification, include: [db.Degree, db.Designation]},
         //{model: CaseSiteVerification, include: [db.Designation]},
       ]
