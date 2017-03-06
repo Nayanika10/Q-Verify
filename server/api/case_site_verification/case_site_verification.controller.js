@@ -1,3 +1,4 @@
+
 /**
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/case_site_verifications              ->  index
@@ -81,6 +82,7 @@ export function create(req, res) {
         where:{id: caseTypeObj.candidate_id}
       }).then(()=>{
         return res.json(caseTypeObj);
+
       })
     })
     .catch(handleError(res));
