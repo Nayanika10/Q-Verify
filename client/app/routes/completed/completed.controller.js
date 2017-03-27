@@ -1,17 +1,21 @@
 'use strict';
+
 class CompletedComponent {
   constructor($http,  $stateParams, $state,OAuthToken) {
+    const LOG_TAG = 'CompletedComponent';
     this.$state = $state;
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.OAuthToken = OAuthToken;
   }
 
-  $onInit(status) {
+  $onInit(internal_status_id) {
+    this.data = {};
     this
       .$http
-      .get(`/api/allocations/${this.data.Allocations.id}?status=6`)
-      .then(({ data }) => (this.Allocations= data));
+      .get(`/api/allocations?internal_status_id=6`)
+      .then(({ data }) => (this.data = data));
+
 
     this.logout =  function() {
       OAuthToken.removeToken();
@@ -33,6 +37,13 @@ class CompletedComponent {
 //      OAuthToken.removeToken();
 //      $state.go('login');
 //    }
+//  $onInit(status) {
+//    this
+//      .$http
+//      .get(`/api/allocations/${this.data.Allocations.id}?status=6`)
+//      .then(({ data }) => {
+//        this.Allocations = data;
+//      })
 
 
   }

@@ -7,6 +7,8 @@
       const LOG_TAG = 'CreationComponent';
       this.qverifyConnection = new QverifyConnection();
       this.$http = $http;
+      this.toaster = toaster;
+      this.$state = $state;
       this.CaseTypes = [];
     }
 

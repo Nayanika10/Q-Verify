@@ -70,7 +70,8 @@ export function index(req, res) {
   let whereClause;
   if (req.user.Company.user_type_id != 1) {
     whereClause = {
-      user_id: req.user.id
+      user_id: req.user.id,
+      internal_status_id: req.query.internal_status_id
     };
   }
   return Allocation.findAll({
@@ -248,7 +249,7 @@ export function vendorUpload(req, res) {
     return res.status(404).json([{message: "not authorized"}]);
   return Allocation.findAll({
       where: {
-        user_id: req.user.id
+        user_id: req.user.id,
       },
       attributes: [
         'id',
@@ -294,8 +295,9 @@ export function byStatusId(req, res) {
   if (req.user.Company.user_type_id != 1) {
     whereClause.user_id = req.user.id;
   }
-  //if(req.allocation.status_id=1)
-  //return res.partner;
+
+  //if(req.allocation.internal_status_id=6)
+  //return res.completed;
   return Allocation.findAll({
       attributes: [
         'id',

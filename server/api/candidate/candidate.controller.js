@@ -115,8 +115,8 @@ export function index(req, res) {
         {
           model: CandidateCase,
           attributes:[
-            'id'
-            //'case_address_verification_id',
+            'id',
+            'case_type_id',
             //'case_criminal_verification_id',
             //'case_education_verification_id',
             //'case_site_verification_id'
@@ -171,7 +171,7 @@ export function show(req, res) {
 export function vendorUploaded(req, res) {
   return Candidate.findAll({
       include: [Status],
-      where: {status_id: [2, 3, 4]}
+      where: {status_id: [2, 3, 4 ]}
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))

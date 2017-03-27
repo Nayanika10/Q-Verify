@@ -24,12 +24,16 @@
         //  , cellTemplate: '<div class="ui-grid-cell-contents">'
         //+ '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
         },
-        //{name: 'Case Type', field: 'CandidateMaps[0]', cellTemplate: '<div class="ui-grid-cell-contents">'
-        //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_address_verification_id">Address</a>&nbsp'
-        //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_criminal_verification_id">Criminal</a>&nbsp'
-        //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_site_verification_id">Site</a>&nbsp'
-        //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_education_verification_id">Education</a>&nbsp '
-        //+ '</div>'},
+        {name: 'Address', field: 'CandidateCases.Case'},
+        //{name: 'Criminal', field: 'User.Company.name'},
+        //{name: 'Education', field: 'User.Company.name'},
+        //{name: 'Site', field: 'User.Company.name'},
+        {name: 'Address', field: 'Candidate.CandidateCases[0]', cellTemplate: '<div class="ui-grid-cell-contents">'
+        + '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_type_id(1)">Yes</a>&nbsp'
+        + '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_type_id(2)">No</a>&nbsp'
+        + '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_type_id(3)">No</a>&nbsp'
+        + '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_type_id(4)">No</a>&nbsp '
+        + '</div>'},
         //{name: 'Allocated Case', field: 'Allocations', cellTemplate: '<div class="ui-grid-cell-contents">'
         //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_address_verification_id">Address</a>&nbsp'
         //+ '&nbsp<a target="_blank"" ng-if="COL_FIELD.case_criminal_verification_id">Criminal</a>&nbsp'
@@ -48,7 +52,7 @@
     qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
       vm.Allocated = allocations;
     });
-    
+
 
     Restangular.all(`candidates`).getList()
       .then((candidates)=> {
