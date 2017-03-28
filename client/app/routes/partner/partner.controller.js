@@ -6,13 +6,13 @@
     const LOG_TAG = 'PartnerComponent';
     const vm = this;
     let qverifyConnection = new QverifyConnection();
-    qverifyConnection.fetchAllocationByStatus([1,3]).then((allocations)=> {
+    qverifyConnection.fetchAllocationByStatus(1).then((allocations)=> {
       vm.Allocation = allocations;
       console.log(vm.Allocation);
     });
-    //qverifyConnection.fetchAllocationByStatus(2).then((allocations)=> {
-    //  vm.Allocated = allocations;
-    //});
+    qverifyConnection.fetchAllocationByStatus(4).then((allocations)=> {
+      vm.Allocated = allocations;
+    });
 
   vm.logout =  function() {
     OAuthToken.removeToken();

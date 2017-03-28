@@ -21,6 +21,15 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
             .col-xs-6
               p.group.inner.list-group-item-text
                 | {{allocation.CandidateCase.CaseType.name}}
+
+      .item.col-xs-12.col-lg-9(ng-repeat='allocation in Partner.Allocated' ui-sref='allocation.view({id: allocation.id})')
+        .caption
+          h4.group.inner.list-group-item-heading
+            | {{allocation.CandidateCase.Candidate.name}}
+          .row
+            .col-xs-6
+              p.group.inner.list-group-item-text
+                | {{allocation.CandidateCase.CaseType.name}}
               //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseCriminalVerification")
               //  | Criminal Verification
               //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseEducationVerification")
@@ -56,7 +65,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
           div.new
             img(src='assets/images/stopwatch (4).png' , href='/completed')
             div
-              a(href='/completed') Complete
+              a(href='/completed') Closed
 
           //img(src='assets/images/stopwatch (4).png' ,href='/completed')
           //a(href='/completed') Complete

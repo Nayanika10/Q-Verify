@@ -80,7 +80,12 @@ export function index(req, res) {
         {
           //model: Candidate,attributes:['id','name'],
           //include: [db.User, db.Status, db.CaseType]
-          model: db.CandidateCase, include: [{
+          model: db.CandidateCase, include: [
+          {model: CaseCriminalVerification, where: {'$CandidateCase.case_type_id$': 2}, required: false},
+          {model: CaseAddressVerification, where: {'$CandidateCase.case_type_id$': 1}, required: false},
+          {model: CaseEducationVerification, where: {'$CandidateCase.case_type_id$': 3}, required: false},
+          {model: CaseSiteVerification, where: {'$CandidateCase.case_type_id$': 4}, required: false},
+          {
           model: db.Candidate, attributes: ['id', 'name'],
           include: [
             {
@@ -95,12 +100,14 @@ export function index(req, res) {
             }
 
           ]
-        }
+        },
+          {model: db.CaseType, attributes: ['id', 'name']},
         ]
         },
         {model: db.User, attributes: ['id', 'name']},
         {model: db.AllocationStatus},
         {model: db.Status, attributes: ['id', 'name']},
+
 
       ]
     })
@@ -336,7 +343,7 @@ export function byStatusId(req, res) {
           //include: [db.User, db.Status, db.CaseType]
         },
         {model: db.User},
-        //{model: db.Status},
+        {model: db.Status},
         {model: db.AllocationStatus}
       ]
     })

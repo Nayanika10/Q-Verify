@@ -11,14 +11,15 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
     #products.row.list-group
-      .item.col-xs-12.col-lg-9(ng-repeat='allocation in Completed.Allocated' ui-sref='view({id: allocation.id })')
+      //.item.col-xs-12.col-lg-9(ng-repeat='data in Completed.data' ui-sref='view({id: allocation.id })' )
+      .item.col-xs-12.col-lg-9(ng-repeat='data in Completed.data' )
         .caption
           h4.group.inner.list-group-item-heading-info
-            | {{allocation.CandidateCase.Candidate.name}}
+            | {{data.CandidateCase.Candidate.name}}
           .row
             .col-xs-6
               p.group.inner.list-group-item-text
-                | {{allocation.CandidateCase.CaseType.name}}
+                | {{data.CandidateCase.CaseType.name}}
           //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseAddressVerification")
           //  | Address Verification
           //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseCriminalVerification")
@@ -44,7 +45,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
           div.new
             img(src='assets/images/stopwatch (4).png' , href='/completed')
             div
-              a(href='/completed') Complete
+              a(href='/completed') Closed
 
 
 

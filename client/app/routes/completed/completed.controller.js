@@ -17,10 +17,11 @@ class CompletedComponent {
       .then(({ data }) => (this.data = data));
 
 
-    this.logout =  function() {
-      OAuthToken.removeToken();
-      $state.go('login');
+    this.logout =  function(){
+      this.OAuthToken.removeToken();
+      this.$state.go('login');
     }
+
   }
 
 
