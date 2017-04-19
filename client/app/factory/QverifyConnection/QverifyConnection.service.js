@@ -399,9 +399,9 @@ angular.module('appApp')
 
     };
 
-    QVC.prototype.fetchCandidateMap = (id)=> {
+    QVC.prototype.fetchCandidateCase = (id)=> {
       let defer = $q.defer();
-      Restangular.one(`candidate_maps`, id).get()
+      Restangular.one(`candidate_cases`, id).get()
         .then((data)=> {
           defer.resolve(data);
         })

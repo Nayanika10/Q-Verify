@@ -1,0 +1,66 @@
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+
+  div.container
+
+    div.navbar-header
+      a.navbar-brand(href='#')  Ongoing Cases
+      button.navbar-toggle(type='button', ng-click='Ongoing.logout()')
+        a
+          img(src='assets/images/repeat (1).png')
+
+
+.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+  #products.row.list-group
+    .item.col-xs-12.col-lg-9(ng-repeat='allocation in Ongoing.Allocated' ui-sref='view({id: allocation.id })' )
+      .caption
+        h4.group.inner.list-group-item-heading-info
+          | {{allocation.CandidateCase.Candidate.name}}
+        .row
+          .col-xs-6
+            p.group.inner.list-group-item-text
+              | {{allocation.CandidateCase.CaseType.name}}
+
+
+    .item.col-xs-12.col-lg-9(ng-repeat='allocation in Ongoing.Allocation' ui-sref='allocation.view({id: allocation.id })')
+      .caption
+        h4.group.inner.list-group-item-heading-info
+          | {{allocation.CandidateCase.Candidate.name}}
+        .row
+          .col-xs-6
+            p.group.inner.list-group-item-text
+              | {{allocation.CandidateCase.CaseType.name}}
+
+        //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseAddressVerification")
+        //  | Address Verification
+        //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseCriminalVerification")
+        //  | Criminal Verification
+        //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseEducationVerification")
+        //  | Education Verification
+        //p.group.inner.list-group-item-text(ng-if="allocation.CandidateCase.CaseSiteVerification")
+        //  | Site Verification
+
+  div.fixed-nav.navbar
+    ul
+      li
+        div.new
+          img(src='assets/images/stopwatch (2).png' , href='/partner')
+          div
+            a(href='/partner') New
+
+      li
+        div.new
+          img(src='assets/images/stopwatch (3).png' , href='/ongoing')
+          div
+            a(href='/ongoing') Ongoing
+      li
+        div.new
+          img(src='assets/images/stopwatch (4).png' , href='/completed')
+          div
+            a(href='/completed') Closed
+
+
+
+
+
+
+

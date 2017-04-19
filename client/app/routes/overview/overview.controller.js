@@ -28,7 +28,7 @@
         //{name: 'Vendor', field: 'Allocations.User.name'},
         {name: 'Candidate', field: 'name'
           , cellTemplate: '<div class="ui-grid-cell-contents">'
-        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
+        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/candidates/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
         },
         {name: 'Address', field: 'CandidateCases' , cellTemplate: `<div class="ui-grid-cell-contents">
         &nbsp<a target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 1">yes</a>

@@ -6,13 +6,24 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background:#083040;
-
+  background:url('/assets/images/finger5.png') no-repeat center center fixed;
+  background-size: cover;
   text-align: center;
   color: #fff;
-
   padding: 3em;
 
+  //.form-validation {
+  //  position: relative;
+  //  width: 280px;
+  //  margin: 0 auto;
+  //  background: rgba(130,130,130,.3);
+  //  padding: 20px 22px;
+  //  border: 1px solid;
+  //  border-top-color: rgba(255,255,255,.4);
+  //  border-left-color: rgba(255,255,255,.4);
+  //  border-bottom-color: rgba(60,60,60,.4);
+  //  border-right-color: rgba(60,60,60,.4);
+  //}
 
 
   .form-group {
@@ -23,7 +34,8 @@
     padding: 40px 0;
   }
   .input-underline {
-    background: 0 0;
+    background:#fff;
+    //background: 0 0;
     border: none;
     box-shadow: none;
     border-bottom: 2px solid rgba(255,255,255,.4);
@@ -36,7 +48,7 @@
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px;
-    color: #fff;
+    color: #000000;
   }
 
   .btn-outline.btn-white {

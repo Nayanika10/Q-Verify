@@ -1,0 +1,186 @@
+.dashboard-page
+  .container-fluid
+    .row
+      sidebar
+
+      .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
+        div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
+          .hbox
+            .wrapper-md.bg-light
+              h1.m-n.font-thin.h3
+                span Edit Candidate
+              form.form-validation.form-horizontal.wrapper-md( name="EditDataForm" )
+                .row
+                  // Form Block
+                  .col-md-7.col-sm-7.col-xs-7
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.address = !ctrl.checkbox.address' ng-checked='ctrl.checkbox.address')
+                      | Address
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.criminal = !ctrl.checkbox.criminal' ng-checked='ctrl.checkbox.criminal')
+                      | Criminal
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.education = !ctrl.checkbox.education' ng-checked='ctrl.checkbox.education')
+                      | Education
+                    label.checkbox-inline
+                      input(type='checkbox', value='' ng-click='ctrl.checkbox.site = !ctrl.checkbox.site' ng-checked='ctrl.checkbox.site')
+                      | Site
+                    .row
+                      .col-md-6.col-sm-6.col-xs-12
+                        label.col-xs-12.input-group
+                          | Client
+                          input.form.form-control(placeholder=' Client' ng-model='ctrl.data.User.Company.name' q-text-maxlength="600" ng-disabled="true" )
+
+                      .col-md-6.col-sm-6.col-xs-12
+                        label.col-xs-12.input-group
+                          | Users
+                          input.form.form-control(placeholder=' Client' ng-model='ctrl.data.User.name' q-text-maxlength="600" ng-disabled="true" )
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Candidate
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='name' ng-model='ctrl.data.name' q-text-maxlength="60"  ng-pattern='/^[a-zA-Z ]*$/'  required)
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Permanent Address 1
+                          textarea.form.form-control(placeholder=' Permanent address 1' ng-model='ctrl.data.address' q-text-maxlength="600"  )
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Permanent Address 2
+                          textarea.form.form-control(placeholder=' Permanent address 2' ng-model='ctrl.data.address2' q-text-maxlength="600"  )
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Current Address 1
+                          textarea.form.form-control(placeholder=' Current address 1' ng-model='ctrl.data.address3' q-text-maxlength="600"  )
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Current Address 2
+                          textarea.form.form-control(placeholder='Current address 2' ng-model='ctrl.data.address4' q-text-maxlength="600"  )
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Contact No
+                          input.form.form-control(type='text' placeholder='phone no'  ng-model='ctrl.data.phone' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/')
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Passing Year
+                          input.form.form-control(type='text' placeholder='passing year' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 3' ng-model='case.CaseEducationVerification.passing_year' q-text-maxlength="60" )
+
+
+                    .row(ng-if = 'ctrl.checkbox.site')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Company Name
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='company name' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 4' ng-model='case.CaseSiteVerification.company_name' q-text-maxlength="60" required)
+
+                    .row(ng-if = 'ctrl.checkbox.site')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Concern person
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='concern person' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 4' ng-model='case.CaseSiteVerification.concern_person' q-text-maxlength="60" required)
+
+                    .row(ng-if = 'ctrl.checkbox.site')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Email id
+                          input.form.form-control(type='email' placeholder='email' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 4' ng-model='case.CaseSiteVerification.email_id' q-text-maxlength="60")
+
+                    .row(ng-if = 'ctrl.checkbox.criminal')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | DOB
+                          span.text-danger *
+                          input.form.form-control(type='text' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 2'  ng-model='case.CaseCriminalVerification.dob' required)
+
+                    .row(ng-if = 'ctrl.checkbox.criminal')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Father's Name
+                          span.text-danger *
+                          input.form.form-control(type='text' placeholder='father Name' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 2' ng-model='case.CaseCriminalVerification.father_name' q-text-maxlength="60" required)
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Role number
+                          input.form.form-control(type='text' placeholder='role no' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 3 ' ng-model='case.CaseEducationVerification.role_no' q-text-maxlength="60" )
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | University Name
+                          input.form.form-control(type='text' placeholder='university name' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 3 ' ng-model='case.CaseEducationVerification.university_name' q-text-maxlength="60" )
+
+                    .row
+                      .col-md-6.col-sm-6.col-xs-12
+                        label.col-xs-12.input-group
+                          | State
+                          input.form.form-control(type="text" placeholder='state' ng-model='ctrl.data.state'   )
+
+                      .col-md-6.col-sm-12.col-xs-6
+                        label.col-xs-12.input-group
+                          | Pin
+                          input.form.form-control(type="text" placeholder='pin' ng-model='ctrl.data.pin' q-text-maxlength="60"  ng-pattern='/^[0-9 ]*$/' )
+
+
+                    //.row(ng-if = 'ctrl.case.case_type_id != undefined')
+                    //  .col-md-12.col-sm-12.col-xs-12
+                    //    label.col-xs-12.input-group
+                    //      | Pin
+                    //      floating-panel
+                    //        input#address(type='textbox')
+                    //        input#submit(type='button', value='Geocode')
+                    //      map
+
+
+                    .row(ng-if = 'ctrl.checkbox.education')
+                      .col-md-6.col-sm-6.col-xs-12
+                        label.col-xs-12.input-group
+                          | Degree
+                          pan.text-danger *
+                          input.form.form-control(type="text" placeholder='degree' ng-repeat='case in ctrl.data.CandidateCases' ng-if='case.case_type_id === 3' ng-model="case.CaseEducationVerification.degree" required )
+
+
+
+                    .row
+                      .col-md-12.col-sm-12.col-xs-12
+                        label.col-xs-12.input-group
+                          | Document
+                          input.form-control(type="file" ng-model='ctrl.data.logo' base-sixty-four-input maxsize="100000" name='file')
+
+
+
+                    .row
+                      .col-md-4.col-xs-12
+                        button.btn.btn-primary.pull-left(type='submit' ng-disabled='form.$invalid' ng-click='ctrl.update()'  style='background-color:#083040' )
+                          i.fa.fa-upload
+                          | &nbsp;&nbsp;Edit
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,10 +9,14 @@
       filterText: ''
     };
     $scope.gridOpts={
-      //data:myData,
-
+      ienableRowSelection: true,
+      enableSelectAll: true,
       enableFiltering: true,
-      columnDefs:[
+      selectionRowHeaderWidth: 35,
+      rowHeight: 35,
+      showGridFooter: true,
+    };
+    $scope.gridOpts.columnDefs = [
         {
           name: 'ID', field: 'id',
           width: '50', pinnedLeft: true,  enableFiltering: false,
@@ -33,7 +37,7 @@
 
       ]
 
-    };
+
 
 
     qverifyConnection.fetchCompany().then((companys)=> {

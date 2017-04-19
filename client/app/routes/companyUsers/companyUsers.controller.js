@@ -18,9 +18,12 @@ class CompanyUsersComponent {
       filterText: ''
     };
     this.$scope.gridOpts={
-      //data:myData,
-
+      ienableRowSelection: true,
+      enableSelectAll: true,
       enableFiltering: true,
+      selectionRowHeaderWidth: 35,
+      rowHeight: 35,
+      showGridFooter: true,
       columnDefs:[
         {name: 'User', field: 'name'},
       ]

@@ -1,0 +1,8 @@
+div.text-center(uib-dropdown='' uib-keyboard-nav='' dropdown-append-to-body='' auto-close="outsideClick" is-open='$ctrl.dropdown')
+  button.r.b-a.bg-white.text-ellipsis(uib-dropdown-toggle='$ctrl.dropdown')
+    .text-ellipsis.text-success
+      span(ng-bind='$ctrl.statusMap[$ctrl.data.Allocations.internal_status_id]')
+      span.caret.m-l-xs
+  ul.dropdown-menu(uib-dropdown-menu='', role='menu', aria-labelledby='single-button')
+    li(role='menuitem' ng-repeat='status in $ctrl.status' ng-if='status.id != $ctrl.data.Allocations.internal_status_id' ng-click='$ctrl.changeState(status)')
+      a(href='#') {{status.name}}

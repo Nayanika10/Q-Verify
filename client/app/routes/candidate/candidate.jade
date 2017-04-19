@@ -1,72 +1,83 @@
-div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+.dashboard-page
+  .container-fluid
+    .row
+      sidebar
 
-  div.container
+      .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        .col-md-12
+          .col-md-12.col-xs-4
+            button.btn.btn-primary.pull-right( style='background-color:#083040' ui-sref='edit({id: ctrl.id })') Edit
 
-    div.navbar-header
-      a.navbar-brand(href='#') Allocated Case
-      button.navbar-toggle(type='button', ng-click='Partner.logout()')
-        a
-          img(src='assets/images/repeat (1).png')
+        div.m-t-xl.padder.no-margin(style="padding-left:200px ; padding-right:200px")
+          .hbox
+            .wrapper-md.bg-light
+                .panel-heading
+                  p
+                    h4.text-ellipsis(style="color:#1750a9") {{ctrl.Candidates.name}}
+                ul.list-group(ng-repeat='case in ctrl.Candidates.CandidateCases' ng-if='case.case_type_id === 1')
+                  .panel.panel-info
+                    .panel-heading Address Verification
+                    .panel-body Permanent Address 1 : {{ctrl.Candidates.address}}
+                    .panel-body Permanent Address 2 : {{ctrl.Candidates.address2}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address3}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address4}}
+                    .panel-body Phone number : {{ctrl.Candidates.phone}}
+                    .panel-body State : {{ctrl.Candidates.state}}
+                    .panel-body Pin : {{ctrl.Candidates.pin}}
+                    .panel-body Document :
+                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
-
-
-.container
-  .panel.panel
-    .panel-heading-info
-      p
-        h4.text-ellipsis(style="color:#1750a9" title='{{Candidate.Candidate.Candidate.name}}') {{Candidate.Candidate.Candidate.name}}
-    .panel-body
-      ul.list-group
-        li.list-group-item(style="color:#383f44")
-          |  Case Name : {{Candidate.Candidate.Candidate.name}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.CandidateMap.Candidate.address")
-          |  Address : {{Candidate.Candidate.Candidate.address}}
-        li.list-group-item( style="color:#383f44")
-          |  Phone : {{Candidate.Candidate.Candidate.phone}}
-        li.list-group-item( style="color:#383f44")(ng-show="Candidate.CandidateMap.CaseCriminalVerification.father_name")
-          |  Father's name : {{Candidate.CandidateMap.CaseCriminalVerification.father_name}}
-        li.list-group-item( style="color:#383f44")(ng-show="Candidate.CandidateMap.CaseCriminalVerification.dob")
-          |  Date of Birth : {{Candidate.CandidateMap.CaseCriminalVerification.dob | date}}
-        li.list-group-item( style="color:#383f44")(ng-show="Candidate.CandidateMap.CaseSiteVerification.concern_person")
-          |  Concern Person : {{Candidate.CandidateMap.CaseSiteVerification.concern_person}}
-        //li.list-group-item( style="color:#383f44")(ng-show="Candidate.CaseSiteVerifications.length>0")
-        //  |  Concern Person : {{Candidate.CaseSiteVerifications[0].concern_person}}
-        li.list-group-item( style="color:#383f44")(ng-show="Candidate.CandidateMap.CaseSiteVerification.company_name")
-          |  Company Name : {{Candidate.CandidateMap.CaseSiteVerification.company_name}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.CandidateMap.CaseSiteVerification.email_id")
-          |  Email id : {{Candidate.CandidateMap.CaseSiteVerification.email_id}}
-        li.list-group-item( style="color:#383f44")(ng-show="Candidate.CandidateMap.CaseEducationVerification.degree")
-          |  Degree : {{Candidate.CandidateMap.Candidate.CaseEducationVerification.degree}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.CandidateMap.CaseEducationVerification.role_no")
-          |  Role no : {{Candidate.CandidateMap.CaseEducationVerification.role_no}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.Candidate.Candidate.state")
-          |  State : {{Candidate.Candidate.Candidate.state}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.Candidate.Candidate.pin")
-          |  Pin : {{Candidate.Candidate.Candidate.pin}}
-        //li.list-group-item( style="color:#383f44")
-        ////  |  Client = {{Candidate.Case.User.name}}
-        li.list-group-item( style="color:#383f44")(ng-if="Candidate.Candidate.Candidate.pdf")
-          //|  Document = {{Candidate.Case.pdf}}
-          |  Document :
-          a(target="_blank" ng-href='{{Candidate.URLS.QVERIFY_API}}/candidates/{{Candidate.Candidate.id}}/getFile?access_token={{Candidate.AccessToken}}') download
+                  .panel-heading
+                ul.list-group(ng-repeat='case in ctrl.Candidates.CandidateCases' ng-if='case.case_type_id === 2')
+                  .panel.panel-warning
+                    .panel-heading Criminal Verification
+                    .panel-body Permanent Address 1 : {{ctrl.Candidates.address}}
+                    .panel-body Permanent Address 2 : {{ctrl.Candidates.address2}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address3}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address4}}
+                    .panel-body Phone number : {{ctrl.Candidates.phone}}
+                    .panel-body State : {{ctrl.Candidates.state}}
+                    .panel-body Pin : {{ctrl.Candidates.pin}}
+                    .panel-body DOB : {{case.CaseCriminalVerification.dob}}
+                    .panel-body Father's Name : {{case.CaseCriminalVerification.father_name}}
+                    .panel-body Document :
+                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
 
+                  .panel-heading
+                ul.list-group(ng-repeat='case in ctrl.Candidates.CandidateCases' ng-if='case.case_type_id === 3' )
+                  .panel.panel-success
+                    .panel-heading Education Verification
+                    .panel-body Permanent Address 1 : {{ctrl.Candidates.address}}
+                    .panel-body Permanent Address 2 : {{ctrl.Candidates.address2}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address3}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address4}}
+                    .panel-body Phone number : {{ctrl.Candidates.phone}}
+                    .panel-body State : {{ctrl.Candidates.state}}
+                    .panel-body Pin : {{ctrl.Candidates.pin}}
+                    .panel-body Degree : {{case.CaseEducationVerification.degree}}
+                    .panel-body Passing Year : {{case.CaseEducationVerification.passing_year}}
+                    .panel-body Roll number : {{case.CaseEducationVerification.role_no}}
+                    .panel-body University Name : {{case.CaseEducationVerification.university_name}}
+                    .panel-body Document :
+                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
-      .col-md-12
-          //.col-md-3.col-xs-4
-          //  button.btn.btn-primary.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 4' ng-click='Candidate.updateStatus(3)') Accept
-          //
-          //.col-md-3.col-xs-4
-          //  button.btn.btn-success.pull-right(type='submit' ng-show='Candidate.status_id == 3 || Candidate.Candidate.status_id == 4' ng-click='Candidate.Candidate.Allocations.openCase()') Upload
-          //
-          //.col-md-3.col-xs-4
-          //  button.btn.btn-danger.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 3' ng-click='Candidate.updateStatus(4)') Reject
+                  .panel-heading
+                ul.list-group(ng-repeat='case in ctrl.Candidates.CandidateCases' ng-if='case.case_type_id === 4' )
+                  .panel.panel-danger
+                    .panel-heading Site Verification
+                    .panel-body Permanent Address 1 : {{ctrl.Candidates.address}}
+                    .panel-body Permanent Address 2 : {{ctrl.Candidates.address2}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address3}}
+                    .panel-body Current Address 2 : {{ctrl.Candidates.address4}}
+                    .panel-body Phone number : {{ctrl.Candidates.phone}}
+                    .panel-body State : {{ctrl.Candidates.state}}
+                    .panel-body Pin : {{ctrl.Candidates.pin}}
+                    .panel-body Company Name : {{case.CaseSiteVerification.company_name}}
+                    .panel-body Concern person : {{case.CaseSiteVerification.concern_person}}
+                    .panel-body Document :
+                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
-          .col-md-3.col-xs-4
-            button.btn.btn-primary.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 4'  ng-click='Candidate.updateStatus(3)') Accept
 
-          .col-md-3.col-xs-4
-            button.btn.btn-success.pull-right(type='submit' ng-show='Candidate.status_id == 3 || Candidate.status_id == 4' ng-click='Candidate.openCase()') Upload
 
-          .col-md-3.col-xs-4
-            button.btn.btn-danger.pull-right(type='submit' ng-show='Candidate.status_id == 1 || Candidate.status_id == 3'  ng-click='Candidate.updateStatus(4)') Reject
+

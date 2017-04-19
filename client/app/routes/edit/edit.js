@@ -3,8 +3,8 @@
 angular.module('appApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('candidate', {
-        url: '/candidates/:id',
-        template: '<candidate></candidate>'
+      .state('edit', {
+        url: '/candidates/:id/edit',
+        template: '<edit></edit>'
       });
   });

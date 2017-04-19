@@ -29,7 +29,7 @@ import db, { Candidate,User, CaseType,Status, Minio, CaseAddressVerification,
 //}
 
 
-const CASE_TYPES  = {
+const CASE_TYPES = {
   ADDRESS: 1,
   CRIMINAL: 2,
   EDUCATION: 3,
@@ -47,9 +47,6 @@ const CASE_TYPES  = {
 //if(candidate.types.indexOf(CASE_TYPES.ADDRESS) !== -1) {
 //  save.n
 //}
-
-
-db.Candidate.create()
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -114,7 +111,7 @@ export function index(req, res) {
       include: [
         {
           model: CandidateCase,
-          attributes:[
+          attributes: [
             'id',
             'case_type_id',
             //'case_criminal_verification_id',
@@ -122,14 +119,12 @@ export function index(req, res) {
             //'case_site_verification_id'
           ],
 
-          //include: [
-          //  {model: CaseAddressVerification, attributes: ['id']},
-          //  {model: CaseCriminalVerification, attributes: ['id']},
-          //  {model: CaseEducationVerification, attributes: ['id']},
-          //  {model: CaseSiteVerification, attributes: ['id']},
-          //],
+          include: [
+            {model: CaseType, attributes: ['id', 'name']},
+          ],
         },
         //{model: Status, attributes: ['id', 'name']},
+        //{model: CaseType, attributes: ['id', 'name']},
         {model: User, attributes: ['id', 'name'], include: {model: Company, attributes: ['id', 'name']}},
         //{
         //  model: Allocation,
@@ -150,18 +145,21 @@ export function index(req, res) {
 
 // Gets a single Candidate from the DB
 export function show(req, res) {
-  return CandidateCase.find({
-      where: {
-        candidate_id: req.params.id
-      },
-      include: [
-        {model: Candidate},
-        {model: CaseCriminalVerification},
-        {model: CaseAddressVerification, include: [db.HouseType]},
-        {model: CaseEducationVerification},
-        {model: CaseSiteVerification},
-        {model: Allocation,include:[{model:Status,attributes:['id','name']}] },
-      ]
+  return Candidate.find({
+      where: {id: req.params.id},
+      include: [{
+        model: CandidateCase,
+        include: [
+          {model: CaseCriminalVerification, where: {'$case_type_id$': 2}, required: false},
+          {model: CaseAddressVerification, attributes: ['id'], where: {'$case_type_id$': 1}, required: false},
+          {model: CaseEducationVerification, where: {'$case_type_id$': 3}, required: false},
+          {model: CaseSiteVerification, where: {'$case_type_id$': 4}, required: false},
+        ]
+      }, {
+        model: User,
+        attributes: ['id', 'name'],
+        include: {model: Company, attributes: ['id', 'name']}
+      }]
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -171,7 +169,7 @@ export function show(req, res) {
 export function vendorUploaded(req, res) {
   return Candidate.findAll({
       include: [Status],
-      where: {status_id: [2, 3, 4 ]}
+      where: {status_id: [2, 3, 4]}
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
@@ -210,7 +208,7 @@ export function create(req, res) {
 
           // Async
           Minio.base64Upload(minioObject).then(res => {
-            return candidateObj.updateAttributes({ pdf: minioObject.object })
+            return candidateObj.updateAttributes({pdf: minioObject.object})
             console.log("file saved success")
           }).catch(err => console.log(err))
         }
@@ -255,17 +253,9 @@ export function create(req, res) {
 
 // Updates an existing Candidate in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  return Candidate.find({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(respondWithResult(res))
+  if (req.body._id) delete req.body._id;
+  return Candidate.update(req.body, { where: {id: req.params.id}})
+    .then(data => res.json(data))
     .catch(err => handleError(res, 500, err));
 }
 
@@ -284,7 +274,7 @@ export function destroy(req, res) {
 export function caseTypes(req, res) {
   return CandidateCase
     .findAll({
-      where: { candidate_id: req.params.id },
+      where: {candidate_id: req.params.id},
     })
     .then(candidateCases => {
       const result = [];
