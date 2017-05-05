@@ -15,13 +15,13 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
       ul.list-group
         li.list-group-item(style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.name")
           |  Case Name : {{$ctrl.data.CandidateCase.Candidate.name}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.address")
+        li.list-group-item( style="color:#383f44")(ng-if = "$ctrl.data.CandidateCase.address_status[0]==='1'")
           | Permanent Address 1 : {{$ctrl.data.CandidateCase.Candidate.address}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.address2")
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.address_status[2]==='1'")
           | Permanent Address 2: {{$ctrl.data.CandidateCase.Candidate.address2}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.address3")
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.address_status[4]==='1'")
           | Current Address 1: {{$ctrl.data.CandidateCase.Candidate.address3}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.address4")
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.address_status[6]==='1'")
           | Current Address 2: {{$ctrl.data.CandidateCase.Candidate.address4}}
         li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.phone")
           |  Phone : {{$ctrl.data.CandidateCase.Candidate.phone}}
