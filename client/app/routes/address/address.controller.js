@@ -11,10 +11,10 @@ class AddressComponent {
       .get(`/api/case_address_verifications/${this.$stateParams.address_id}`)
       .then(({ data }) => (this.data = data));
 
-    this
-      .$http
-      .get(`/api/house_types`)
-      .then(({ data }) => (this.HouseType = data))
+    //this
+    //  .$http
+    //  .get(`/api/house_types`)
+    //  .then(({ data }) => (this.HouseType = data))
   }
 
   update() {

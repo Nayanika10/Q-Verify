@@ -17,7 +17,7 @@ export default function (app) {
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
   app.use('/api/users_phone_relations', app.oauth.authenticate(), require('./api/users_phone_relation'));
   //app.use('/api/university_names', app.oauth.authenticate(), require('./api/university_name'));
-  app.use('/api/house_types', app.oauth.authenticate(), require('./api/house_type'));
+  //app.use('/api/house_types', app.oauth.authenticate(), require('./api/house_type'));
   //app.use('/api/designations', app.oauth.authenticate(), require('./api/designation'));
   //app.use('/api/degrees', app.oauth.authenticate(), require('./api/degree'));
   app.use('/api/case_types', app.oauth.authenticate(), require('./api/case_type'));

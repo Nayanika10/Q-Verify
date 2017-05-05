@@ -24,6 +24,7 @@ export default function(sequelize, DataTypes) {
       tableName: `candidates`,
       underscored: true,
       timestamps: true,
+
       classMethods: {
         associate(models) {
           models.Candidate.belongsTo(models.User, {

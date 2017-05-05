@@ -24,7 +24,7 @@
       {name: 'Vendor', field: 'Allocations.User.name'},
       {
         name: 'Candidate', field: 'Candidate.name', cellTemplate: '<div class="ui-grid-cell-contents">'
-      + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/view/allocations/{{ row.entity.Allocations.id }} ">{{ COL_FIELD }} </a>' + '</div>'
+      + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/candidateCases/{{ row.entity.id }}/vendoredit ">{{ COL_FIELD }} </a>' + '</div>'
       },
       //{
       //  name: 'Case Type', field: 'Candidate', cellTemplate: '<div class="ui-grid-cell-contents">'

@@ -94,6 +94,16 @@ function handleError(res, statusCode, err) {
 
 }
 
+//export function status(req, res) {
+//  return Candidate.find({
+//      where: {
+//        _id: req.params.id
+//      }
+//    })
+//    .then(handleEntityNotFound(res))
+//    .then(removeEntity(res))
+//    .catch(handleError(res));
+//}
 // Gets a list of Candidates
 export function index(req, res) {
   if (!req.user)
@@ -185,6 +195,7 @@ export function getFile(req, res) {
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
 }
+
 
 // Creates a new Candidate in the DB
 export function create(req, res) {

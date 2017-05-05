@@ -13,6 +13,7 @@ export default function(sequelize, DataTypes) {
     relation_with_candidate: DataTypes.STRING,
     years_of_staying: DataTypes.STRING,
     image: DataTypes.STRING,
+    house_type: DataTypes.STRING,
     remarks:DataTypes.STRING,
 
   }, {
@@ -21,9 +22,9 @@ export default function(sequelize, DataTypes) {
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.CaseAddressVerification.belongsTo(models.HouseType, {
-          foreignKey: `house_type_id`
-        });
+        //models.CaseAddressVerification.belongsTo(models.HouseType, {
+        //  foreignKey: `house_type_id`
+        //});
         //models.CaseAddressVerification.hasMany(models.CandidateMap);
 
       }

@@ -16,7 +16,7 @@ export default function(sequelize, DataTypes) {
     timestamps: false,
     classMethods: {
       associate(models) {
-        models.HouseType.hasMany(models.CaseAddressVerification);
+        //models.HouseType.hasMany(models.CaseAddressVerification);
       }
     }
   });

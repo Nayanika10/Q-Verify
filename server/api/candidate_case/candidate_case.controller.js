@@ -76,7 +76,7 @@ export function index(req, res) {
         //'case_criminal_verification_id',
         //'case_education_verification_id',
         //'case_site_verification_id'
-        //'status_id'
+        'address_status'
       ],
       include: [
         {
@@ -136,27 +136,34 @@ export function show(req, res) {
   //  2: ,
   //  3: ,
   //  4: ,
+
   //};
   return CandidateCase.find({
       where: {
-        _id: req.params.id
+        id: req.params.id,
       },
       include: [
-        //{model: CaseCriminalVerification, include: [db.Designation]},
-        {model: CaseCriminalVerification},
-        {model: CaseAddressVerification, include: [db.HouseType]},
-        {model: CaseEducationVerification},
-        {model: CaseSiteVerification},
-        {model: CaseType},
-        {model: User, attributes: ['name']},
+        {model: CaseCriminalVerification, where: {'$CandidateCase.case_type_id$': 2}, required: false},
+        {model: CaseAddressVerification, where: {'$CandidateCase.case_type_id$': 1}, required: false},
+        {model: CaseEducationVerification, where: {'$CandidateCase.case_type_id$': 3}, required: false},
+        {model: CaseSiteVerification, where: {'$CandidateCase.case_type_id$': 4}, required: false},
+        {model: CaseType, required: true},
+        {model: Candidate},
+        //{model: Allocation, include: [{
+        //  model: CandidateCase, include: [
+        //    {model: CaseCriminalVerification, where: {'$CandidateCase.case_type_id$': 2}, required: false},
+        //    {model: CaseAddressVerification, where: {'$CandidateCase.case_type_id$': 1}, required: false},
+        //    {model: CaseEducationVerification, where: {'$CandidateCase.case_type_id$': 3}, required: false},
+        //    {model: CaseSiteVerification, where: {'$CandidateCase.case_type_id$': 4}, required: false},
+        //    {model: CaseType, required: true},
+        //  ]
+        //}]},
 
-        //{model: CaseEducationVerification, include: [db.Degree, db.Designation]},
-        //{model: CaseSiteVerification, include: [db.Designation]},
       ]
     })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(err => handleError(res, 500, err));
 }
 
 // Creates a new CandidateCase in the DB
@@ -213,4 +220,11 @@ export function destroy(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
+}
+
+export function update(req, res) {
+  return CandidateCase
+    .update(req.body, {where: {id: req.params.id}})
+    .then(data => res.json(data))
+    .catch(err => res.status(500).json(err));
 }

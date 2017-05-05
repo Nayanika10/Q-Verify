@@ -8,10 +8,28 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    address_status: DataTypes.STRING,
   }, {
     tableName: `candidate_cases`,
     underscored: true,
     timestamps: false,
+    getterMethods: {
+      addressStatus () {
+        const addressStat = {};
+        console.log(this);
+        const a  = (this
+          .getDataValue('address_status'))
+        if(a) a
+          .split(',')
+          .map((status, i) => (addressStat[i+1]= !!Number(status)))
+        return addressStat;
+      }
+    },
+    setterMethods: {
+      addressStatus (value) {
+        this.setDataValue('address_status', value)
+      }
+    },
     classMethods: {
       associate(models) {
         models.CandidateCase.belongsTo(models.Candidate, {

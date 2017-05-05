@@ -25,7 +25,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
           a(target="_" ng-href='{{View.URLS.QVERIFY_API}}/candidates/{{View.Candidate.id}}/getFile?access_token={{View.AccessToken}}') download
       .panel.panel-info
         .panel-heading House Type
-        .panel-body {{View.data.CandidateCase.CaseAddressVerification.HouseType.name}}
+        .panel-body {{View.data.CandidateCase.CaseAddressVerification.house_type}}
       .panel.panel-info(style="color:#383f44")
         .panel-heading Years of staying
         .panel-body {{View.data.CandidateCase.CaseAddressVerification.years_of_staying}}

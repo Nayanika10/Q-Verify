@@ -39,9 +39,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   label.col-xs-12.input-group
-                    | House types id
+                    | House types
                     span.text-danger *
-                    select.form.form-control( ng-options='item.id as item.name for item in $ctrl.HouseType' ng-model='$ctrl.data.house_type_id' ng-required='true' )
+                    input.form.form-control(type='text' placeholder='eg.Rent or Own' ng-model='$ctrl.data.house_type'  ng-required='true' )
+                    //select.form.form-control( ng-options='item.id as item.name for item in $ctrl.HouseType' ng-model='$ctrl.data.house_type_id' ng-required='true' )
             .line.line-dashed.b-b.line-lg.pull-in
               .row
                 .col-md-12.col-sm-12.col-xs-12
