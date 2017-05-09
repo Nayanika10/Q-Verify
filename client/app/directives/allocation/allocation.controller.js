@@ -81,6 +81,7 @@ class AllocationController{
     this.$http.post('/api/allocations',data).then(() => this.$state.go("overview"))
     this.gridApi.grid.selection.selectAll = false;
     this.gridApi.grid.rows.map((k ,v) => {if(k.isSelected === true){k.isSelected=false}})
+    this.$uibModalInstance.close();
 
   }
   cancel() {

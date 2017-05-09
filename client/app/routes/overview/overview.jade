@@ -5,6 +5,8 @@
       sidebar
 
       .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ui-view='')
+        toaster-container(toaster-options="{'time-out': 1000, 'position-class': 'toast-top-right', 'close-button':true, 'animation-class': 'toast-top-right'}")
+
         .col-md-12
           .col-md-12.col-xs-4
             button.btn.btn-primary.pull-right(ui-sref='creation' style='background-color:#083040') Candidate Creation
