@@ -1,5 +1,5 @@
 class AllocationController{
-  constructor(QverifyConnection, toaster,$state, $http,gridApi,candidateCaseIds,$uibModalInstance) {
+  constructor(QverifyConnection, toaster,$state,$stateParams,$http,gridApi,candidateCaseIds,$uibModalInstance) {
     const LOG_TAG = 'AllocationComponent';
     this.qverifyConnection = new QverifyConnection();
     this.$http = $http;
@@ -7,6 +7,7 @@ class AllocationController{
     this.$uibModalInstance = $uibModalInstance;
     this.toaster =toaster;
     this.$state =$state;
+    this.$stateParams = $stateParams;
     this.candidateCasesIds =candidateCaseIds;
     this.$onInit();
   }
@@ -25,12 +26,17 @@ class AllocationController{
   //    });
   //
   //}
-
   getCandidateCase() {
-    this.$http.get(`/api/candidates/${this.allocation.candidate_id}/caseTypes`)
+    this.$http.get(`/api/candidateCases/${this.allocation.candidate_id}/caseTypes`)
       .then(({data}) => {
         this.CaseTypes = data;
       })
+  }
+
+  getCandidateCases() {
+    this.$http.get(`/api/candidateCases/${this.$stateParams.id}`).then(({ data }) => {
+      this.data = data;
+    });
   }
 
   getCandidateCases(){
@@ -49,26 +55,9 @@ class AllocationController{
 
 
   create() {
-    //switch (this.allocation.caseType.candidate_case_id) {
-    //  case 1:{
-    //    this.allocation.case_address_verification_id = this.allocation.caseType.id;
-    //    break;
-    //  }
-    //  case 2:{
-    //    this.allocation.case_criminal_verification_id = this.allocation.caseType.id;
-    //    break;
-    //  }
-    //  case 3:{
-    //    this.allocation.case_education_verification_id = this.allocation.caseType.id;
-    //    break;
-    //  }
-    //  case 4:{
-    //    this.allocation.case_site_verification_id = this.allocation.caseType.id;
-    //    break;
-    //  }
-    //}
     const x = this.allocation;
     const candidateCasesIds = this.candidateCasesIds;
+    //console.log(this.candidateCasesIds);
     const data = [];
     candidateCasesIds.forEach( caseId => {
       data
@@ -78,6 +67,7 @@ class AllocationController{
           user_id: x.user_id,
         })
     });
+    this.$uibModalInstance.close();
     this.$http.post('/api/allocations',data).then(() => this.$state.go("overview"))
     this.gridApi.grid.selection.selectAll = false;
     this.gridApi.grid.rows.map((k ,v) => {if(k.isSelected === true){k.isSelected=false}})

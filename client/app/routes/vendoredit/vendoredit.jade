@@ -1,0 +1,227 @@
+.flex-container
+  header
+    h1 Edit Vendor Information
+      .col-md-12.col-xs-4
+        button.btn.pull-right(ng-click='$ctrl.open()' style='background-color:#5cb85c') Allocate
+  nav.nav
+    ul.list-group
+      a.btn.btn-sm.btn-success.pull-right(ng-if='$ctrl.undoIndex !== false' ng-click="$ctrl.changeStatus($ctrl.undoIndex, 1)")
+        |  Undo
+      h1 Uploaded document by Internal
+
+      .panel.panel-info.panel-heading.contains-buttons(ng-show="$ctrl.data.Candidate.name")
+        .panel-heading Case Name
+        .panel-body {{$ctrl.data.Candidate.name}}
+
+      .panel.panel-info(ng-if = "$ctrl.address_status[$index]==='1'" ng-repeat='ind in [0,1]')
+        a.btn.btn-sm.btn-success.pull-right(ng-click="$ctrl.changeStatus(ind,0)")
+          i.fa.fa-cross
+          |  X
+        .panel-heading Permanent Address {{ind+1}}
+        .panel-body {{$ctrl.data.Candidate['address'+ ($index ? $index+1 : '')]}}
+
+      .panel.panel-info(ng-if = "$ctrl.address_status[$index+2]==='1'" ng-repeat='ind in [2,3]')
+        a.btn.btn-sm.btn-success.pull-right(ng-click="$ctrl.changeStatus(ind,0)")
+          i.fa.fa-cross
+          |  X
+        .panel-heading Current Address {{ind+1}}
+        .panel-body {{$ctrl.data.Candidate['address'+ ($index+2 ? $index+3 : '')]}}
+
+      .panel.panel-info(ng-show="$ctrl.data.Candidate.phone")
+        .panel-heading Phone
+        .panel-body {{$ctrl.data.Candidate.phone}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseCriminalVerification.father_name")
+        .panel-heading Father's name
+        .panel-body {{$ctrl.data.CaseCriminalVerification.father_name}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseCriminalVerification.dob")
+        .panel-heading Date of Birth
+        .panel-body {{$ctrl.data.CaseCriminalVerification.dob | date}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseSiteVerification.concern_person")
+        .panel-heading Concern Person
+        .panel-body {{$ctrl.data.CaseSiteVerification.concern_person}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseSiteVerification.company_name")
+        .panel-heading Company Name
+        .panel-body {{$ctrl.data.CaseSiteVerification.company_name}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseSiteVerification.email_id")
+        .panel-heading Email
+        .panel-body {{$ctrl.data.CaseSiteVerification.email_id}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseEducationVerification.degree")
+        .panel-heading Degree
+        .panel-body {{$ctrl.data.CaseEducationVerification.degree}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseEducationVerification.passing_year")
+        .panel-heading Passing Year
+        .panel-body {{$ctrl.data.CaseEducationVerification.passing_year}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseEducationVerification.role_no")
+        .panel-heading Role no
+        .panel-body {{$ctrl.data.CaseEducationVerification.role_no}}
+
+      .panel.panel-info(ng-if="$ctrl.data.CaseEducationVerification.university_name")
+        .panel-heading University Name
+        .panel-body {{$ctrl.data.CaseEducationVerification.university_name}}
+
+      .panel.panel-info(ng-show="$ctrl.data.Candidate.state")
+        .panel-heading State
+        .panel-body {{$ctrl.data.Candidate.state}}
+
+      .panel.panel-info(ng-show="$ctrl.data.Candidate.pin")
+        .panel-heading Pin
+        .panel-body {{$ctrl.data.Candidate.pin}}
+
+      .panel.panel-info(ng-show="$ctrl.data.Candidate.pdf")
+        .panel-heading File
+        .panel-body
+          a(target="__blank" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
+
+  article.article
+    ul.list-group(ng-if="$ctrl.data.CaseAddressVerification")
+      h1 Uploaded document by vendor
+      p
+        .panel.panel-info
+          .panel-heading Visiting address
+          .panel-body {{$ctrl.data.CaseAddressVerification.visiting_address}}
+
+        .panel.panel-info
+          .panel-heading Visiting person name
+          .panel-body {{$ctrl.data.CaseAddressVerification.visiting_person_name}}
+
+        .panel.panel-info
+          .panel-heading Relation with candidate
+          .panel-body {{$ctrl.data.CaseAddressVerification.relation_with_candidate}}
+
+        .panel.panel-info
+          .panel-heading File
+          .panel-body
+            a(target="_" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{View.Candidate.id}}/getFile?access_token={{View.AccessToken}}') download
+
+        .panel.panel-info
+          .panel-heading House Type
+          .panel-body {{$ctrl.data.CaseAddressVerification.house_type}}
+
+        .panel.panel-info(style="color:#383f44")
+          .panel-heading Years of staying
+          .panel-body {{$ctrl.data.CaseAddressVerification.years_of_staying}}
+
+
+    ul.list-group(ng-if="$ctrl.data.CaseCriminalVerification")
+      h1 Uploaded document by vendor
+      p
+        .panel.panel-warning
+          .panel-heading Police Station Name
+          .panel-body {{$ctrl.data.CaseCriminalVerification.police_station_name}}
+        .panel.panel-warning
+          .panel-heading Police Authority Name
+          .panel-body {{$ctrl.data.CaseCriminalVerification.police_authority_name}}
+        .panel.panel-warning
+          .panel-heading Remark
+          .panel-body {{$ctrl.data.CaseCriminalVerification.remark}}
+        .panel.panel-warning
+          .panel-heading Date Of Birth
+          .panel-body {{$ctrl.data.CaseCriminalVerification.dob | date}}
+        .panel.panel-warning
+          .panel-heading Father's Name
+          .panel-body {{$ctrl.data.CaseCriminalVerification.father_name}}
+        .panel.panel-warning
+          .panel-heading Designation
+          .panel-body {{$ctrl.data.CaseCriminalVerification.designation}}
+
+    ul.list-group(ng-if="$ctrl.data.CaseEducationVerification")
+      h1 Uploaded document by vendor
+      p
+        .panel.panel-success
+          .panel-heading Degree
+          .panel-body {{$ctrl.data.CaseEducationVerification.degree}}
+        .panel.panel-success
+          .panel-heading Role no
+          .panel-body {{$ctrl.data.CaseEducationVerification.role_no}}
+        .panel.panel-success
+          .panel-heading Passing year
+          .panel-body {{$ctrl.data.CaseEducationVerification.passing_year}}
+        .panel.panel-success
+          .panel-heading Verifier's Name
+          .panel-body {{$ctrl.data.CaseEducationVerification.verifier_name}}
+        .panel.panel-success
+          .panel-heading Designation
+          .panel-body {{$ctrl.data.CaseEducationVerification.designation}}
+        .panel.panel-success
+          .panel-heading University name
+          .panel-body {{$ctrl.data.CaseEducationVerification.university_name}}
+        .panel.panel-success
+          .panel-heading Remarks
+          .panel-body {{$ctrl.data.CaseEducationVerification.remarks}}
+
+
+    ul.list-group(ng-if="$ctrl.data.CaseSiteVerification")
+      h1 Uploaded document by vendor
+      p
+        .panel.panel-danger
+          .panel-heading Company Name
+          .panel-body {{$ctrl.data.CaseSiteVerification.company_name}}
+        .panel.panel-danger
+          .panel-heading Company Address
+          .panel-body {{$ctrl.data.CaseSiteVerification.address}}
+        .panel.panel-danger
+          .panel-heading Phone no
+          .panel-body {{$ctrl.data.CaseSiteVerification.telephone}}
+        .panel.panel-danger
+          .panel-heading Fax no
+          .panel-body {{$ctrl.data.CaseSiteVerification.fax_no}}
+        .panel.panel-danger
+          .panel-heading Name of the company
+          .panel-body {{$ctrl.data.CaseSiteVerification.name_of_company}}
+        .panel.panel-danger
+          .panel-heading Email id
+          .panel-body {{$ctrl.data.CaseSiteVerification.email_id}}
+        .panel.panel-danger
+          .panel-heading Website
+          .panel-body {{$ctrl.data.CaseSiteVerification.website}}
+        .panel.panel-danger
+          .panel-heading Name of chief executive
+          .panel-body {{$ctrl.data.CaseSiteVerification.name_of_chief_executive}}
+        .panel.panel-danger
+          .panel-heading Director
+          .panel-body {{$ctrl.data.CaseSiteVerification.director}}
+        .panel.panel-danger
+          .panel-heading Company sign present
+          .panel-body {{$ctrl.data.CaseSiteVerification.company_sign_present}}
+        .panel.panel-danger
+          .panel-heading Computers present
+          .panel-body {{$ctrl.data.CaseSiteVerification.computers}}
+        .panel.panel-danger
+          .panel-heading Tables present
+          .panel-body {{$ctrl.data.CaseSiteVerification.tables}}
+        .panel.panel-danger
+          .panel-heading Chairs present
+          .panel-body {{$ctrl.data.CaseSiteVerification.chairs}}
+        .panel.panel-danger
+          .panel-heading Approx
+          .panel-body {{$ctrl.data.CaseSiteVerification.approx}}
+        .panel.panel-danger
+          .panel-heading Area
+          .panel-body {{$ctrl.data.CaseSiteVerification.area}}
+        .panel.panel-danger
+          .panel-heading Employee Awareness
+          .panel-body {{$ctrl.data.CaseSiteVerification.employee_awareness}}
+        .panel.panel-danger
+          .panel-heading Neighbours name
+          .panel-body {{$ctrl.data.CaseSiteVerification.neighbours_name}}
+        .panel.panel-danger
+          .panel-heading Designation
+          .panel-body {{$ctrl.data.CaseSiteVerification.designation}}
+        .panel.panel-danger
+          .panel-heading Remarks
+          .panel-body {{$ctrl.data.CaseSiteVerification.remarks}}
+        .panel.panel-danger
+          .panel-heading Comment
+          .panel-body {{$ctrl.data.CaseSiteVerification.comment}}
+        .panel.panel-danger
+          .panel-heading Concern Person
+          .panel-body {{$ctrl.data.CaseSiteVerification.concern_person}}
+  footer
