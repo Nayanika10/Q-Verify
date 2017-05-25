@@ -24,8 +24,8 @@
                     .panel-body Phone number : {{ctrl.Candidates.phone}}
                     .panel-body State : {{ctrl.Candidates.state}}
                     .panel-body Pin : {{ctrl.Candidates.pin}}
-                    .panel-body Document :
-                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
+                    //.panel-body Document :
+                    //  a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
                   .panel-heading
                 ul.list-group(ng-repeat='case in ctrl.Candidates.CandidateCases' ng-if='case.case_type_id === 2')
@@ -40,8 +40,8 @@
                     .panel-body Pin : {{ctrl.Candidates.pin}}
                     .panel-body DOB : {{case.CaseCriminalVerification.dob}}
                     .panel-body Father's Name : {{case.CaseCriminalVerification.father_name}}
-                    .panel-body Document :
-                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
+                    //.panel-body Document :
+                    //  a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
 
                   .panel-heading
@@ -75,8 +75,8 @@
                     .panel-body Pin : {{ctrl.Candidates.pin}}
                     .panel-body Company Name : {{case.CaseSiteVerification.company_name}}
                     .panel-body Concern person : {{case.CaseSiteVerification.concern_person}}
-                    .panel-body Document :
-                      a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
+                    //.panel-body Document :
+                    //  a(target="_blank" ng-href=' {{ctrl.URLS.QVERIFY_API}}/candidates/{{ctrl.Candidates.id}}/getFile?access_token={{ctrl.AccessToken}}') download
 
 
 

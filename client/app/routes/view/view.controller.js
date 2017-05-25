@@ -19,7 +19,7 @@ class ViewComponent {
     .component('view', {
       templateUrl: 'app/routes/view/view.html',
       controller: ViewComponent,
-      controllerAs: 'View',
+      controllerAs: '$ctrl',
     });
 
 

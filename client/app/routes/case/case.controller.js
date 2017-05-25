@@ -18,7 +18,7 @@
 
     };
     $scope.gridOpts.columnDefs = [
-      {name: 'Id', field: 'id'},
+      {name: 'Id', field: 'id', sort: { direction: 'desc' } },
       {name: 'Client', field: 'Candidate.User.Company.name'},
       {name: 'Hiring Manager', field: 'Candidate.User.name'},
       {name: 'Vendor', field: 'Allocations.User.name'},

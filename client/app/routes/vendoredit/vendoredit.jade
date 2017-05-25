@@ -75,10 +75,10 @@
         .panel-heading Pin
         .panel-body {{$ctrl.data.Candidate.pin}}
 
-      .panel.panel-info(ng-show="$ctrl.data.Candidate.pdf")
+      .panel.panel-info(ng-if="$ctrl.data.CaseAddressVerification" ng-show="$ctrl.data.Candidate.pdf")
         .panel-heading File
         .panel-body
-          a(target="__blank" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
+          a(target="_blank" ng-href=' {{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.Candidate.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
 
   article.article
     ul.list-group(ng-if="$ctrl.data.CaseAddressVerification")
@@ -96,10 +96,10 @@
           .panel-heading Relation with candidate
           .panel-body {{$ctrl.data.CaseAddressVerification.relation_with_candidate}}
 
-        .panel.panel-info
+        .panel.panel-info(ng-show="$ctrl.data.CaseAddressVerification.image")
           .panel-heading File
           .panel-body
-            a(target="_" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{View.Candidate.id}}/getFile?access_token={{View.AccessToken}}') download
+            a(target="_blank" ng-href=' {{$ctrl.URLS.QVERIFY_API}}/case_address_verifications/{{$ctrl.data.CaseAddressVerification.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
 
         .panel.panel-info
           .panel-heading House Type
@@ -124,10 +124,10 @@
           .panel-body {{$ctrl.data.CaseCriminalVerification.remark}}
         .panel.panel-warning
           .panel-heading Date Of Birth
-          .panel-body {{$ctrl.data.CaseCriminalVerification.dob | date}}
+          .panel-body {{$ctrl.data.CaseCriminalVerification.vendor_dob | date}}
         .panel.panel-warning
           .panel-heading Father's Name
-          .panel-body {{$ctrl.data.CaseCriminalVerification.father_name}}
+          .panel-body {{$ctrl.data.CaseCriminalVerification.vendor_father_name}}
         .panel.panel-warning
           .panel-heading Designation
           .panel-body {{$ctrl.data.CaseCriminalVerification.designation}}
@@ -137,13 +137,13 @@
       p
         .panel.panel-success
           .panel-heading Degree
-          .panel-body {{$ctrl.data.CaseEducationVerification.degree}}
+          .panel-body {{$ctrl.data.CaseEducationVerification.vendor_degree}}
         .panel.panel-success
           .panel-heading Role no
-          .panel-body {{$ctrl.data.CaseEducationVerification.role_no}}
+          .panel-body {{$ctrl.data.CaseEducationVerification.vendor_role_no}}
         .panel.panel-success
           .panel-heading Passing year
-          .panel-body {{$ctrl.data.CaseEducationVerification.passing_year}}
+          .panel-body {{$ctrl.data.CaseEducationVerification.vendor_passing_year}}
         .panel.panel-success
           .panel-heading Verifier's Name
           .panel-body {{$ctrl.data.CaseEducationVerification.verifier_name}}
@@ -152,7 +152,7 @@
           .panel-body {{$ctrl.data.CaseEducationVerification.designation}}
         .panel.panel-success
           .panel-heading University name
-          .panel-body {{$ctrl.data.CaseEducationVerification.university_name}}
+          .panel-body {{$ctrl.data.CaseEducationVerification.vendor_university_name}}
         .panel.panel-success
           .panel-heading Remarks
           .panel-body {{$ctrl.data.CaseEducationVerification.remarks}}
@@ -163,7 +163,7 @@
       p
         .panel.panel-danger
           .panel-heading Company Name
-          .panel-body {{$ctrl.data.CaseSiteVerification.company_name}}
+          .panel-body {{$ctrl.data.CaseSiteVerification.vendor_company_name}}
         .panel.panel-danger
           .panel-heading Company Address
           .panel-body {{$ctrl.data.CaseSiteVerification.address}}
@@ -178,7 +178,7 @@
           .panel-body {{$ctrl.data.CaseSiteVerification.name_of_company}}
         .panel.panel-danger
           .panel-heading Email id
-          .panel-body {{$ctrl.data.CaseSiteVerification.email_id}}
+          .panel-body {{$ctrl.data.CaseSiteVerification.vendor_email_id}}
         .panel.panel-danger
           .panel-heading Website
           .panel-body {{$ctrl.data.CaseSiteVerification.website}}
@@ -223,5 +223,5 @@
           .panel-body {{$ctrl.data.CaseSiteVerification.comment}}
         .panel.panel-danger
           .panel-heading Concern Person
-          .panel-body {{$ctrl.data.CaseSiteVerification.concern_person}}
+          .panel-body {{$ctrl.data.CaseSiteVerification.vendor_concern_person}}
   footer

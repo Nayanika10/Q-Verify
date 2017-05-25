@@ -51,10 +51,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
           |  Pin : {{$ctrl.data.CandidateCase.Candidate.pin}}
         //li.list-group-item( style="color:#383f44")
         ////  |  Client = {{$ctrl.Case.User.name}}
-        li.list-group-item( style="color:#383f44")(ng-show="$ctrl.data.CandidateCase.Candidate.pdf")
+        li.list-group-item( style="color:#383f44")(ng-if="$ctrl.data.CandidateCase.CaseAddressVerification" ng-show="$ctrl.data.CandidateCase.Candidate.pdf")
           //|  Document = {{$ctrl.Case.pdf}}
           |  Document :
-          a(target="_blank" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
+          a(target="_blank" ng-href='{{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.CandidateCase.Candidate.id}}/getFile?access_token={{$ctrl.AccessToken}}') download
 
 
 

@@ -14,6 +14,8 @@ export default function(sequelize, DataTypes) {
     dob: DataTypes.DATE,
     father_name: DataTypes.STRING,
     designation:DataTypes.STRING,
+    vendor_father_name: DataTypes.STRING,
+    vendor_dob: DataTypes.STRING,
   }, {
   tableName: `case_criminal_verifications`,
     underscored: true,

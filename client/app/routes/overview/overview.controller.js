@@ -19,6 +19,7 @@
     };
     $scope.gridOpts.columnDefs = [
         //{name: 'Id', field: 'Case.id'},
+        {name: 'Id', field: 'id' },
         {name: 'Client', field: 'User.Company.name'},
         {name: 'Hiring Manager', field: 'User.name'} ,
         //{name: 'Client', field: 'User.name' ,

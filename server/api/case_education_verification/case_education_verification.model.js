@@ -15,6 +15,10 @@ export default function(sequelize, DataTypes) {
     university_name:DataTypes.STRING,
     degree:DataTypes.STRING,
     designation:DataTypes.STRING,
+    vendor_passing_year: DataTypes.STRING,
+    vendor_role_no: DataTypes.STRING,
+    vendor_university_name:DataTypes.STRING,
+    vendor_degree:DataTypes.STRING,
 
 
 

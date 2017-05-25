@@ -72,64 +72,117 @@ export function show(req, res) {
 }
 
 export function getFile(req, res) {
-  return CaseAddressVerification.findById(req.params.id).then(candidateObj => {
-    console.log(candidateObj.image)
-    if(!candidateObj.image) return res.status(404).json({message: 'not found'})
+  return CaseAddressVerification.findById(req.params.id).then(caseaddressverificationObj => {
+    console.log(caseaddressverificationObj.image)
+    if(!caseaddressverificationObj.image) return res.status(404).json({message: 'not found'})
     return Minio.downloadLink({
-      object: candidateObj.image,
-      name: `${candidateObj.id}.image`,
+      object: caseaddressverificationObj.image,
+      name: `${caseaddressverificationObj.id}.pdf`,
       download: true,
     }).then(link => res.redirect(link))
   }).catch(err => handleError(res, 500, err))
 }
 
-// Creates a new CaseAddressVerification in the DB
+
 export function create(req, res) {
-  req.body.status_id = 1;
-  return db.CaseAddressVerification.create(req.body)
-    .then((candidateObj) => {
-      const { base64:base64String, filename } = req.body.img;
-      const extention = filename.substring(filename.lastIndexOf('.') + 1);
-
-      // only upload if valid file extension
-      if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png'].indexOf(extention)) {
-
-        const rangeFolder = candidateObj.id - (candidateObj.id % 10000);
-        const minioObject = {
-          // object: 'cases/0/5/5.pdf'
-          object: `case_address_verifications/${rangeFolder}/${candidateObj.id}/${candidateObj.id}.${extention.toLowerCase()}`,
-          base64String: base64String,
-        }
-
-        return Minio.base64Upload(minioObject).then(re => {
-          return candidateObj.update({image: minioObject.object}).then(()=>{
-            console.log("file saved success")
-            return Candidate.update({status_id:2},{
-              where:{id: candidateObj.candidate_id}
-            }).then(()=>{
-              return res.json(candidateObj);
-            }).catch(err => handleError(res, 500, err));
-          })
-        }).catch(err => handleError(res, 500, err));
-      }
+  return CaseAddressVerification.create(req.body)
+    .then(caseTypeObj=> {
       return Candidate.update({status_id:2},{
-        where:{id: candidateObj.candidate_id}
+        where:{id: caseTypeObj.candidate_id}
       }).then(()=>{
-        return res.json(candidateObj);
-      }).catch(err => handleError(res, 500, err));;
+        return res.json(caseTypeObj);
+      })
     })
-    .catch(err => handleError(res, 500, err));
+    .catch(handleError(res));
 }
+ //Creates a new CaseAddressVerification in the DB
+//export function create(req, res) {
+//  return db.CaseAddressVerification.create(req.body)
+//    .then((candidateObj) => {
+//      const { base64:base64String, filename } = req.body.img;
+//      //console.log('filename')
+//      const extention = filename.substring(filename.lastIndexOf('.') + 1);
+//
+//      // only upload if valid file extension
+//      if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png'].indexOf(extention)) {
+//
+//        const rangeFolder = candidateObj.id - (candidateObj.id % 100000);
+//        const minioObject = {
+//          // object: 'cases/0/5/5.pdf'
+//          object: `case_address_verifications/${rangeFolder}/${candidateObj.id}/${candidateObj.id}.${extention.toLowerCase()}`,
+//          base64String: base64String,
+//        }
+//
+//        Minio.base64Upload(minioObject).then(res => {
+//          return candidateObj.updateAttributes({image: minioObject.object}).then(()=>{
+//            console.log("file saved success")
+//            return Candidate.update({status_id:2},{
+//              where:{id: candidateObj.candidate_id}
+//            }).then(()=>{
+//              return res.json(candidateObj);
+//            }).catch(err => handleError(res, 500, err));
+//          })
+//        }).catch(err => handleError(res, 500, err));
+//      }
+//      return Candidate.update({status_id:2},{
+//        where:{id: candidateObj.candidate_id}
+//      }).then(()=>{
+//        return res.json(candidateObj);
+//      }).catch(err => handleError(res, 500, err));;
+//    })
+//    .catch(err => handleError(res, 500, err));
+//}
 
-// Updates an existing CaseAddressVerification in the DB
+
+ //Updates an existing CaseAddressVerification in the DB
 export function update(req, res) {
-  delete req.body.image;
+  //req.body.status_id = 1;
   return CaseAddressVerification
     .update(
       req.body,
       { where: {id: req.params.id} })
-    .then(data => res.json(data))
-    .catch(err => res.status(500).json(err));
+      .then(() => CaseAddressVerification.find({
+        where: {
+          id: req.params.id
+        }
+      })
+    .then((caseaddressverificationObj) => {
+      const case_address_verifications = caseaddressverificationObj.toJSON();
+      if (req.body.img) {
+        /* Start Minio */
+        const { base64:base64String, filename } = req.body.img;
+        const extention = filename.substring(filename.lastIndexOf('.') + 1);
+
+        // only upload if valid file extension
+        if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png'].indexOf(extention)) {
+
+          const rangeFolder = caseaddressverificationObj.id - (caseaddressverificationObj.id % 100000);
+          const minioObject = {
+            // object: 'cases/0/5/5.pdf'
+            object: `case_address_verifications/${rangeFolder}/${caseaddressverificationObj.id}/${caseaddressverificationObj.id}.${extention.toLowerCase()}`,
+            base64String: base64String,
+          }
+          Minio.base64Upload(minioObject).then(res => {
+            return caseaddressverificationObj.updateAttributes({image: minioObject.object}).then(()=> {
+              return Candidate.update({status_id: 2}, {
+                where: {id: caseaddressverificationObj.case_address_verification_id}
+              }).then(()=> {
+                return res.json(caseaddressverificationObj);
+                console.log("file saved success")
+                }).catch(err => handleError(res));
+            })
+          }).catch(err => handleError(res));
+        }
+      }
+      return CaseAddressVerificationComponent.update({status_id:2},{
+        where:{id: caseaddressverificationObj.case_address_verification_id}
+      }).then(()=>{
+        return res.json(caseaddressverificationObj);
+      }).catch(err => handleError(res));;
+    }))
+    //.then(data => res.json(data))
+    .catch(err => res.json(err));
+
 }
 
 // Deletes a CaseAddressVerification from the DB

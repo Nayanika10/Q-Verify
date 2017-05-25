@@ -32,6 +32,9 @@ export default function (sequelize, DataTypes) {
       concern_person: DataTypes.STRING,
       company_name: DataTypes.STRING,
       designation: DataTypes.STRING,
+      vendor_company_name: DataTypes.STRING,
+      vendor_email_id: DataTypes.STRING,
+      vendor_concern_person: DataTypes.STRING,
     }
     , {
       tableName: `case_site_verifications`,
