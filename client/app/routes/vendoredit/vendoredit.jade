@@ -75,7 +75,7 @@
         .panel-heading Pin
         .panel-body {{$ctrl.data.Candidate.pin}}
 
-      .panel.panel-info(ng-if="$ctrl.data.CaseAddressVerification" ng-show="$ctrl.data.Candidate.pdf")
+      .panel.panel-info(ng-if="$ctrl.data.CaseEducationVerification" ng-show="$ctrl.data.Candidate.pdf")
         .panel-heading File
         .panel-body
           a(target="_blank" ng-href=' {{$ctrl.URLS.QVERIFY_API}}/candidates/{{$ctrl.data.Candidate.id}}/getFile?access_token={{$ctrl.AccessToken}}') download

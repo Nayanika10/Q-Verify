@@ -28,7 +28,7 @@
         },
 
         {name: 'User-Type', field: 'UserType.name' ,cellTemplate: '<div class="ui-grid-cell-contents">'
-    + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
+        + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
 
         {name: 'Address', field: 'address', cellTemplate: '<div class="ui-grid-cell-contents">'
         + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/companyUsers/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'},
