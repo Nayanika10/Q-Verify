@@ -7,11 +7,11 @@
     br
     a.btn.btn-white.btn-outline.btn-rounded.btn-sm(ng-click='$ctrl.logout()') Logout
   ul.nav.nav-sidebar
-    li(ng-class="{active: $state.includes('overview')}")
+    li(ui-sref-active='active' ng-class="{active: $state.includes('overview')}")
       a(ui-sref='overview')
         | Cases
         span.sr-only (current)
-    li(ng-class="{active: $state.includes('case')}")
+    li(ui-sref-active='active' ng-class="{active: $state.includes('case')}")
       a(ui-sref='case') Checks
-    li(ng-class="{active: $state.includes('company')}")
+    li(ui-sref-active='active' ng-class="{active: $state.includes('company')}")
       a(ui-sref='company') Company

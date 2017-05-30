@@ -35,8 +35,8 @@
       //+ '</div>'
       //},
       {name: 'Case Type', field: 'CaseType.name'},
-      {name: 'Status', field: 'Allocations.AllocationStatus.name'},
-      {name: 'Vendor Status', field: 'Allocations.Status.name'},
+      {name: 'Status', field: 'Allocations' , cellTemplate:'<div> &nbsp{{row.entity.Allocations.AllocationStatus.name + row.entity.Allocations.Status.name }}&nbsp </div>'},
+      //{name: 'Vendor Status', field: 'Allocations.Status.name'},
       {name: 'Allocated On', field: 'Allocations.created_on', cellFilter: 'date:"dd-MMM-yyyy "'},
       {
         //field: 'Allocations.Status.name',

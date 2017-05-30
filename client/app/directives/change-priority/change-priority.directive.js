@@ -3,11 +3,12 @@
 (function() {
   class ChangePriorityController {
     /* @ngInject */
-    constructor($http, $timeout, $scope) {
+    constructor($http, $timeout, $scope,$stateParams) {
       this.$http = $http;
       this.$timeout = $timeout;
       this.$scope = $scope;
       this.$onInit();
+      this.$stateParams = $stateParams;
     }
 
     $onInit() {
@@ -24,6 +25,12 @@
         .put(`/api/allocations/${this.data.Allocations.id}`, {internal_status_id: status.id})
         .then(() => (this.data.Allocations.internal_status_id = status.id))
 
+      if (status.id == 5) {
+        this.$http
+          .delete(`/api/allocations/${this.data.Allocations.id}`)
+          .then(() => (this.data.Allocations))
+
+      }
     }
   }
 

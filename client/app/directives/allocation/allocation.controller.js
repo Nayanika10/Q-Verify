@@ -69,9 +69,13 @@ class AllocationController{
     });
     this.$uibModalInstance.close();
     this.$http.post('/api/allocations',data).then(() => this.$state.go("overview"))
+      .then(res => this.toaster.pop('success', "Allocation successful"))
+      .catch(err => this.toaster.pop('error', err.data ? err.data.message : 'Unexpected Error'));
     this.gridApi.grid.selection.selectAll = false;
     this.gridApi.grid.rows.map((k ,v) => {if(k.isSelected === true){k.isSelected=false}})
     this.$uibModalInstance.close();
+
+
 
   }
   cancel() {

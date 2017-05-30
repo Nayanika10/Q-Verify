@@ -240,14 +240,13 @@ export function update(req, res) {
 
 // Deletes a Allocation from the DB
 export function destroy(req, res) {
-  return Allocation.find({
+  return Allocation.destroy({
       where: {
-        _id: req.params.id
+        id: req.params.id
       }
     })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
-    .catch(handleError(res));
 }
 
 // Gets a list of Allocations

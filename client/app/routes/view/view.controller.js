@@ -1,12 +1,14 @@
 'use strict';
 
 class ViewComponent {
-  constructor($stateParams, toaster, $state, $http) {
+  constructor($stateParams, toaster, $state, $http, OAuthToken, URLS) {
     const LOG_TAG = 'ViewComponent';
     console.log(LOG_TAG, $stateParams.id);
     this.$state = $state;
     this.$http = $http;
+    this.URLS = URLS;
     this.$stateParams = $stateParams;
+    this.AccessToken = OAuthToken.getAccessToken();
 
   }
 

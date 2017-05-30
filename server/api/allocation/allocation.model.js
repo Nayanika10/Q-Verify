@@ -16,6 +16,8 @@ export default function(sequelize, DataTypes) {
     timestamps: true,
     updatedAt: 'updated_on',
     createdAt: 'created_on',
+    deletedAt: 'deleted_on',
+    paranoid: true,
     classMethods: {
       associate(models) {
         models.Allocation.belongsTo(models.AllocationStatus, {
