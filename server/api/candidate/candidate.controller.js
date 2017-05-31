@@ -12,7 +12,7 @@
 import _ from 'lodash';
 import db, { Candidate,User, CaseType,Status, Minio, CaseAddressVerification,
   CaseCriminalVerification, CaseEducationVerification, CaseSiteVerification,Company,
-  CandidateCase,Allocation } from '../../sqldb';
+  CandidateCase,Allocation, Document } from '../../sqldb';
 
 //const candidate = req.body
 //const candidate  = {
@@ -197,33 +197,33 @@ export function getFile(req, res) {
 }
 
 
-// Creates a new Candidate in the DB
 export function create(req, res) {
-  return Candidate.create(req.body)
+  return Candidate
+    .create(req.body)
     .then((candidateObj) => {
       const candidate = candidateObj.toJSON();
       if (req.body.logo) {
         /* Start Minio */
-        const { base64:base64String, filename } = req.body.logo;
-        const extention = filename.substring(filename.lastIndexOf('.') + 1);
+        const minioObjects = req.body.logo.map(attachment => {
+           const { base64:base64String, filename } = attachment;
 
-        // only upload if valid file extension
-        if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png', 'jpeg'].indexOf(extention)) {
+          const extention = filename.substring(filename.lastIndexOf('.') + 1);
 
-          const rangeFolder = candidate.id - (candidate.id % 100000);
-          const minioObject = {
-            // object: 'cases/0/5/5.pdf'
-            object: `candidates/${rangeFolder}/${candidate.id}/${candidate.id}.${extention.toLowerCase()}`,
-            base64String: base64String,
-          }
+          // only upload if valid file extension
+          if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png', 'jpeg'].indexOf(extention)) {
+            const rangeFolder = candidate.id - (candidate.id % 100000);
+            return {
+              object: `candidates/${rangeFolder}/${candidate.id}/${candidate.id}.${extention.toLowerCase()}`,
+              base64String: base64String,
+            }
+          }})
 
-          // Async
-          Minio.base64Upload(minioObject).then(res => {
-            return candidateObj.updateAttributes({pdf: minioObject.object})
-            console.log("file saved success")
-          }).catch(err => console.log(err))
-        }
-
+        return Minio
+          .base64UploadMulti(minioObjects)
+          .then(() => Document
+            .bulkCreate(minioObjects
+              .map(x => ({ candidate_id: candidate.id, name: x.object}))))
+          .catch(err => console.log(err))
         /* End Minio */
       }
       let casePromises = req.body.types.map(typeId => {
@@ -252,11 +252,9 @@ export function create(req, res) {
           });
         });
 
-
         return Promise
           .all(candidateCasePromises)
           .then(candidateCases => res.json(candidateCases.map(cc => cc.toJSON())))
-          .catch(err => handleError(res, 500, err));
       });
     })
     .catch(err => handleError(res, 500, err));

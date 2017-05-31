@@ -32,16 +32,16 @@
         + '<a target="_blank"" href="' + URLS.QVERIFY_SERVER + '/candidates/{{ row.entity.id }} ">{{ COL_FIELD }}</a>' + '</div>'
         },
         {name: 'Address', field: 'CandidateCases' , cellTemplate: `<div class="ui-grid-cell-contents">
-        &nbsp<a target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 1">yes</a>
+        &nbsp<span target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 1">yes</span>
         </div>`},
         {name: 'Criminal', field: 'CandidateCases' , cellTemplate: `<div class="ui-grid-cell-contents">
-        &nbsp<a target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 2">yes</a>
+        &nbsp<span target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 2">yes</span>
         </div>`},
         {name: 'Education', field: 'CandidateCases' , cellTemplate: `<div class="ui-grid-cell-contents">
-        &nbsp<a target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 3">yes</a>
+        &nbsp<span target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 3">yes</span>
         </div>`},
         {name: 'Site', field: 'CandidateCases' , cellTemplate: `<div class="ui-grid-cell-contents">
-        &nbsp<a target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 4">yes</a>
+        &nbsp<span target="_blank" ng-repeat="case in row.entity.CandidateCases" ng-if="case.case_type_id === 4">yes</span>
         </div>`},
 
         //{name: 'Allocated Case', field: 'Allocations', cellTemplate: '<div class="ui-grid-cell-contents">'

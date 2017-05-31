@@ -228,3 +228,35 @@ export function update(req, res) {
     .then(data => res.json(data))
     .catch(err => res.status(500).json(err));
 }
+
+//export function create(req, res) {
+//  return Candidate.create(req.body)
+//    .then((candidateObj) => {
+//      const candidate = candidateObj.toJSON();
+//      if (req.body.logo) {
+//        /* Start Minio */
+//        const minioObjects = req.body.logo.map(attachment => {
+//          const { base64:base64String, filename } = attachment;
+//
+//          const extention = filename.substring(filename.lastIndexOf('.') + 1);
+//
+//          // only upload if valid file extension
+//          if (~['doc', 'docx', 'pdf', 'rtf', 'txt', 'png', 'jpeg'].indexOf(extention)) {
+//
+//            const rangeFolder = candidate.id - (candidate.id % 100000);
+//            const minioObject = {
+//              // object: 'cases/0/5/5.pdf'
+//              object: `candidates/${rangeFolder}/${candidate.id}/${candidate.id}.${extention.toLowerCase()}`,
+//              base64String: base64String,
+//            }
+//
+//            // Async
+//
+//          });
+//
+//        Minio.base64UploadMulti(minioObjects).then(res => {
+//          return candidateObj.updateAttributes({pdf: minioObject.object})
+//          console.log("file saved success")
+//        }).catch(err => console.log(err))
+
+

@@ -23,6 +23,7 @@ var db = {
 };
 
 // Insert models below
+db.Document = db.sequelizeQverify.import('../api/document/document.model');
 //db.Internalstatus = db.sequelize.import('../api/internalstatus/internalstatus.model');
 db.QueuedTask = db.sequelizeQuarc.import('../api/queuedTask/queuedTask.model');
 db.Email = db.sequelizeQverify.import('../api/email/email.model');
@@ -81,7 +82,7 @@ db.Minio.base64Upload = function(minioObject){
 }
 
 db.Minio.base64UploadMulti = (minioObjects) => {
-  return Promise.all(minioObjects.map(m => Minio.base64Upload(m)))
+  return Promise.all(minioObjects.map(m => db.Minio.base64Upload(m)))
 }
 
 db.Minio.downloadLinkBase = (minioObject) => {

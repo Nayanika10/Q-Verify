@@ -35,7 +35,7 @@
       //+ '</div>'
       //},
       {name: 'Case Type', field: 'CaseType.name'},
-      {name: 'Status', field: 'Allocations' , cellTemplate:'<div> &nbsp{{row.entity.Allocations.AllocationStatus.name + row.entity.Allocations.Status.name }}&nbsp </div>'},
+      {name: 'Status', field: 'name' , cellTemplate: '<div class="ui-grid-cell-contents">' + '<span>{{row.entity.Allocations.AllocationStatus.name || row.entity.Allocations.Status.name}}</span>' + '</div>'},
       //{name: 'Vendor Status', field: 'Allocations.Status.name'},
       {name: 'Allocated On', field: 'Allocations.created_on', cellFilter: 'date:"dd-MMM-yyyy "'},
       {

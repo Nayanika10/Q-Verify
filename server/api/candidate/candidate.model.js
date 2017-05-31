@@ -1,7 +1,7 @@
 'use strict';
 
 export default function(sequelize, DataTypes) {
-  return sequelize.define('Candidate', {
+   const Candidate = sequelize.define('Candidate', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,7 +14,7 @@ export default function(sequelize, DataTypes) {
       address3: DataTypes.STRING,
       address4: DataTypes.STRING,
       phone: DataTypes.STRING,
-      pdf: DataTypes.STRING,
+      //pdf: DataTypes.STRING,
       is_active: DataTypes.INTEGER,
       state: DataTypes.STRING,
       pin: DataTypes.STRING,
@@ -24,13 +24,14 @@ export default function(sequelize, DataTypes) {
       tableName: `candidates`,
       underscored: true,
       timestamps: true,
-
       classMethods: {
         associate(models) {
-          models.Candidate.belongsTo(models.User, {
+          Candidate.belongsTo(models.User, {
             foreignKey: `user_id`
           });
-          models.Candidate.hasMany(models.CandidateCase);
+          Candidate.hasMany(models.CandidateCase);
+
+          Candidate.hasMany(models.Document);
 
           //models.Candidate.belongsToMany(models.CaseAddressVerification, {
           //  through: models.CandidateCase,
@@ -72,4 +73,6 @@ export default function(sequelize, DataTypes) {
         }
       }
     });
+
+    return Candidate;
 }

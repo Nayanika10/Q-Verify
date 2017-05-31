@@ -9,6 +9,7 @@ import path from 'path';
 
 export default function (app) {
   // Insert routes below
+  app.use('/api/documents', app.oauth.authenticate(), require('./api/document'));
   //app.use('/api/internalstatuss', require('./api/internalstatus'));
   //app.use('/api/queuedTasks', require('./api/queuedTask'));
   //app.use('/api/emails', require('./api/email'));
